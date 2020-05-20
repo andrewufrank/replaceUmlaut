@@ -1,5 +1,5 @@
 cabal-version:  >= 1.10
-name:           TestSimple
+name:           ReplaceUmlaut
 version:        0.1.0
 license-file:   LICENSE
 build-type:     Simple
@@ -9,7 +9,7 @@ library
       Lib.DirTree
       Lib.OpenClass
   other-modules:
-      Paths_TestSimple
+      Paths_ReplaceUmlaut
   hs-source-dirs:
       ./.
   ghc-options: -Wall
@@ -17,10 +17,10 @@ library
       base ==4.*
   default-language: Haskell2010
 
-executable foo
-  main-is: ClassMain.hs  
+executable umlaut
+  main-is: ReplaceUmlaut.hs  
   other-modules:
-      Paths_TestSimple
+    --   Paths_TestSimple
   hs-source-dirs:
       src
   ghc-options: -Wall
@@ -36,7 +36,7 @@ test-suite test1
       Lib.DirTree_test
       Lib.OpenClass_test
     --   Testing
-    --   Paths_TestSimple
+    --   Paths_ReplaceUmlaut
   hs-source-dirs:
       tests
   ghc-options: -Wall
