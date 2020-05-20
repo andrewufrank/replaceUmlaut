@@ -1,0 +1,15 @@
+flags: {}
+extra-package-dbs: []
+packages:
+- '.'
+# - ../uniform/uniform-strings
+# - ../uniform/uniform-algebras
+# - ../uniform/uniform-convenience
+# - ../uniform/uniform-error
+# - ../uniform/uniform-fileio
+
+extra-deps: 
+- test-invariant-0.4.5.0
+
+
+resolver: lts-12.26
