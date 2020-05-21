@@ -25,13 +25,6 @@ import Lib.ProcTxt
 import Lib.ProcWord (erlaubt1)
 import Uniform.FileIO
 
-openMain :: IO ()
-openMain = do
-    return ()
-
-
-
--- show produces the "xx"
 test_1 = do
   r <- runErr $ do
             let fn = makeRelFile "testDaten" :: Path Rel File
@@ -39,3 +32,27 @@ test_1 = do
             let fnabs = cdir </> fn :: Path Abs File
             procTxt erlaubt1 fnabs
   assertEqual (Right ()) r
+
+test_2 = do
+    r <- runErr $ do
+              let fn = makeRelFile "testDaten" :: Path Rel File
+              let fnerl = makeRelFile "nichtUmlaute"::Path Rel File
+              cdir <- currentDir
+              let fnabs = cdir </> fn :: Path Abs File
+              let fnerlabs = cdir </> fnerl :: Path Abs File
+              procTxt2 fnerlabs fnabs
+    assertEqual (Right ()) r
+-- dictionary = "/home/frank/Workspace8/replaceUmlaut/de.dic"
+testfn = makeAbsFile "/home/frank/Workspace8/replaceUmlaut/testcorona.txt"
+
+test_3 = do
+    r <- runErr $ do
+              -- let fn = makeRelFile "testDaten" :: Path Rel File
+              -- let fnerl = makeRelFile "nichtUmlaute"::Path Rel File
+              cdir <- currentDir
+              -- let fnabs = cdir </> fn :: Path Abs File -- t
+              let fnabs = testfn :: Path Abs File
+              let fnerl = makeRelFile "nichtUmlaute"::Path Rel File
+              let fnerlabs = cdir </> fnerl :: Path Abs File
+              procTxt2 fnerlabs fnabs
+    assertEqual (Right ()) r

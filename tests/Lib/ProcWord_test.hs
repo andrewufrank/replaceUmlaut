@@ -33,8 +33,8 @@ test_1 = assertEqual ("für") $ procWord1 ("fuer"::Text)
 -- test_2 = assertEqual 6 9
 
 test_2 = assertEqual t2 $ map procWord1 t1
-t1 = ["fuer", "Moerder", "Aerger", "koennen", "maesten", "FUER"] :: [Text]
-t2 = ["für", "Mörder", "Ärger", "können", "mästen", "FÜR"] :: [Text]
+t1 = ["fuer", "Moerder", "Aerger", "koennen", "maesten", "FUER", "Oesterreich"] :: [Text]
+t2 = ["für", "Mörder", "Ärger", "können", "mästen", "FÜR", "Österreich"] :: [Text]
 
 test_e1 = assertEqual [True, True]  $ map checkErlaubt1 e1
 e1 = ["Koeffizient", "Poetik"]::[Text]

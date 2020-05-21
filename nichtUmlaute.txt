@@ -1,4 +1,5 @@
 koeff poet poes neue freue
+true
 aero
 isreal
 baedeker
@@ -49,7 +50,7 @@ kommando
 kontoe
 logorhoe
 magnetoe
-makroe 
+makroe
 mikroe
 monroe
 nano

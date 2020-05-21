@@ -25,10 +25,10 @@ procWord1 :: Text -> Text
 -- no test, no exclusions
 -- preserve capitalization
 procWord1 t =  replace' "AE" "Ä"
-          . replace' "OE" "\196"
+          . replace' "OE" "Ö"
             . replace' "UE" "Ü"
             . replace' "Ae" "Ä"
-          . replace' "Oe" "\196"
+          . replace' "Oe" "Ö"
             . replace' "Ue" "Ü"
             . replace' "ae" "ä"
           . replace' "oe" "ö"

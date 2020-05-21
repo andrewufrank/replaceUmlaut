@@ -19,18 +19,26 @@ import Uniform.FileIO
 import Lib.ProcWord
 
 txtFile   = makeTyped (Extension "txt")
+procTxt2 :: Path Abs File -> Path Abs File -> ErrIO ()
+-- ^ replace umlaut in file2 except if contained
+--  in the list (first File Path)
+procTxt2 fnErl fn = do
+    erl <- read6 fnErl txtFile
+    let erlaubt = concat . map words' $ erl ::[Text]
+    procTxt erlaubt fn
 
 procTxt :: [Text] -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut unless it is an permitted group
 -- in a file with extension txt
 procTxt erlaubt fn = do
 
-    ls <- read6 fn txtFile
+    ls :: [Text] <- read6 fn txtFile
     let ls2 = map (procLine erlaubt) ls
-    cdir <- currentDir
-    let fn2 = cdir </> makeRelFile "TestKorrekted" :: Path Abs File
-
-    write6 fn2 txtFile ls2
+    -- cdir <- currentDir
+    let fnrename =  fn <.> (Extension "bak") :: Path Abs File
+    renameOneFile (fn <.> (Extension "txt")) fnrename
+    putIOwords ["procTxt renamed", showT fnrename]
+    write6 fn txtFile ls2
 
 procLine :: [Text] -> Text -> Text
 procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
