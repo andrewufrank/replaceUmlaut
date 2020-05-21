@@ -11,7 +11,7 @@ module Main     where      -- must have Main (main) or Main where
 --import System.Exit
 
 -- import           Test.Framework
--- import {-@ HTF_TESTS @-} Lib.DirTree
+import {-@ HTF_TESTS @-} Lib.ProcWord
 -- import {-@ HTF_TESTS @-} Lib.OpenClass   -- pay attention to HTF_TESTS !
 
 -- main =  do  -- the local tests only

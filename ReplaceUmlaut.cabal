@@ -8,6 +8,7 @@ library
   exposed-modules:
       Lib.DirTree
       Lib.OpenClass
+      Lib.ProcWord
   other-modules:
       Paths_ReplaceUmlaut
   hs-source-dirs:
@@ -15,10 +16,11 @@ library
   ghc-options: -Wall
   build-depends:
       base ==4.*
+      , uniform-strings
   default-language: Haskell2010
 
 executable umlaut
-  main-is: ReplaceUmlaut.hs  
+  main-is: ReplaceUmlaut.hs
   other-modules:
     --   Paths_TestSimple
   hs-source-dirs:
