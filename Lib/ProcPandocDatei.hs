@@ -34,25 +34,25 @@ newExtension = Extension "new" :: Extension
 mdFile = makeTyped mdExtension
 -- ^ filetype to read text in lines
 
-readPandoc :: Markdown -> IO Markdown
-readPandoc dat = do
+readPandoc :: [Text] -> Markdown -> IO Markdown
+readPandoc erlaubt dat = do
   result <- P.runIO $ do
     liftIO $ TIO.putStrLn . showT $ dat
     doc <- P.readMarkdown P.def (unwrap7 dat) -- (T.pack "[testing](url)")
     liftIO $ TIO.putStrLn . showT $ doc
     -- here the processing
-    let doc2 = promoteHeaderLevels doc
+    let doc2 = umlautenStr erlaubt doc
     P.writeMarkdown P.def doc2
   rst <- P.handleError result
   TIO.putStrLn rst
   return . wrap7 $ rst
 
-promoteHeaderLevels :: P.Pandoc -> P.Pandoc
-promoteHeaderLevels = PW.walk promote
+umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
+umlautenStr erlaubt = PW.walk umlauten
  where
-  promote :: P.Block -> P.Block
-  promote (P.Header lev attr ils) = P.Header (lev + 1) attr ils
-  promote x                       = x
+  umlauten :: P.Inline -> P.Inline
+  umlauten (P.Str w) = P.Str (t2s . procWord2 erlaubt . s2t $ w)
+  umlauten x         = x
 
 procMd :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut in a pandoc markdown file
@@ -64,7 +64,7 @@ procMd debug fnErl fn = do
 
   ls :: Markdown <- read8 fn mdFile
   putIOwords ["procMd ls", showT ls, "fn", showT fn]
-  res <- liftIO $ readPandoc ls
+  res <- liftIO $ readPandoc erl ls
 
   if debug
     then do
