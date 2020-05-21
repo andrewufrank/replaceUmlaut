@@ -10,6 +10,7 @@ dist-newstyle
 */*.lkshw
 unused.txt
 *.autosave*
+*.lock
 cabal.project.local
 ideaHaskellLib
 out

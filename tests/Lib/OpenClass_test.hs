@@ -15,8 +15,8 @@ module Lib.OpenClass_test  -- (openMain, htf_thisModuelsTests)
      where
 
 
--- import           Test.Framework
--- import Uniform.Strings
+import           Test.Framework
+import Uniform.Strings
 
 openMain :: IO ()
 openMain = do
@@ -27,7 +27,3 @@ openMain = do
 -- show produces the "xx"
 -- test_1 = assertEqual 7 4
 -- test_2 = assertEqual 6 4
-
-
-
-

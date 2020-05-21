@@ -4,7 +4,7 @@
 --              tests the corresponding Lib.NN.hs program
 -- insert {-@ HTF_TESTS @-} for each import
 -----------------------------------------------------------------------------
--- {-# OPTIONS_GHC -F -pgmF htfpp #-}
+{-# OPTIONS_GHC -F -pgmF htfpp #-}
 
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
@@ -18,8 +18,9 @@ module Lib.ProcWord_test  -- (openMain, htf_thisModuelsTests)
      where
 
 
--- import Test.Framework
--- import Uniform.Strings
+import Test.Framework
+import Uniform.Strings
+import Lib.ProcWord
 
 openMain :: IO ()
 openMain = do
@@ -28,5 +29,9 @@ openMain = do
 
 
 -- show produces the "xx"
-test_1 = assertEqual ("für") $ procWord "fuer"
+test_1 = assertEqual ("für") $ procWord ("fuer"::Text)
 -- test_2 = assertEqual 6 9
+
+test_2 = assertEqual t2 $ map procWord t1
+t1 = ["fuer", "Moerder", "Aerger", "koennen", "maesten", "FUER"] :: [Text]
+t2 = ["für", "Mörder", "Ärger", "können", "mästen", "FÜR"] :: [Text]
