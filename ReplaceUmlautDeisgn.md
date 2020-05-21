@@ -19,6 +19,7 @@ zerlegt.
 #### *`procWord`*
 Fuer jedes Wort wird
 - geprueft ob es eine Kombination ae, oe, ue enthaelt
+  achtung: Umwandeln auch Ae und AE etc.
 - ob es nicht eine Teil einer erlaubten Gruppe enthaelt und darum nicht
   umgewandelt werden darf (zb. koeff, neue, Poet, Poes)
 - im wort wird (sofern erlaubt) der umlaut ersetzt (Papitalisierung muss erhalten
@@ -41,5 +42,5 @@ Struktur haben, zu mit obiger prozedur `procWord` zu untersuchen.
 ### wrap `procWOrd` in reader for pandoc
 - read markup into AST
 - `walk` AST und wende `procWord` auf alle `Inline` an.
-- test case 
+- test case
 - gib als markdown aus.
