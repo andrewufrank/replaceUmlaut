@@ -10,6 +10,7 @@ library
       -- Lib.OpenClass
       Lib.ProcWord
       Lib.ProcTxt
+      Lib.ProcPandocDatei
   other-modules:
       Paths_ReplaceUmlaut
   hs-source-dirs:
@@ -17,9 +18,12 @@ library
   ghc-options: -Wall
   build-depends:
       base ==4.*
+      , text
       , uniform-strings
       , uniform-fileio
       , uniform-error
+      , pandoc
+      , pandoc-types
   default-language: Haskell2010
 
 executable umlaut
@@ -40,6 +44,7 @@ test-suite test1
   other-modules:
     Lib.ProcWord_test
     Lib.ProcTxt_test
+    Lib.ProcPandocDatei_test
       -- Lib.DirTree_test
       -- Lib.OpenClass_test
       -- Testing

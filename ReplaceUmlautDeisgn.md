@@ -39,15 +39,23 @@ umbenannt) und der Text verarbeitet; das Ergebnis wird in den File
 zurueck geschrieben.  Die Liste der erlaubten Woerter wird ebenfalls von einer
 Datei eingelesen.
 Der Text wird in Woerter zerlegt und diese einzeln behandelt.
-Die Dateinamen sind fuer `ProcTxt2` absolut. `procTxt2` erwartet die Liste
-der erlaubten Woerter und
-## Erweiterung
+Die Dateinamen sind fuer `ProcTxt` absolut. `procTxt` erwartet die Liste
+der erlaubten Woerter und den Eingabe Datei Namen.
+
+`procText` sollteidempotent sein - es wird nichts mehr geaendert.
+Man koennte auch Testen, ob von der Liste der Woerter mit erlaubten
+ae, oe und ue kombinationen keine veraendert werden (sonst allenfalls die
+Liste ergaenzen).
+## Verarbeitung Markdown und aehnliches
 Der Input kann in einem Format sein, das Pandoc versteht.
-Die Datei kann dann in den Abstrac Syntax Tree von Pandoc gelesen werden und
+Die Datei kann dann in den Abstrac Syntax Tree (AST) von Pandoc gelesen werden und
 dieser nach der Umwandlung wieder ausgegeben werden.
 [Doc](https://pandoc.org/using-the-pandoc-api.html)
 Es sollte dann genuegen, den AST zu 'walk' und alle 'inline' die `Str Text`
 Struktur haben, zu mit obiger prozedur `procWord` zu untersuchen.
+### ProcPandoc
+Liest eine md datei ein und erzeugt den AST.
+
 ## Plan
 ### `procWord` bauen und testen
 - Erstelle eine TestInputWord der aus einer Sammlung typischer Faelle besteht und

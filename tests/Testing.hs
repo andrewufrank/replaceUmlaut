@@ -11,8 +11,9 @@ module Main     where      -- must have Main (main) or Main where
 -- import System.Exit
 
 import           Test.Framework
-import {-@ HTF_TESTS @-} Lib.ProcWord_test
-import {-@ HTF_TESTS @-} Lib.ProcTxt_test
+-- import {-@ HTF_TESTS @-} Lib.ProcWord_test
+-- import {-@ HTF_TESTS @-} Lib.ProcTxt_test
+import {-@ HTF_TESTS @-} Lib.ProcPandocDatei_test
 
 main :: IO ()
 main =  main1
