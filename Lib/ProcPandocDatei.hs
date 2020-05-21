@@ -37,23 +37,25 @@ newExtension = Extension "new" :: Extension
 mdFile = makeTyped mdExtension
 -- ^ filetype to read text in lines
 
-chnageUmlautInPandoc :: Bool -> [Text] -> Markdown -> IO Markdown
+changeUmlautInPandoc :: Bool -> [Text] -> Markdown -> ErrIO Markdown
 -- ^ change in all text in a md file the umlaute
 -- erlaubt is a list of words where there is no umlaut (but ae, oe or ue)
-chnageUmlautInPandoc debug erlaubt dat = do
-  result <- P.runIO $ do
-    when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ dat]
-        -- liftIO $ TIO.putStrLn . showT $ dat
-    doc <- P.readMarkdown P.def (unwrap7 dat) -- (T.pack "[testing](url)")
-    when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ doc]
-      -- liftIO $ TIO.putStrLn . showT $ doc
-    -- here the processing
-    let doc2 = umlautenStr erlaubt doc
-    P.writeMarkdown P.def doc2
-  rst <- P.handleError result
-  when debug $ putIOwords ["changeUmlautInPandoc end", take' 100 . showT $ rst]
+changeUmlautInPandoc debug erlaubt dat = do
+  rst2 <- callIO $ do
+    result <- P.runIO $ do  -- inside is the error handling
+      when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ dat]
+          -- liftIO $ TIO.putStrLn . showT $ dat
+      doc <- P.readMarkdown P.def (unwrap7 dat) -- (T.pack "[testing](url)")
+      when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ doc]
+        -- liftIO $ TIO.putStrLn . showT $ doc
+      -- here the processing
+      let doc2 = umlautenStr erlaubt doc
+      P.writeMarkdown P.def doc2
+    rst1 <- P.handleError result
+    return rst1
+  when debug $ putIOwords ["changeUmlautInPandoc end", take' 100 . showT $ rst2]
   -- TIO.putStrLn rst
-  return . wrap7 $ rst
+  return . wrap7 $ rst2
 
 umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
 umlautenStr erlaubt = PW.walk umlauten
@@ -72,7 +74,7 @@ procMd debug fnErl fn = do
 
   ls :: Markdown <- read8 fn mdFile
   putIOwords ["procMd ls", showT ls, "fn", showT fn]
-  res <- liftIO $ chnageUmlautInPandoc debug erl2 ls
+  res <- changeUmlautInPandoc debug erl2 ls
 
   if debug
     then do
