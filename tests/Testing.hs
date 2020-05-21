@@ -14,8 +14,10 @@ import           Test.Framework
 import {-@ HTF_TESTS @-} Lib.ProcWord_test
 import {-@ HTF_TESTS @-} Lib.ProcTxt_test
 
+main :: IO ()
 main =  main1
 
+main1 :: IO ()
 main1 = do  -- with tests in other modules
     putStrLn "HTF ExampleTest.hs:\n"
     p <- htfMain htf_importedTests
@@ -23,6 +25,7 @@ main1 = do  -- with tests in other modules
          ++ show p)
     return ()
 
+    -- main2 :: IO ()
 -- main2 = do
 --  putStrLn "main2 start -----------"
 --  putStrLn "main2 end ............."

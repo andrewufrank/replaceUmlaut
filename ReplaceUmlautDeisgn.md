@@ -13,10 +13,15 @@ Wie andere Aufgaben im Bereich der Verarbeitung natuerlicher Sprachen
 wird diese "im allgemeinen richtig geloest" aber es duerfen Fehlerhafte Woerter
 uebrig bleiben, die im immer notwendigen automatisierten Spellcheck und dem
 manuellen Durchlesen korrigiert werden.
-### Grob
+
+Die Verarbeitung ist pro Datei, die in einem Durchgang ohne Interaktion erfolgt.
+Die Verarbeitung ist entweder einfach fuer eine Text Datei oder fuer ein
+Format, das Pandoc lesen und schreiben kann (z.B. Markdown, Latex, Doc).
+
+## Verarbeiten Text-Dateien
 Ein Text wird von einem File eingelesen und in Zeilen und dann in Woerter
-zerlegt.
-#### *`procWord`*
+zerlegt. Die Verarbeitung erfolgt in drei Schritten (das sind hier Schichten).
+### *`procWord`* und `procLine`
 Fuer jedes Wort wird
 - geprueft ob es eine Kombination ae, oe, ue enthaelt
   achtung: Umwandeln auch Ae und AE etc.
@@ -24,6 +29,18 @@ Fuer jedes Wort wird
   umgewandelt werden darf (zb. koeff, neue, Poet, Poes)
 - im wort wird (sofern erlaubt) der umlaut ersetzt (Papitalisierung muss erhalten
   bleiben!)
+  - zusammensetzungen: haeufige woerter in zusammensetzungen (auto, micro)
+  koennen mit autoe und microe erfasst werden.
+  die faelle fuer ue sind hoffnungslos und muessen langsam aufgebaut
+  werden (total 30,000 erlaubte woerter mit ue)
+### *`procTxt`*
+Ein Text in einer Datei wird eingelesen (die Datei zur Sicherung auf *.bak
+umbenannt) und der Text verarbeitet; das Ergebnis wird in den File
+zurueck geschrieben.  Die Liste der erlaubten Woerter wird ebenfalls von einer
+Datei eingelesen.
+Der Text wird in Woerter zerlegt und diese einzeln behandelt.
+Die Dateinamen sind fuer `ProcTxt2` absolut. `procTxt2` erwartet die Liste
+der erlaubten Woerter und
 ## Erweiterung
 Der Input kann in einem Format sein, das Pandoc versteht.
 Die Datei kann dann in den Abstrac Syntax Tree von Pandoc gelesen werden und
