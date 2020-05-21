@@ -37,25 +37,32 @@ newExtension = Extension "new" :: Extension
 mdFile = makeTyped mdExtension
 -- ^ filetype to read text in lines
 
-changeUmlautInPandoc :: Bool -> [Text] -> Markdown -> ErrIO Markdown
--- ^ change in all text in a md file the umlaute
--- erlaubt is a list of words where there is no umlaut (but ae, oe or ue)
-changeUmlautInPandoc debug erlaubt dat = do
-  rst2 <- callIO $ do
-    result <- P.runIO $ do  -- inside is the error handling
-      when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ dat]
-          -- liftIO $ TIO.putStrLn . showT $ dat
-      doc <- P.readMarkdown P.def (unwrap7 dat) -- (T.pack "[testing](url)")
-      when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ doc]
-        -- liftIO $ TIO.putStrLn . showT $ doc
-      -- here the processing
-      let doc2 = umlautenStr erlaubt doc
-      P.writeMarkdown P.def doc2
-    rst1 <- P.handleError result
-    return rst1
+changeUmlautInPandoc :: Bool -> [Text] -> Markdown -> P.PandocIO Markdown
+-- ^ changes the umlaut written as ae, oe und ue to umlaut
+-- except if the words are included in the erlaubt list
+changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
+  when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ dat]
+      -- liftIO $ TIO.putStrLn . showT $ dat
+  doc <- P.readMarkdown P.def (unwrap7 dat) -- (T.pack "[testing](url)")
+  when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ doc]
+    -- liftIO $ TIO.putStrLn . showT $ doc
+  -- here the processing
+  let doc2 = umlautenStr erlaubt doc
+  rst2 <- P.writeMarkdown P.def doc2
   when debug $ putIOwords ["changeUmlautInPandoc end", take' 100 . showT $ rst2]
-  -- TIO.putStrLn rst
   return . wrap7 $ rst2
+
+pandocIOwrap :: (Markdown -> P.PandocIO Markdown) -> Markdown -> ErrIO Markdown
+-- ^ just a wrapper for operatiosn in the PandocIO monad
+-- handles the pandoc errors
+-- Markdown is a text marked as Markdown 
+pandocIOwrap op dat = do
+  rst3 <- callIO $ do
+    result <- P.runIO $ op dat
+    rst1   <- P.handleError result
+    return rst1
+  -- TIO.putStrLn rst
+  return rst3
 
 umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
 umlautenStr erlaubt = PW.walk umlauten
@@ -74,7 +81,7 @@ procMd debug fnErl fn = do
 
   ls :: Markdown <- read8 fn mdFile
   putIOwords ["procMd ls", showT ls, "fn", showT fn]
-  res <- changeUmlautInPandoc debug erl2 ls
+  res <- pandocIOwrap (changeUmlautInPandoc debug erl2) ls
 
   if debug
     then do
