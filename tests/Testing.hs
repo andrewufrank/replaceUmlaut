@@ -12,6 +12,7 @@ module Main     where      -- must have Main (main) or Main where
 
 import           Test.Framework
 import {-@ HTF_TESTS @-} Lib.ProcWord_test
+import {-@ HTF_TESTS @-} Lib.ProcTxt_test
 
 main =  main1
 

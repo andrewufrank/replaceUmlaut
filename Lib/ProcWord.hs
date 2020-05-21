@@ -13,6 +13,12 @@
 module Lib.ProcWord  -- (openMain, htf_thisModuelsTests)
      where
 import Uniform.Strings
+procWord2 :: [Text] -> Text -> Text
+-- replace umlaut unless it is an permitted group
+procWord2 erlaubt word =
+    if checkErlaubt erlaubt word
+      then word
+      else procWord1 word
 
 procWord1 :: Text -> Text
 -- ^ convert the umlaut in a single word
@@ -28,7 +34,7 @@ procWord1 t =  replace' "AE" "Ä"
           . replace' "oe" "ö"
             . replace' "ue" "ü" $ t
 
-erlaubt1 = map toLower' ["koef", "poet", "poes"] :: [Text]  -- erlaubte Gruppen - ergaenzen!
+erlaubt1 = map toLower' ["koef", "poet", "poes", "neue", "freue"] :: [Text]  -- erlaubte Gruppen - ergaenzen!
 
 checkErlaubt :: [Text] -> Text -> Bool
 -- ^ enthaelt das Wort eine erlaubte kombination

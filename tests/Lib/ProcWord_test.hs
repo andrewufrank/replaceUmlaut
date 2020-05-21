@@ -40,3 +40,8 @@ test_e1 = assertEqual [True, True]  $ map checkErlaubt1 e1
 e1 = ["Koeffizient", "Poetik"]::[Text]
 
 test_e2 = assertEqual True $ isInfixOf' ("poes"::Text) "poesie"
+test_w1 = assertEqual w1r $ map (procWord2 erlaubt1) w1
+w1 = ["fuer", "Moerder", "Aerger", "koennen", "maesten", "FUER"
+  , "Koeffizienten", "Poetik", "Poet", "Poesie"] :: [Text]
+w1r = ["f\252r", "M\246rder", "\196rger", "k\246nnen", "m\228sten",
+ "F\220R", "Koeffizienten", "Poetik", "Poet", "Poesie"]::[Text]
