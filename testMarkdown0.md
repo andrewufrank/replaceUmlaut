@@ -1,3 +1,0 @@
-# Der Maenner
-
-er fuehrte

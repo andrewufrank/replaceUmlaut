@@ -30,10 +30,11 @@ txtFile = makeTyped (Extension "txt")
 --     let erlaubt = concat . map words' $ erl ::[Text]
 --     procTxt erlaubt fn
 
-procTxt :: Path Abs File -> Path Abs File -> ErrIO ()
+procTxt :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut unless it is an permitted group
 -- in a file with extension txt
-procTxt fnErl fn = do
+procTxt debug fnErl fn = do
+  putIOwords ["procTxt start", showT fn]
   erl <- read6 fnErl txtFile -- reads lines
   let erlaubt = concat . map words' $ erl :: [Text]
 

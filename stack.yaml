@@ -4,10 +4,12 @@ packages:
 - '.'
 - ../uniform/uniform-strings
 - ../uniform/uniform-algebras
-# - ../uniform/uniform-convenience
+- ../uniform/uniform-convenience
 - ../uniform/uniform-error
 - ../uniform/uniform-time
 - ../uniform/uniform-fileio
+- ../uniform/uniform-http
+- ../uniform/uniform-json
 
 extra-deps:
 - test-invariant-0.4.5.0

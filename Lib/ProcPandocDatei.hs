@@ -52,13 +52,13 @@ changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
   when debug $ putIOwords ["changeUmlautInPandoc end", take' 100 . showT $ rst2]
   return . wrap7 $ rst2
 
-pandocIOwrap :: (Markdown -> P.PandocIO Markdown) -> Markdown -> ErrIO Markdown
+pandocIOwrap :: (P.PandocIO Markdown) -> ErrIO Markdown
 -- ^ just a wrapper for operatiosn in the PandocIO monad
 -- handles the pandoc errors
--- Markdown is a text marked as Markdown 
-pandocIOwrap op dat = do
+-- Markdown is a text marked as Markdown
+pandocIOwrap op = do
   rst3 <- callIO $ do
-    result <- P.runIO $ op dat
+    result <- P.runIO $ op
     rst1   <- P.handleError result
     return rst1
   -- TIO.putStrLn rst
@@ -81,7 +81,7 @@ procMd debug fnErl fn = do
 
   ls :: Markdown <- read8 fn mdFile
   putIOwords ["procMd ls", showT ls, "fn", showT fn]
-  res <- pandocIOwrap (changeUmlautInPandoc debug erl2) ls
+  res <- pandocIOwrap (changeUmlautInPandoc debug erl2 ls)
 
   if debug
     then do

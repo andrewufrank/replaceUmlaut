@@ -22,11 +22,12 @@ library
       , uniform-strings
       , uniform-fileio
       , uniform-error
+      , uniform-http
       , pandoc
       , pandoc-types
   default-language: Haskell2010
 
-executable umlaut
+executable txtUmlaut
   main-is: ReplaceUmlaut.hs
   other-modules:
     --   Paths_TestSimple
@@ -36,6 +37,11 @@ executable umlaut
   build-depends:
     --   TestSimple
     base ==4.*
+    , optparse-applicative
+    , uniform-convenience
+    , uniform-fileio
+    , ReplaceUmlaut
+
   default-language: Haskell2010
 
 test-suite test1
