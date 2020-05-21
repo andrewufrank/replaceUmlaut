@@ -28,6 +28,9 @@ main1 =  do  -- with tests in other modules
         --  ++ show p)
     return ()
 
+main2 = do
+  putStrLn "main2 start -----------"
+  putStrLn "main2 end ............."
 --myReverse :: [a] -> [a]
 --myReverse []     = []
 --myReverse [x]    = [x]
