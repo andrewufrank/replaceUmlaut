@@ -41,8 +41,12 @@ changeUmlautInPandoc :: Bool -> [Text] -> Markdown -> P.PandocIO Markdown
 changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
   when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ dat]
       -- liftIO $ TIO.putStrLn . showT $ dat
-  doc <- P.readMarkdown P.def (unwrap7 dat) -- (T.pack "[testing](url)")
-  when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ doc]
+  doc <- P.readMarkdown
+    P.def
+      { P.readerExtensions = P.extensionsFromList [P.Ext_yaml_metadata_block]
+      }
+    (unwrap7 dat) -- (T.pack "[testing](url)")
+  when debug $ putIOwords ["changeUmlautInPandoc", take' 1000 . showT $ doc]
     -- liftIO $ TIO.putStrLn . showT $ doc
   -- here the processing
   let doc2 = umlautenStr erlaubt doc
