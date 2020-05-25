@@ -20,22 +20,26 @@ import           Lib.ProcWord
 import           Lib.ProcTxt                    ( bakExtension )
 
 -- for pandoc testing
+import           Uniform.Pandoc
+
 import qualified Text.Pandoc                   as P
 import qualified Text.Pandoc.Walk              as PW
 -- import qualified Data.Text                     as T
 -- import qualified Data.Text.IO                  as TIO
 
-data Markdown = Markdown Text deriving (Show, Read, Eq, Ord)
+-- data Markdown = Markdown Text deriving (Show, Read, Eq, Ord)
 -- ^ just for marking md files
-mdFile :: TypedFile5 Text Markdown
-mdExtension :: Extension
-mdExtension = Extension "md" :: Extension
+-- mdFile :: TypedFile5 Text Markdown
+-- mdExtension :: Extension
+-- mdExtension = Extension "md" :: Extension
 newExtension :: Extension
 newExtension = Extension "new" :: Extension
-mdFile = makeTyped mdExtension
+-- mdFile = makeTyped extMD
 -- ^ filetype to read text in lines
 
-changeUmlautInPandoc :: Bool -> [Text] -> Markdown -> P.PandocIO Markdown
+
+changeUmlautInPandoc
+  :: Bool -> [Text] -> MarkdownText -> P.PandocIO MarkdownText
 -- ^ changes the umlaut written as ae, oe und ue to umlaut
 -- except if the words are included in the erlaubt list
 changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
@@ -58,17 +62,18 @@ changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
   when debug $ putIOwords ["changeUmlautInPandoc end", take' 100 . showT $ rst2]
   return . wrap7 $ rst2
 
-pandocIOwrap :: (P.PandocIO Markdown) -> ErrIO Markdown
--- ^ just a wrapper for operatiosn in the PandocIO monad
--- handles the pandoc errors
--- Markdown is a text marked as Markdown
-pandocIOwrap op = do
-  rst3 <- callIO $ do
-    result <- P.runIO $ op
-    rst1   <- P.handleError result
-    return rst1
-  -- TIO.putStrLn rst
-  return rst3
+-- pandocIOwrap :: (P.PandocIO MarkdownText) -> ErrIO MarkdownText
+-- -- ^ just a wrapper for operatiosn in the PandocIO monad
+-- -- handles the pandoc errors
+-- -- Markdown is a text marked as Markdown
+-- -- unPandocM ist in uniform
+-- pandocIOwrap op = do
+--   rst3 <- callIO $ do
+--     result <- P.runIO $ op
+--     rst1   <- P.handleError result
+--     return rst1
+--   -- TIO.putStrLn rst
+--   return rst3
 
 umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
 umlautenStr erlaubt = PW.walk umlauten
@@ -87,34 +92,34 @@ procMd :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
 -- then the new file is written to NEW
 -- and the origianl file is not changed
 procMd debug fnErl fn = do
-  erl2           <- readErlaubt fnErl
+  erl2               <- readErlaubt fnErl
   -- erl  <- read6 fnErl txtFile -- reads lines
   -- let erl2 = concat . map words' $ erl :: [Text]
 
-  ls :: Markdown <- read8 fn mdFile
+  ls :: MarkdownText <- read8 fn markdownFileType
   putIOwords ["procMd ls", showT ls, "fn", showT fn]
-  ls2 <- pandocIOwrap (changeUmlautInPandoc True erl2 ls)
+  ls2 <- unPandocM (changeUmlautInPandoc True erl2 (ls))
 
   if debug
     then do
       let fnnew = makeAbsFile (toFilePath fn <> "NEW")
       putIOwords ["procMd result in new", showT fnnew]
-      write8 fnnew mdFile ls2
+      write8 fnnew markdownFileType ls2
       putIOwords ["procMd result in new written", showT ls2, "fn", showT fnnew]
     else do
       let fnrename = fn <.> bakExtension :: Path Abs File
-      renameOneFile (fn <.> mdExtension) fnrename
+      renameOneFile (fn <.> extMD) fnrename
       putIOwords ["procMd renamed to bak", showT fnrename]
 
   -- let ls2      = map (procLine erlaubt) ls
 
-  write8 fn mdFile ls2
+  write8 fn markdownFileType ls2
   when debug $ putIOwords ["procMd done", showT ls2]
 
 procLine :: [Text] -> Text -> Text
 procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
 -- process all words in a line
 
-instance TypedFiles7 Text Markdown where
-  wrap7 t = Markdown t
-  unwrap7 (Markdown t) = t
+-- instance TypedFiles7 Text Markdown where
+--   wrap7 t = Markdown t
+--   unwrap7 (Markdown t) = t

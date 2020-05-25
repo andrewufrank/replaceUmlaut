@@ -23,6 +23,7 @@ library
       , uniform-fileio
       , uniform-error
       , uniform-http
+      , uniform-pandoc
       , pandoc
       , pandoc-types
   default-language: Haskell2010

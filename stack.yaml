@@ -10,6 +10,8 @@ packages:
 - ../uniform/uniform-fileio
 - ../uniform/uniform-http
 - ../uniform/uniform-json
+- ../uniform/uniform-pandoc
+- ../fromOthersInstalled/bibtex  # has a fix compared to hackage, see cabal
 
 extra-deps:
 - test-invariant-0.4.5.0
