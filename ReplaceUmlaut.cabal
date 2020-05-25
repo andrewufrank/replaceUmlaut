@@ -27,7 +27,7 @@ library
       , pandoc-types
   default-language: Haskell2010
 
-executable txtUmlaut
+executable umlautConversion
   main-is: ReplaceUmlaut.hs
   other-modules:
     --   Paths_TestSimple

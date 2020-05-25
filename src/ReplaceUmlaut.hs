@@ -14,25 +14,10 @@
 
 module Main where      -- must have Main (main) or Main where
 
--- import           Data.ParseRaw
---import           Parser.Foundation
--- import           Parser.LinesToParagrahs
 import           Uniform.Convenience.StartApp
-                                         -- hiding ( (<>)
-                                         --        , (</>)
-                                         --        , (<.>)
-                                         --        )
--- import           Uniform.FileIO          hiding ( (<>)
---                                                 , (<.>)
---                                                 )
 import           Uniform.Filenames           --   ( makeExtension )
 import           Data.Semigroup                 ( (<>) )
 import           Options.Applicative.Builder
--- import           Uniform.Convenience.StartApp
---                                          hiding ( (<>)
---                                                 , (</>)
---                                                 , (<.>)
---                                                 )
 import           Options.Applicative
 import           Lib.ProcTxt
 import           Lib.ProcPandocDatei
@@ -71,7 +56,10 @@ data LitArgs = LitArgs { isTxt   :: Bool   -- ^ is this a txt file
 cmdArgs :: Parser (LitArgs)
 cmdArgs =
   LitArgs
-    <$> switch (long "txt" <> short 't' <> help "true if this is a txt file")
+    <$> switch
+          (long "txt" <> short 't' <> help
+            "true if this is a txt file, txt or md extension is recognized"
+          )
     <*> argument str
                  (
       --   long "filename" <>
@@ -83,19 +71,16 @@ parseAndExecute t1 t2 = do
   putIOwords ["parseAndExecute LitArgs", showT args]
   curr <- currentDir
   -- let dir0 = makeAbsDir "/home/frank/additionalSpace/DataBig/LitOriginals"
-  let fn2    = argfile args :: FilePath
-  let fn     = curr </> makeRelFile fn2 :: Path Abs File
-  -- braucht das einen curr folder?
-  -- let url1 =   argUrl  args :: FilePath
-  -- let ext = getExtension url1 :: FilePath
-  let isText = isTxt args :: Bool
-  -- let url2 = if null ext
-  --         then addExtension ( ("txt.utf-8" :: FilePath)) url1
-  --         else url1
-  --         :: FilePath
+  let fn2     = argfile args :: FilePath
+  let fn = curr </> makeRelFile fn2 :: Path Abs File
+  let isText  = isTxt args :: Bool
+
+  let ext     = getExtension fn
+  let isText2 = isText || ext == (Extension "txt")
+  let debug   = False
   let erlFn =
         makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
-  if isText then procTxt False erlFn fn else procMd True erlFn fn
+  if isText2 then procTxt debug erlFn fn else procMd debug erlFn fn
  where
   opts = info (helper <*> cmdArgs)
               (fullDesc <> (progDesc . t2s $ t1) <> (header . t2s $ t2))

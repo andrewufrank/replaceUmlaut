@@ -1,4 +1,4 @@
 :set -fno-warn-missing-signatures
 :set -itests
 :set -isrc
-:load src/ReplaceUmlaut.hs  
+:load tests/Testing.hs

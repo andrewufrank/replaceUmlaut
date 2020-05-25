@@ -17,7 +17,7 @@ module Lib.ProcPandocDatei  -- (openMain, htf_thisModuelsTests)
 import           Uniform.FileIO
 -- import Uniform.Error
 import           Lib.ProcWord
-import           Lib.ProcTxt                    ( txtFile )
+import           Lib.ProcTxt                    ( bakExtension )
 
 -- for pandoc testing
 import qualified Text.Pandoc                   as P
@@ -30,8 +30,6 @@ data Markdown = Markdown Text deriving (Show, Read, Eq, Ord)
 mdFile :: TypedFile5 Text Markdown
 mdExtension :: Extension
 mdExtension = Extension "md" :: Extension
-bakExtension :: Extension
-bakExtension = Extension "bak" :: Extension
 newExtension :: Extension
 newExtension = Extension "new" :: Extension
 mdFile = makeTyped mdExtension
@@ -48,7 +46,11 @@ changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
     -- liftIO $ TIO.putStrLn . showT $ doc
   -- here the processing
   let doc2 = umlautenStr erlaubt doc
-  rst2 <- P.writeMarkdown P.def doc2
+  rst2 <- P.writeMarkdown P.def { P.writerSetextHeaders = False }
+                            --   }
+                            --   writerExtensions = strictExtensions,
+                            -- , writerReferenceLinks = True -- use ref-style links
+                          doc2
   when debug $ putIOwords ["changeUmlautInPandoc end", take' 100 . showT $ rst2]
   return . wrap7 $ rst2
 
@@ -75,20 +77,26 @@ procMd :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut in a pandoc markdown file
 -- unless it is an permitted group
 -- in a file with extension txt
+-- the original file is renamed to bak and the
+-- corrected version written to the original filename
+-- except when debug flag is set
+-- then the new file is written to NEW
+-- and the origianl file is not changed
 procMd debug fnErl fn = do
-  erl <- read6 fnErl txtFile -- reads lines
-  let erl2 = concat . map words' $ erl :: [Text]
+  erl2           <- readErlaubt fnErl
+  -- erl  <- read6 fnErl txtFile -- reads lines
+  -- let erl2 = concat . map words' $ erl :: [Text]
 
   ls :: Markdown <- read8 fn mdFile
   putIOwords ["procMd ls", showT ls, "fn", showT fn]
-  res <- pandocIOwrap (changeUmlautInPandoc debug erl2 ls)
+  ls2 <- pandocIOwrap (changeUmlautInPandoc True erl2 ls)
 
   if debug
     then do
       let fnnew = makeAbsFile (toFilePath fn <> "NEW")
       putIOwords ["procMd result in new", showT fnnew]
-      write8 fnnew mdFile res
-      putIOwords ["procMd result in new written", showT res, "fn", showT fnnew]
+      write8 fnnew mdFile ls2
+      putIOwords ["procMd result in new written", showT ls2, "fn", showT fnnew]
     else do
       let fnrename = fn <.> bakExtension :: Path Abs File
       renameOneFile (fn <.> mdExtension) fnrename
@@ -96,8 +104,8 @@ procMd debug fnErl fn = do
 
   -- let ls2      = map (procLine erlaubt) ls
 
-  -- write6 fn txtFile ls2
-  when debug $ putIOwords ["procMd done", showT res]
+  write8 fn mdFile ls2
+  when debug $ putIOwords ["procMd done", showT ls2]
 
 procLine :: [Text] -> Text -> Text
 procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln

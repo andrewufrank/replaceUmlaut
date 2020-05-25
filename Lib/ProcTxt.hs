@@ -18,8 +18,8 @@ import           Uniform.FileIO
 -- import Uniform.Error
 import           Lib.ProcWord
 
-txtFile :: TypedFile5 [Text] a
-txtFile = makeTyped (Extension "txt")
+bakExtension :: Extension
+bakExtension = Extension "bak" :: Extension
 -- ^ filetype to read text in lines
 
 -- procTxt2 :: Path Abs File -> Path Abs File -> ErrIO ()
@@ -34,18 +34,28 @@ procTxt :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut unless it is an permitted group
 -- in a file with extension txt
 procTxt debug fnErl fn = do
-  putIOwords ["procTxt start", showT fn]
-  erl <- read6 fnErl txtFile -- reads lines
-  let erlaubt = concat . map words' $ erl :: [Text]
+  when debug $ putIOwords ["procTxt start", showT fn]
+  erl2         <- readErlaubt fnErl
+  -- erl  <- read6 fnErl txtFile -- reads lines
+  -- let erlaubt = concat . map words' $ erl :: [Text]
 
-  ls :: [Text] <- read6 fn txtFile
+  ls :: [Text] <- read8 fn textlinesFile
 
-  let ls2      = map (procLine erlaubt) ls
+  let ls2 = map (procLine erl2) ls
+  let res = zero -- not needed, just to be parallel with pandoc
 
-  let fnrename = fn <.> (Extension "bak") :: Path Abs File
-  renameOneFile (fn <.> (Extension "txt")) fnrename
-  putIOwords ["procTxt renamed", showT fnrename]
-  write6 fn txtFile ls2
+  -- rest is copied
+  if debug
+    then do
+      let fnnew = makeAbsFile (toFilePath fn <> "NEW")
+      putIOwords ["procMd result in new", showT fnnew]
+      write8 fnnew textlinesFile res
+      putIOwords ["procMd result in new written", showT res, "fn", showT fnnew]
+    else do
+      let fnrename = fn <.> bakExtension :: Path Abs File
+      renameOneFile (fn <.> txtExtension) fnrename
+      putIOwords ["procMd renamed to bak", showT fnrename]
+  write8 fn textlinesFile ls2
 
 procLine :: [Text] -> Text -> Text
 procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln

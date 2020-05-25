@@ -25,7 +25,7 @@ import           Lib.ProcPandocDatei
 -- import           Lib.ProcWord                   ( erlaubt1 )
 import           Uniform.FileIO
 
-test_p2 :: IO ()
+test_p2 :: IO ()  -- funktioniert nicht, weil kein filenmane uebergeben
 test_p2 = do
   r <- runErr $ do
     let fn    = makeRelFile "testMarkdown0" :: Path Rel File

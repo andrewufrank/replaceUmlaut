@@ -9,6 +9,8 @@ module Main     where      -- must have Main (main) or Main where
 
 
 -- import System.Exit
+import Uniform.FileIO
+import Lib.ProcPandocDatei
 
 import           Test.Framework
 -- import {-@ HTF_TESTS @-} Lib.ProcWord_test
@@ -16,7 +18,7 @@ import           Test.Framework
 import {-@ HTF_TESTS @-} Lib.ProcPandocDatei_test
 
 main :: IO ()
-main =  main1
+main =  main2
 
 main1 :: IO ()
 main1 = do  -- with tests in other modules
@@ -26,9 +28,13 @@ main1 = do  -- with tests in other modules
          ++ show p)
     return ()
 
-    -- main2 :: IO ()
--- main2 = do
---  putStrLn "main2 start -----------"
---  putStrLn "main2 end ............."
+main2 :: IO ()
+main2 = do
+ putStrLn "main2 start -----------"
+ let erlfn = makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
+ let testfn = makeAbsFile "/home/frank/Workspace8/replaceUmlaut/testMarkdown0.md"
+ res <- runErr $  procMd True erlfn testfn
+ putStrLn (show res)
+ putStrLn "main2 end ............."
 
 -- test_2 = assertEqual 6 9
