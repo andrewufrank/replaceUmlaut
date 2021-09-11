@@ -4,6 +4,8 @@ dist-newstyle
 .HTF
 \#*#
 *~
+*~0
+*~1
 *.lkshs
 *.lkshw
 */*.lkshs
@@ -11,7 +13,12 @@ dist-newstyle
 unused.txt
 *.autosave*
 *.lock
+*.yaml.lock
 cabal.project.local
 ideaHaskellLib
 out
 testForLitText
+*.txt
+*.bak
+*.md
+*.md.*

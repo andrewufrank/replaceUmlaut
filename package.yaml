@@ -1,0 +1,61 @@
+name:         ReplaceUmlaut
+version:      0.0.1.1
+license:      GPL
+license-file: GPL_3
+maintainer:   Andrew U. Frank <andrewufrank@gmail.com>
+author:       Andrew Frank
+copyright:    2021 Andrew U. Frank
+category:     Text
+synopsis:     converting to properly encoded german umlauts
+description: | 
+  converts the convenient ae, oe and ue replacements for german 
+  umlauts into their proper UTF-8 encoded umlauts - 
+  respecting cases where the ae, oe and ue must remain
+  based on a extensible list
+
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+dependencies:
+- base >= 4.7 && < 5
+- uniformBase
+- completeMeta   # for the filehandling, split & move!
+
+library:
+  source-dirs: 
+  - src
+  - .   
+# when:
+# - condition: false
+#   other-modules: Lib.ProcPandocDatei.hs
+
+executables:
+  umlautConversion:
+    # main:                ReplaceUmlaut.hs
+    main:                 Main.hs
+    source-dirs:          app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - uniformBase 
+    - ReplaceUmlaut
+    # - uniform-convenience
+    # - uniform-cmdLineArgs
+    # - uniform-error
+
+tests:
+  test1:
+    main:                Testing.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - uniformBase 
+    - HTF
+    - ReplaceUmlaut 

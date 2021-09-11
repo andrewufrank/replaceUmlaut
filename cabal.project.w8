@@ -1,0 +1,12 @@
+packages: 
+    ./*.cabal
+    ../completeMeta/completeMeta.cabal
+    /home/frank/Workspace11/completeMeta/completeMeta.cabal
+--    ../uniformWorking/uniformSources/*/*.cabal
+    ../uniformWorking/uniformSources/uniform-algebras/*.cabal
+    ../uniformWorking/uniformSources/uniform-error/*.cabal
+    ../uniformWorking/uniformSources/uniform-fileio/*.cabal
+    ../uniformWorking/uniformSources/uniform-json/*.cabal
+    ../uniformWorking/uniformSources/uniform-strings/*.cabal
+    ../uniformWorking/uniformSources/uniform-time/*.cabal
+    ../uniformWorking/uniformBase.cabal

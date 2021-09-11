@@ -1,47 +1,57 @@
-cabal-version:  >= 1.10
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: ad07fd087cfd1882a6c17a9521d501bb8fe0719f8b7e5805593e3783d7a5b5f7
+
 name:           ReplaceUmlaut
-version:        0.1.0
-license-file:   LICENSE
+version:        0.0.1.1
+synopsis:       converting to properly encoded german umlauts
+description:    converts the convenient ae, oe and ue replacements for german 
+                umlauts into their proper UTF-8 encoded umlauts - 
+                respecting cases where the ae, oe and ue must remain
+                based on a extensible list
+category:       Text
+author:         Andrew Frank
+maintainer:     Andrew U. Frank <andrewufrank@gmail.com>
+copyright:      2021 Andrew U. Frank
+license:        GPL
+license-file:   GPL_3
 build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
 
 library
   exposed-modules:
-      -- Lib.DirTree
-      -- Lib.OpenClass
-      Lib.ProcWord
       Lib.ProcTxt
-      Lib.ProcPandocDatei
+      Lib.ProcWord
   other-modules:
       Paths_ReplaceUmlaut
   hs-source-dirs:
+      src
       ./.
-  ghc-options: -Wall
   build-depends:
-      base ==4.*
-      , text
-      , uniform-strings
-      , uniform-fileio
-      , uniform-error
-      , uniform-http
-      , uniform-pandoc
-      , pandoc
-      , pandoc-types
+      base >=4.7 && <5
+    , completeMeta
+    , uniformBase
   default-language: Haskell2010
 
 executable umlautConversion
-  main-is: ReplaceUmlaut.hs
+  main-is: Main.hs
   other-modules:
-    --   Paths_TestSimple
+      Paths_ReplaceUmlaut
   hs-source-dirs:
-      src
-  ghc-options: -Wall
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-    --   TestSimple
-    base ==4.*
-    , optparse-applicative
-    , uniform-convenience
-    , uniform-fileio
-    , ReplaceUmlaut
+      ReplaceUmlaut
+    , base >=4.7 && <5
+    , completeMeta
+    , uniformBase
+    , uniform-json
 
   default-language: Haskell2010
 
@@ -49,21 +59,18 @@ test-suite test1
   type: exitcode-stdio-1.0
   main-is: Testing.hs
   other-modules:
-    Lib.ProcWord_test
-    Lib.ProcTxt_test
-    Lib.ProcPandocDatei_test
-      -- Lib.DirTree_test
-      -- Lib.OpenClass_test
-      -- Testing
+      Lib.FileHandling_test
+      Lib.ProcPandocDatei_test
+      Lib.ProcTxt_test
+      Lib.ProcWord_test
       Paths_ReplaceUmlaut
   hs-source-dirs:
-      tests
-  ghc-options: -Wall
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      ReplaceUmlaut
-      , base ==4.*
-      , HTF
-      , uniform-strings
-      , uniform-error
-      , uniform-fileio
+      HTF
+    , ReplaceUmlaut
+    , base >=4.7 && <5
+    , completeMeta
+    , uniformBase
   default-language: Haskell2010

@@ -1,0 +1,6 @@
+packages: 
+    ./*.cabal
+    ../completeMeta/completeMeta.cabal
+--    /home/frank/Workspace11/u4blog
+    ../u4blog/uniform-json/*.cabal
+

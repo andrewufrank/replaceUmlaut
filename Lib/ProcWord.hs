@@ -12,14 +12,16 @@
 
 module Lib.ProcWord  -- (openMain, htf_thisModuelsTests)
                     where
-import           Uniform.Strings
-import           Uniform.FileIO
+-- import           Uniform.Strings
+-- import           Uniform.FileIO
+import UniformBase
+import FileHandling
 
-textlinesFile :: TypedFile5 Text [Text]
--- txtFile = makeTyped txtExtension
-textlinesFile = makeTyped txtExtension
-txtExtension :: Extension
-txtExtension = Extension "txt" :: Extension
+
+procLine :: [Text] -> Text -> Text
+procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
+-- process all words in a line
+-- should be idempotent 
 
 procWord2 :: [Text] -> Text -> Text
 -- replace umlaut unless it is an permitted group
@@ -42,11 +44,13 @@ procWord1 t =
     . replace' "ue" "ü"
     $ t
 
-erlaubt1 = map toLower' ["koef", "poet", "poes", "neue", "freue"] :: [Text]  -- erlaubte Gruppen - ergaenzen!
+erlaubt1 :: [Text]  -- erlaubte Gruppen - ergaenzen!
+erlaubt1 = map toLower' ["koef", "poet", "poes", "neue", "freue"] 
 
 checkErlaubt :: [Text] -> Text -> Bool
 -- ^ enthaelt das Wort eine erlaubte kombination
 checkErlaubt erlaubt word = any (\e -> isInfixOf' e . toLower' $ word) erlaubt
+checkErlaubt1 :: Text -> Bool 
 checkErlaubt1 = checkErlaubt erlaubt1
 -- mit fester Liste der erlaubten
 
@@ -56,6 +60,3 @@ readErlaubt fnErl = do
   erl :: [Text] <- read8 fnErl textlinesFile -- reads lines
   let erl2 = erl -- concat . map words' $ erl :: [Text]
   return erl2
-instance TypedFiles7 Text [Text] where
-  wrap7 t = words' t
-  unwrap7 t = unwords' t

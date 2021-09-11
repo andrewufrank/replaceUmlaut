@@ -1,0 +1,75 @@
+cabal-version:  >= 1.10
+name:           ReplaceUmlaut
+version:        0.1.0
+license-file:   LICENSE
+build-type:     Simple
+
+library
+  exposed-modules:
+      -- Lib.DirTree
+      -- Lib.OpenClass
+      Lib.ProcWord
+      Lib.ProcTxt
+      Lib.ProcPandocDatei
+      Lib.FileHandling
+  other-modules:
+      Paths_ReplaceUmlaut
+  hs-source-dirs:
+      ./.
+  ghc-options: -Wall
+  build-depends:
+      base ==4.*
+      , text
+      , uniform-strings
+      , uniform-fileio
+      , uniform-error
+      , uniform-http
+      , uniform-pandoc ==0.0.2
+      , pandoc
+      , pandoc-types
+    --   , doctemplate ==0.8
+  default-language: Haskell2010
+
+executable umlautConversion
+  main-is: ReplaceUmlaut.hs
+  other-modules:
+    --   Paths_TestSimple
+  hs-source-dirs:
+      src
+  ghc-options: -Wall
+  build-depends:
+    --   TestSimple
+        base ==4.*
+        , optparse-applicative
+        , uniform-convenience
+        , uniform-fileio
+        , uniform-pandoc
+        , ReplaceUmlaut
+
+  default-language: Haskell2010
+
+test-suite test1
+  type: exitcode-stdio-1.0
+  main-is: Testing.hs
+  other-modules:
+    Lib.ProcWord_test
+    Lib.ProcTxt_test
+    Lib.FileHandling_test
+    Lib.ProcPandocDatei_test
+      -- Lib.DirTree_test
+      -- Lib.OpenClass_test
+      -- Testing
+      Paths_ReplaceUmlaut
+  hs-source-dirs:
+      tests
+  ghc-options: -Wall
+  build-depends:
+        ReplaceUmlaut
+        , base ==4.*
+        , HTF
+        , uniform-strings
+        , uniform-error
+        , uniform-fileio
+        , uniform-pandoc
+
+  default-language: Haskell2010
