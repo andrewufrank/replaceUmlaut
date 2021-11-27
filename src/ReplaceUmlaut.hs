@@ -33,9 +33,9 @@ progTitle =
 
 main :: IO ()
 main = do
-  startProg
+  startProgWithTitle
     programName
-    -- progTitle
+    progTitle
     (parseAndExecute
       (unlinesT
         [ "converts in the file given"

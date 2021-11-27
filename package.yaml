@@ -59,7 +59,7 @@ executables:
 # tests:
 #   test1:
 #     main:                Testing.hs
-#     source-dirs:         test
+#     source-dirs:         tests
 #     ghc-options:
 #     - -threaded
 #     - -rtsopts
