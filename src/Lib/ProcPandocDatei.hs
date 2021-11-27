@@ -14,10 +14,11 @@ module Lib.ProcPandocDatei  -- (openMain, htf_thisModuelsTests)
                            where
 -- import Uniform.Strings
 -- import Uniform.TypedFile
-import           Uniform.FileIO
+-- import           Uniform.FileIO
 -- import Uniform.Error
+import UniformBase
 import           Lib.ProcWord
-import           Lib.ProcTxt                    ( bakExtension )
+import           Lib.FileHandling     ( bakExtension )
 
 -- for pandoc testing
 import           Uniform.Pandoc
@@ -79,7 +80,7 @@ umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
 umlautenStr erlaubt = PW.walk umlauten
  where
   umlauten :: P.Inline -> P.Inline
-  umlauten (P.Str w) = P.Str (t2s . procWord2 erlaubt . s2t $ w)
+  umlauten (P.Str w) = P.Str ( procWord2 erlaubt  $ w)
   umlauten x         = x
 
 procMd :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()

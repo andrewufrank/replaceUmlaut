@@ -12,13 +12,15 @@
 {-# LANGUAGE OverloadedStrings     #-}
 
 
-module Main where      -- must have Main (main) or Main where
+module ReplaceUmlaut where      -- must have Main (main) or Main where
 
 import           Uniform.Convenience.StartApp
-import           Uniform.Filenames           --   ( makeExtension )
+import Uniform.CmdLineArgs
+import UniformBase
+-- import           Uniform.Filenames           --   ( makeExtension )
 import           Data.Semigroup                 ( (<>) )
-import           Options.Applicative.Builder
-import           Options.Applicative
+-- import           Options.Applicative.Builder
+-- import           Options.Applicative
 import           Lib.ProcTxt
 import           Lib.ProcPandocDatei
 
@@ -33,7 +35,7 @@ main :: IO ()
 main = do
   startProg
     programName
-    progTitle
+    -- progTitle
     (parseAndExecute
       (unlinesT
         [ "converts in the file given"
