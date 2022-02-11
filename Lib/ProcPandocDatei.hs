@@ -14,11 +14,10 @@ module Lib.ProcPandocDatei  -- (openMain, htf_thisModuelsTests)
                            where
 -- import Uniform.Strings
 -- import Uniform.TypedFile
--- import           Uniform.FileIO
+import           Uniform.FileIO
 -- import Uniform.Error
-import UniformBase
 import           Lib.ProcWord
-import           Lib.FileHandling     ( bakExtension )
+import           Lib.ProcTxt                    ( bakExtension )
 
 -- for pandoc testing
 import           Uniform.Pandoc
@@ -46,12 +45,11 @@ changeUmlautInPandoc
 changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
   when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ dat]
       -- liftIO $ TIO.putStrLn . showT $ dat
-  let t7 = unwrap7 dat :: Text
-  doc :: Pandoc <- P.readMarkdown
+  doc <- P.readMarkdown
     P.def
       { P.readerExtensions = P.extensionsFromList [P.Ext_yaml_metadata_block]
-      } t7
-       -- (T.pack "[testing](url)")
+      }
+    (unwrap7 dat) -- (T.pack "[testing](url)")
   when debug $ putIOwords ["changeUmlautInPandoc", take' 1000 . showT $ doc]
     -- liftIO $ TIO.putStrLn . showT $ doc
   -- here the processing
@@ -81,7 +79,7 @@ umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
 umlautenStr erlaubt = PW.walk umlauten
  where
   umlauten :: P.Inline -> P.Inline
-  umlauten (P.Str w) = P.Str ( procWord2 erlaubt  $ w)
+  umlauten (P.Str w) = P.Str (t2s . procWord2 erlaubt . s2t $ w)
   umlauten x         = x
 
 procMd :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()

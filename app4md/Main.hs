@@ -11,7 +11,7 @@ module  Main (main)  where
 import UniformBase
 import Uniform.Json
 import UniformBase
-import Uniform.Convenience.StartApp
+-- import Uniform.Convenience.StartApp
 
 import Lib.ProcTxt
 import Lib.ProcWord
@@ -26,15 +26,16 @@ progTitle =
 
     
 main :: IO ()
-main = startProgWithTitle 
-            programName
-            progTitle$ do 
+main = startProg 
+    (unwords' [programName, progTitle])
+    (do 
     -- main4idempotent fn2  -- for testing
     -- main4defautlYAML
     -- testSingleFileSplit
-    testAllMd
+        testAllMd
     
-    return ()
+        return ()
+    )
 
 testAllMd = do 
     let erlFn =
@@ -63,7 +64,7 @@ mdExt :: Extension
 mdExt = Extension "md"
 
 
-procMd :: p -> [Text] -> Path Abs File -> ErrorT Text IO ()
+procMd :: p -> [Text] -> Path Abs File -> ErrIO ()
 procMd debug erl2 fn = do 
     f0l :: LazyByteString <- readFile2 fn 
     let f0 = bl2t f0l

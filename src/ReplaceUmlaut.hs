@@ -1,7 +1,6 @@
 -----------------------------------------------------------------------------
 --
 -- Module      : the main for calling replaceUmlaut functions
---    applied to specific files
 --    with a switch for the txt and the filename
 -----------------------------------------------------------------------------
 {-# LANGUAGE FlexibleContexts      #-}
@@ -13,18 +12,19 @@
 {-# LANGUAGE OverloadedStrings     #-}
 
 
--- module ReplaceUmlaut where      -- must have Main (main) or Main where
-module  Main (main)  where
+module ReplaceUmlaut where      -- must have Main (main) or Main where
 
--- import           Uniform.Convenie.StartApp
-import Uniform.CmdLineArgs
+-- import           Uniform.Convenience.StartApp
+-- import           Uniform.Filenames           --   ( makeExtension )
 import UniformBase
 import           Data.Semigroup                 ( (<>) )
+import           Options.Applicative.Builder
+import           Options.Applicative
 import           Lib.ProcTxt
 import           Lib.ProcPandocDatei
 
 programName, progTitle :: Text
-programName = "Replace umlaut in txt file " :: Text
+programName = "Umlaut in txt file " :: Text
 progTitle =
   "replace ae, oe, and ue to umlaut (except when in nichtUmlaute.txt)" :: Text
 
@@ -32,7 +32,7 @@ progTitle =
 
 main :: IO ()
 main = do
-  startProg 
+  startProg
     (unwords' [programName, progTitle])
     (parseAndExecute
       (unlinesT

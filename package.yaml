@@ -20,14 +20,15 @@ extra-source-files:
 
 dependencies:
 - base >= 4.7 && < 5
-- uniformBase ==0.1.3
-- completeMeta ==0.0.1.2  # for the filehandling, split & move!
+- uniformBase ==0.1.4
+- completeMeta   # for the filehandling, split & move!
 - uniform-json
 - uniform-pandoc
-- uniform-convenience
+# - uniform-convenience
 - uniform-cmdLineArgs
 - pandoc
 - pandoc-types
+- optparse-applicative
 # - aeson
 
 library:
