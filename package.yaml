@@ -29,11 +29,12 @@ dependencies:
 - pandoc
 - pandoc-types
 - optparse-applicative
+- dir-traverse
 # - aeson
 
-library:
-  source-dirs: 
-  - src
+# library:
+#   source-dirs: 
+#   - src
   
 # when:
 # - condition: false
@@ -49,7 +50,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
       - ReplaceUmlaut
-  mdreplaceUmlaut:  #works for md files and read language tag
+  mdReplaceUmlaut:  #works for md files and read language tag
     main:                 Main.hs
     source-dirs:          app4md
     ghc-options:

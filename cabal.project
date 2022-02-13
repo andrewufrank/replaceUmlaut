@@ -9,5 +9,5 @@ packages:
     ../completeMeta/*.cabal
     ../u4blog/uniform-json/*.cabal
     ../u4blog/uniform-pandoc/*.cabal
-    ../u2to/uniform-convenience
+--    ../u2to/uniform-convenience
     ../u2to/uniform-cmdLineArgs

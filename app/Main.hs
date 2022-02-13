@@ -19,7 +19,7 @@ module  Main (main)  where
 -- import           Uniform.Convenie.StartApp
 import Uniform.CmdLineArgs
 import UniformBase
-import           Data.Semigroup                 ( (<>) )
+-- import           Data.Semigroup                 ( (<>) )
 import           Lib.ProcTxt
 import           Lib.ProcPandocDatei
 
@@ -67,7 +67,7 @@ cmdArgs =
 
 parseAndExecute :: Text -> Text -> ErrIO ()
 parseAndExecute t1 t2 = do
-  args <- callIO $ execParser opts
+  args <- callIO $ execParser (opts2 cmdArgs t1 t2 )
   putIOwords ["parseAndExecute LitArgs", showT args]
   curr <- currentDir
   -- let dir0 = makeAbsDir "/home/frank/additionalSpace/DataBig/LitOriginals"
@@ -81,9 +81,9 @@ parseAndExecute t1 t2 = do
   let erlFn =
         makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
   if isText2 then procTxt debug erlFn fn else procMd debug erlFn fn
- where
-  opts = info (helper <*> cmdArgs)
-              (fullDesc <> (progDesc . t2s $ t1) <> (header . t2s $ t2))
+--  where
+--   opts = info (helper <*> cmdArgs)
+--               (fullDesc <> (progDesc . t2s $ t1) <> (header . t2s $ t2))
 
 
   --cmd2textstate :: LitArgs -> TextState2

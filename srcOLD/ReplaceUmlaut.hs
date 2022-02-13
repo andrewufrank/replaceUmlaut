@@ -12,7 +12,7 @@
 {-# LANGUAGE OverloadedStrings     #-}
 
 
-module ReplaceUmlaut where      -- must have Main (main) or Main where
+module Old_ReplaceUmlaut where      -- must have Main (main) or Main where
 
 -- import           Uniform.Convenience.StartApp
 -- import           Uniform.Filenames           --   ( makeExtension )

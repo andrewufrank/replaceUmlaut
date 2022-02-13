@@ -64,6 +64,7 @@ changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
   when debug $ putIOwords ["changeUmlautInPandoc end", take' 100 . showT $ rst2]
   return . wrap7 $ rst2
 
+-- use callPandoc
 -- pandocIOwrap :: (P.PandocIO MarkdownText) -> ErrIO MarkdownText
 -- -- ^ just a wrapper for operatiosn in the PandocIO monad
 -- -- handles the pandoc errors
@@ -81,7 +82,7 @@ umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
 umlautenStr erlaubt = PW.walk umlauten
  where
   umlauten :: P.Inline -> P.Inline
-  umlauten (P.Str w) = P.Str ( procWord2 erlaubt  $ w)
+  umlauten (P.Str w) = P.Str ( procWord2 erlaubt w)
   umlauten x         = x
 
 procMd :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
