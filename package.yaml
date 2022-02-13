@@ -40,7 +40,7 @@ library:
 #   other-modules: Lib.ProcPandocDatei.hs
 
 executables:
-  replaceUmlaut:
+  replaceUmlaut:    # works on text files 
     main:                Main.hs
     source-dirs:          app
     ghc-options:
@@ -49,7 +49,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
       - ReplaceUmlaut
-  mdReplaceUmlaut:
+  mdreplaceUmlaut:  #works for md files and read language tag
     main:                 Main.hs
     source-dirs:          app4md
     ghc-options:

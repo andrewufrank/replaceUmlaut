@@ -47,7 +47,7 @@ testAllMd = do
     let testflag = False
     -- let targetDir =  addDir currDir (makeRelDir "testData copy")
     -- let testflag = True
-    putIOwords ["\nProcessing all .md files in dir", showT targetDir]
+    putIOwords ["\nProcessing all .md files in german in dir", showT targetDir]
     putIOwords ["\nFile with words not to convert:", showT erlFn]
 
     fs :: [Path Abs File] <- getDirContentFiles targetDir 

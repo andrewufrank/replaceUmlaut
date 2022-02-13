@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 355509e2b2d040a97fbdf6f7acef5cd5bdcf1355072f67a116043a6d5aeccb8b
+-- hash: d80b771e97ebbf610ad146ede81138d34a8de529761cceef353c6f20d3da564f
 
 name:           ReplaceUmlaut
 version:        0.0.1.1
@@ -47,7 +47,7 @@ library
     , uniformBase ==0.1.4
   default-language: Haskell2010
 
-executable mdReplaceUmlaut
+executable mdreplaceUmlaut
   main-is: Main.hs
   other-modules:
       Paths_ReplaceUmlaut
