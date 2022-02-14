@@ -32,9 +32,9 @@ dependencies:
 - dir-traverse
 # - aeson
 
-# library:
-#   source-dirs: 
-#   - src
+library:
+  source-dirs: 
+  - src
   
 # when:
 # - condition: false

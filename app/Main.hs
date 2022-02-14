@@ -80,7 +80,7 @@ parseAndExecute t1 t2 = do
   let debug   = False
   let erlFn =
         makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
-  if isText2 then procTxt debug erlFn fn else procMd debug erlFn fn
+  if isText2 then procTxt debug erlFn fn else procMd2 debug erlFn fn
 --  where
 --   opts = info (helper <*> cmdArgs)
 --               (fullDesc <> (progDesc . t2s $ t1) <> (header . t2s $ t2))

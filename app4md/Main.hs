@@ -109,7 +109,7 @@ parseAndExecute t1 t2 = do
     let mds2 = map makeAbsFile mds1
     when ( debug) $ putIOwords ["testAllMd 4", "mds2", showT . take 10 $ mds2]
 
-    mapM_ (procMd debug erl2) mds2
+    mapM_ (procMd1 debug erl2) mds2
 
     when ( debug) $ putIOwords ["testAllMd", "end"]
 --   where
@@ -125,8 +125,8 @@ parseAndExecute t1 t2 = do
 -- mdExt = Extension "md"
 
 
-procMd :: Bool -> [Text] -> Path Abs File -> ErrIO ()
-procMd debug erl2 fn = do
+procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
+procMd1 debug erl2 fn = do
     f0l :: LazyByteString <- readFile2 fn
     let f0 = bl2t f0l
     putIOwords ["\n procMD ", showT fn, "file to process"]
@@ -144,7 +144,7 @@ procMd debug erl2 fn = do
     return ()
 
 procFileContentIfGerman :: Bool -> [Text] ->  MdDoc1 -> MdDoc1
-procFileContentIfGerman debig erl2 md1 =
+procFileContentIfGerman debug erl2 md1 =
     if isGerman
         then updateMdDoc id (procMdTxt erl2) md1
         else md1
