@@ -30,6 +30,7 @@ dependencies:
 - pandoc-types
 - optparse-applicative
 - dir-traverse
+- text  # for Data.Text - move to strings
 # - aeson
 
 library:
@@ -66,15 +67,15 @@ executables:
     # - uniform-cmdLineArgs
     # - uniform-error
 
-# tests:
-#   test1:
-#     main:                Testing.hs
-#     source-dirs:         tests
-#     ghc-options:
-#     - -threaded
-#     - -rtsopts
-#     - -with-rtsopts=-N
-#     dependencies:
-#     - uniformBase 
-#     - HTF
-#     - ReplaceUmlaut 
+tests:
+  test1:
+    main:                Testing.hs
+    source-dirs:         tests
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - uniformBase 
+    - HTF
+    - ReplaceUmlaut 

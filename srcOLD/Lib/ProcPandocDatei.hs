@@ -10,7 +10,7 @@
 {-# LANGUAGE TypeSynonymInstances  #-}
 {-# LANGUAGE OverloadedStrings     #-}
 
-module Lib.ProcPandocDatei  -- (openMain, htf_thisModuelsTests)
+module Lib.ProcPandocDatei (procMd) -- (openMain, htf_thisModuelsTests)
                            where
 -- import Uniform.Strings
 -- import Uniform.TypedFile

@@ -16,15 +16,16 @@ import Lib.ProcPandocDatei
 import           Test.Framework
 -- import {-@ HTF_TESTS @-} Lib.FileHandling_test
 -- import {-@ HTF_TESTS @-} Lib.ProcWord_test
--- import {-@ HTF_TESTS @-} Lib.ProcTxt_test
+import {-@ HTF_TESTS @-} Lib.ProcTxt_test
 import {-@ HTF_TESTS @-} Lib.ProcPandocDatei_test
+import {-@ HTF_TESTS @-} Lib.OneMDfile_test
 
 main :: IO ()
-main =  main2
+main =  main1
 
 main1 :: IO ()
 main1 = do  -- with tests in other modules
-    putStrLn "HTF ExampleTest.hs:\n"
+    putStrLn "HTF ExampleTest.hs in main1:\n"
     p <- htfMain htf_importedTests
     putStrLn ("HTF end StringConversion.hs test:\n"
          ++ show p)

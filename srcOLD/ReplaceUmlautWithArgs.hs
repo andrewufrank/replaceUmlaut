@@ -97,6 +97,8 @@ procMdTxt :: [Text] ->  Text -> Text
 -- change all umlaut in text 
 procMdTxt erl2 t = unlines' . map (procLine erl2) . lines' $ t 
 
+procMd :: p -> Path Abs File -> Path Abs File -> ExceptT Text IO ()
+-- does not change header
 procMd debug fnErl fn = do 
     f0l :: LazyByteString <- readFile2 fn 
     erl2         <- readErlaubt fnErl

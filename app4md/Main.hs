@@ -19,7 +19,9 @@ import System.Directory.Recursive
 import Lib.ProcWord
 import FileHandling
 import MdDocHandling
-import BlogDetails
+import GHC.Generics (Generic1(to1))
+-- import BlogDetails
+import Data.Text (commonPrefixes)
 
 programName, progTitle :: Text
 programName = "Replace umlaut in md files in directory" :: Text
@@ -136,20 +138,20 @@ procMd1 debug erl2 fn = do
                     -- . updateMdDoc id (procMdTxt erl2)
                     -- . procFileContentIfGerman debug erl2
                     -- . 
-                    mdDocRead
-                    $ f0
+                    mdDocRead f0
                     :: MdDoc1
     let german = mdocIsGerman f1
     when german $  do 
-            let f2 = updateMdDoc id (procMdTxt erl2) f1
+            -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
             newfn <- changeExtensionBakOrNew False fn  -- not debug?
-            let f3 = mdDocWrite f2 
+            -- let f3 = mdDocWrite f2 
+            let f3 = procMdTxt erl2 f0 -- process the header with it
             writeFile2 newfn f3
             when True $ putIOwords ["\n procMD1 ", showT fn, "german file umlaut changed with backup"]
             
 
     when debug $ putIOwords ["\n procMD ", showT fn, "file done with backup"]
-    return ()
+    -- return ()
 
 -- procFileContentIfGerman :: Bool -> [Text] ->  MdDoc1 -> MdDoc1
 -- procFileContentIfGerman debug erl2 md1 =
@@ -158,23 +160,20 @@ procMd1 debug erl2 fn = do
 --         else md1
 --     where
 
-mdocIsGerman :: MdDoc1 -> Bool 
-mdocIsGerman md1 = isGerman 
-    where
-        h1 = yamlHeader1 md1
-        -- t1 = docText1 md1
-        mlang = getAtKey h1 "language" :: Maybe Text
-        -- isGerman = case mlang of
-        --                     Nothing -> False
-        --                     Just lang -> (lang ==  "de_AT" ||
-        --                                     lang == "de_CH" ||
-        --                                     lang == "de_DE")
+-- mdocIsGerman :: MdDoc1 -> Bool 
+-- mdocIsGerman md1 = isGerman 
+--     where
+--         h1 = yamlHeader1 md1
+--         -- t1 = docText1 md1
+--         mlang = getAtKey h1 "language" :: Maybe Text
+--         -- isGerman = case mlang of
+--         --                     Nothing -> False
+--         --                     Just lang -> (lang ==  "de_AT" ||
+--         --                                     lang == "de_CH" ||
+--         --                                     lang == "de_DE")
     
-        isGerman = case mlang of
-                                Nothing -> False
-                                Just lang -> "de" `isPrefixOf'` lang
+--         isGerman = case mlang of
+--                                 Nothing -> False
+--                                 Just lang -> "de" `isPrefixOf'` lang
     
 
-procMdTxt :: [Text] ->  Text -> Text
--- change all umlaut in text 
-procMdTxt erl2 t = unlines' . map (procLine erl2) . lines' $ t

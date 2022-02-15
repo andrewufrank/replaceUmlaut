@@ -19,7 +19,8 @@ module Lib.ProcWord_test  -- (openMain, htf_thisModuelsTests)
 
 
 import Test.Framework
-import Uniform.Strings
+-- import Uniform.Strings
+import UniformBase
 import Lib.ProcWord
 
 openMain :: IO ()

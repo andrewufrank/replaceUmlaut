@@ -20,10 +20,11 @@ module Lib.ProcPandocDatei_test  -- (openMain, htf_thisModuelsTests)
 
 import           Test.Framework
 -- import Uniform.Strings
-import           Uniform.Error
-import           Lib.ProcPandocDatei
+-- import           Uniform.Error
+import           Lib.ProcPandocDatei (procMd2)
 -- import           Lib.ProcWord                   ( erlaubt1 )
-import           Uniform.FileIO
+-- import           Uniform.FileIO
+import UniformBase
 
 test_p2 :: IO ()  -- funktioniert nicht, weil kein filenmane uebergeben
 test_p2 = do
@@ -33,7 +34,7 @@ test_p2 = do
     cdir <- currentDir
     let fnabs    = cdir </> fn :: Path Abs File
     let fnerlabs = cdir </> fnerl :: Path Abs File
-    procMd True fnerlabs fnabs
+    procMd2 True fnerlabs fnabs
   assertEqual (Right ()) r
 
 -- dictionary = "/home/frank/Workspace8/replaceUmlaut/de.dic"

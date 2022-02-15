@@ -20,10 +20,11 @@ module Lib.ProcTxt_test  -- (openMain, htf_thisModuelsTests)
 
 import           Test.Framework
 -- import Uniform.Strings
-import           Uniform.Error
+-- import           Uniform.Error
 import           Lib.ProcTxt
 -- import           Lib.ProcWord                   ( erlaubt1 )
-import           Uniform.FileIO
+-- import           Uniform.FileIO
+import UniformBase
 
 -- test_1 = do
 --   r <- runErr $ do

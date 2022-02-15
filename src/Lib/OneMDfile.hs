@@ -19,6 +19,7 @@ module Lib.OneMDfile  -- (openMain, htf_thisModuelsTests)
 import UniformBase
 import           Lib.ProcWord
 import           Lib.FileHandling     ( bakExtension )
+import Lib.ProcPandocDatei
 
 -- for pandoc testing
 import           Uniform.Pandoc
@@ -27,6 +28,7 @@ import qualified Text.Pandoc                   as P
 import qualified Text.Pandoc.Walk              as PW
 -- import qualified Data.Text                     as T
 -- import qualified Data.Text.IO                  as TIO
+import qualified Data.Text   as T
 
 -- data Markdown = Markdown Text deriving (Show, Read, Eq, Ord)
 -- ^ just for marking md files
@@ -119,10 +121,25 @@ procMd2 debug fnErl fn = do
   write8 fn markdownFileType ls2
   when debug $ putIOwords ["procMd done", showT ls2]
 
-procLine :: [Text] -> Text -> Text
-procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
--- process all words in a line
+-- procLine :: [Text] -> Text -> Text
+-- procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
+-- -- process all words in a line
 
 -- instance TypedFiles7 Text Markdown where
 --   wrap7 t = Markdown t
 --   unwrap7 (Markdown t) = t
+
+procMdTxt :: [Text] ->  Text -> Text
+-- change all umlaut in text 
+-- preserve leading blanks of line, but not tabs
+procMdTxt erl2 t = concat' [ld,t2]
+    where
+        t2 = unlines' . map (procLine erl2) . lines' $ t1 
+        (ld, t1) = case mb1 t of
+                Nothing -> case mb2 t of 
+                                Nothing -> ("", t)
+                                Just (lead2, _, t02) -> (lead2,t02)
+                Just (lead, _, t0) ->  (lead,t0)
+        mb1 tx = T.commonPrefixes "                  " tx
+        mb2 ty = T.commonPrefixes "\t\t\t\t\t\t\t" ty
+

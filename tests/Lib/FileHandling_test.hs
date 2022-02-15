@@ -20,10 +20,11 @@ module Lib.FileHandling_test  -- (openMain, htf_thisModuelsTests)
 
 import Test.Framework
 -- import Uniform.Strings
-import Uniform.Error 
+-- import Uniform.Error 
 import Lib.FileHandling
 -- import Lib.ProcWord
-import Uniform.FileIO
+-- import Uniform.FileIO
+import UniformBase
 
 openMain :: IO ()
 openMain = do

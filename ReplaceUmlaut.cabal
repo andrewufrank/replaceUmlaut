@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0362c243dd77384c2fec5f2061909f04b3c4a0ad5cedcf7a20c02b174169ea6e
+-- hash: 8367acd5376387ffeb23a12cb1725f6d8b1131e82bea6d28c44ef82ffa8967fc
 
 name:           ReplaceUmlaut
 version:        0.0.1.1
@@ -27,6 +27,7 @@ extra-source-files:
 library
   exposed-modules:
       Lib.FileHandling
+      Lib.OneMDfile
       Lib.ProcPandocDatei
       Lib.ProcTxt
       Lib.ProcWord
@@ -41,6 +42,7 @@ library
     , optparse-applicative
     , pandoc
     , pandoc-types
+    , text
     , uniform-cmdLineArgs
     , uniform-json
     , uniform-pandoc
@@ -62,6 +64,7 @@ executable mdReplaceUmlaut
     , optparse-applicative
     , pandoc
     , pandoc-types
+    , text
     , uniform-cmdLineArgs
     , uniform-json
     , uniform-pandoc
@@ -83,8 +86,38 @@ executable replaceUmlaut
     , optparse-applicative
     , pandoc
     , pandoc-types
+    , text
     , uniform-cmdLineArgs
     , uniform-json
     , uniform-pandoc
     , uniformBase ==0.1.4
+  default-language: Haskell2010
+
+test-suite test1
+  type: exitcode-stdio-1.0
+  main-is: Testing.hs
+  other-modules:
+      Lib.FileHandling_test
+      Lib.OneMDfile_test
+      Lib.ProcPandocDatei_test
+      Lib.ProcTxt_test
+      Lib.ProcWord_test
+      Paths_ReplaceUmlaut
+  hs-source-dirs:
+      tests
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HTF
+    , ReplaceUmlaut
+    , base >=4.7 && <5
+    , completeMeta
+    , dir-traverse
+    , optparse-applicative
+    , pandoc
+    , pandoc-types
+    , text
+    , uniform-cmdLineArgs
+    , uniform-json
+    , uniform-pandoc
+    , uniformBase
   default-language: Haskell2010
