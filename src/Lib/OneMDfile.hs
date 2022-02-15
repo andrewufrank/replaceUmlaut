@@ -129,10 +129,10 @@ procMd2 debug fnErl fn = do
 --   wrap7 t = Markdown t
 --   unwrap7 (Markdown t) = t
 
-procMdTxt :: [Text] ->  Text -> Text
+procMdTxt2 :: [Text] ->  Text -> Text
 -- change all umlaut in text 
 -- preserve leading blanks of line, but not tabs
-procMdTxt erl2 t = concat' [ld,t2]
+procMdTxt2 erl2 t = concat' [ld,t2]
     where
         t2 = unlines' . map (procLine erl2) . lines' $ t1 
         (ld, t1) = case mb1 t of

@@ -17,6 +17,7 @@ import System.Directory.Recursive
 -- import Options.Applicative
 -- import Lib.ProcTxt
 import Lib.ProcWord
+import Lib.OneMDfile
 import FileHandling
 import MdDocHandling
 import GHC.Generics (Generic1(to1))
@@ -132,7 +133,7 @@ procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 procMd1 debug erl2 fn = do
     f0l :: LazyByteString <- readFile2 fn
     let f0 = bl2t f0l
-    when debug $ putIOwords ["\n procMD ", showT fn, "file to process"]
+    when debug $ putIOwords ["\n procMD1 ", showT fn, "file to process"]
 
     let f1 = -- mdDocWrite
                     -- . updateMdDoc id (procMdTxt erl2)
@@ -145,12 +146,12 @@ procMd1 debug erl2 fn = do
             -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
             newfn <- changeExtensionBakOrNew False fn  -- not debug?
             -- let f3 = mdDocWrite f2 
-            let f3 = procMdTxt erl2 f0 -- process the header with it
+            let f3 = procMdTxt2 erl2 f0 -- process the header with it
             writeFile2 newfn f3
             when True $ putIOwords ["\n procMD1 ", showT fn, "german file umlaut changed with backup"]
             
 
-    when debug $ putIOwords ["\n procMD ", showT fn, "file done with backup"]
+    when debug $ putIOwords ["\n procMD1 ", showT fn, "file done with backup"]
     -- return ()
 
 -- procFileContentIfGerman :: Bool -> [Text] ->  MdDoc1 -> MdDoc1

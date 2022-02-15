@@ -27,10 +27,11 @@ import Lib.OneMDfile
 import UniformBase
 
 -- show produces the "xx"
-test_1 = assertEqual ("für\n") $ procMdTxt [] ("fuer\n"::Text)
+test_1 = assertEqual ("für\n") $ procMdTxt2 [] ("fuer\n"::Text)
 -- test_2 = assertEqual 6 9
-test_2 = assertEqual ("       für\n") $ procMdTxt [] ("       fuer\n"::Text)
-test_3 = assertEqual ("\tfür\n") $ procMdTxt [] ("\tfuer\n"::Text)
+test_2 = assertEqual ("       für\n") $ procMdTxt2 [] ("       fuer\n"::Text)
+test_3 = assertEqual ("\tfür\n") $ procMdTxt2 [] ("\tfuer\n"::Text)
+test_4 = assertEqual ("        Einschr\228nkungen gelebt.\n") $ procMdTxt2 [] ("        Einschränkungen gelebt.\n"::Text)
 -- test_2 = assertEqual 6 9
 
 -- test_2 = assertEqual t2 $ map procWord1 t1
