@@ -116,18 +116,6 @@ parseAndExecute t1 t2 = do
     mapM_ (procMd1 debug erl2) mds2
 
     when ( debug) $ putIOwords ["testAllMd", "end"]
---   where
---     opts = info (helper <*> cmdArgs)
---               (fullDesc <> (progDesc . t2s $ t1) <> (header . t2s $ t2))
-
-
--- notDNB :: SiteLayout -> FilePath -> Bool 
--- notDNB siteLayout = not . isInfixOf' (t2s $ doNotPublish siteLayout)
-
-
--- mdExt :: Extension
--- mdExt = Extension "md"
-
 
 procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 procMd1 debug erl2 fn = do
@@ -135,18 +123,13 @@ procMd1 debug erl2 fn = do
     let f0 = bl2t f0l
     when debug $ putIOwords ["\n procMD1 ", showT fn, "file to process"]
 
-    let f1 = -- mdDocWrite
-                    -- . updateMdDoc id (procMdTxt erl2)
-                    -- . procFileContentIfGerman debug erl2
-                    -- . 
-                    mdDocRead f0
-                    :: MdDoc1
+    let f1 =   mdDocRead f0 :: MdDoc1
     let german = mdocIsGerman f1
     when german $  do 
             -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
-            newfn <- changeExtensionBakOrNew False fn  -- not debug?
+            newfn <- changeExtensionBakOrNew debug fn  -- not debug?
             -- let f3 = mdDocWrite f2 
-            let f3 = procMdTxt2 erl2 f0 -- process the header with it
+            f3 <- procMdTxt2 erl2 f0 -- process the header with it
             writeFile2 newfn f3
             when True $ putIOwords ["\n procMD1 ", showT fn, "german file umlaut changed with backup"]
             
@@ -154,27 +137,4 @@ procMd1 debug erl2 fn = do
     when debug $ putIOwords ["\n procMD1 ", showT fn, "file done with backup"]
     -- return ()
 
--- procFileContentIfGerman :: Bool -> [Text] ->  MdDoc1 -> MdDoc1
--- procFileContentIfGerman debug erl2 md1 =
---     if isGerman
---         then updateMdDoc id (procMdTxt erl2) md1
---         else md1
---     where
-
--- mdocIsGerman :: MdDoc1 -> Bool 
--- mdocIsGerman md1 = isGerman 
---     where
---         h1 = yamlHeader1 md1
---         -- t1 = docText1 md1
---         mlang = getAtKey h1 "language" :: Maybe Text
---         -- isGerman = case mlang of
---         --                     Nothing -> False
---         --                     Just lang -> (lang ==  "de_AT" ||
---         --                                     lang == "de_CH" ||
---         --                                     lang == "de_DE")
-    
---         isGerman = case mlang of
---                                 Nothing -> False
---                                 Just lang -> "de" `isPrefixOf'` lang
-    
 

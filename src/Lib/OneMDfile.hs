@@ -12,10 +12,6 @@
 
 module Lib.OneMDfile  -- (openMain, htf_thisModuelsTests)
                            where
--- import Uniform.Strings
--- import Uniform.TypedFile
--- import           Uniform.FileIO
--- import Uniform.Error
 import UniformBase
 import           Lib.ProcWord
 import           Lib.FileHandling     ( bakExtension )
@@ -26,8 +22,6 @@ import           Uniform.Pandoc
 
 import qualified Text.Pandoc                   as P
 import qualified Text.Pandoc.Walk              as PW
--- import qualified Data.Text                     as T
--- import qualified Data.Text.IO                  as TIO
 import qualified Data.Text   as T
 
 -- data Markdown = Markdown Text deriving (Show, Read, Eq, Ord)
@@ -35,57 +29,11 @@ import qualified Data.Text   as T
 -- mdFile :: TypedFile5 Text Markdown
 -- mdExtension :: Extension
 -- mdExtension = Extension "md" :: Extension
+
 newExtension :: Extension
 newExtension = Extension "new" :: Extension
 -- mdFile = makeTyped extMD
 -- ^ filetype to read text in lines
-
-
--- changeUmlautInPandoc
---   :: Bool -> [Text] -> MarkdownText -> P.PandocIO MarkdownText
--- -- ^ changes the umlaut written as ae, oe und ue to umlaut
--- -- except if the words are included in the erlaubt list
--- changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
---   when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ dat]
---       -- liftIO $ TIO.putStrLn . showT $ dat
---   let t7 = unwrap7 dat :: Text
---   doc :: Pandoc <- P.readMarkdown
---     P.def
---       { P.readerExtensions = P.extensionsFromList [P.Ext_yaml_metadata_block]
---       } t7
---        -- (T.pack "[testing](url)")
---   when debug $ putIOwords ["changeUmlautInPandoc", take' 1000 . showT $ doc]
---     -- liftIO $ TIO.putStrLn . showT $ doc
---   -- here the processing
---   let doc2 = umlautenStr erlaubt doc
---   rst2 <- P.writeMarkdown P.def { P.writerSetextHeaders = False }
---                             --   }
---                             --   writerExtensions = strictExtensions,
---                             -- , writerReferenceLinks = True -- use ref-style links
---                           doc2
---   when debug $ putIOwords ["changeUmlautInPandoc end", take' 100 . showT $ rst2]
---   return . wrap7 $ rst2
-
--- -- use callPandoc
--- -- pandocIOwrap :: (P.PandocIO MarkdownText) -> ErrIO MarkdownText
--- -- -- ^ just a wrapper for operatiosn in the PandocIO monad
--- -- -- handles the pandoc errors
--- -- -- Markdown is a text marked as Markdown
--- -- -- unPandocM ist in uniform
--- -- pandocIOwrap op = do
--- --   rst3 <- callIO $ do
--- --     result <- P.runIO $ op
--- --     rst1   <- P.handleError result
--- --     return rst1
--- --   -- TIO.putStrLn rst
--- --   return rst3
-
--- umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
--- umlautenStr erlaubt = PW.walk umlauten
---  where
---   umlauten :: P.Inline -> P.Inline
---   umlauten (P.Str w) = P.Str ( procWord2 erlaubt w)
---   umlauten x         = x
 
 procMd2 :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut in a pandoc markdown file
@@ -98,11 +46,9 @@ procMd2 :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
 -- and the origianl file is not changed
 procMd2 debug fnErl fn = do
   erl2               <- readErlaubt fnErl
-  -- erl  <- read6 fnErl txtFile -- reads lines
-  -- let erl2 = concat . map words' $ erl :: [Text]
-
   ls :: MarkdownText <- read8 fn markdownFileType
   putIOwords ["procMd ls", showT ls, "fn", showT fn]
+
   ls2 <- unPandocM (changeUmlautInPandoc True erl2 (ls))
 
   if debug
@@ -116,25 +62,19 @@ procMd2 debug fnErl fn = do
       renameOneFile (fn <.> extMD) fnrename
       putIOwords ["procMd renamed to bak", showT fnrename]
 
-  -- let ls2      = map (procLine erlaubt) ls
 
   write8 fn markdownFileType ls2
   when debug $ putIOwords ["procMd done", showT ls2]
 
--- procLine :: [Text] -> Text -> Text
--- procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
--- -- process all words in a line
-
--- instance TypedFiles7 Text Markdown where
---   wrap7 t = Markdown t
---   unwrap7 (Markdown t) = t
-
 procMdTxt2 :: [Text] ->  Text -> Text
 -- change all umlaut in text 
--- preserve leading blanks of line, but not tabs
-procMdTxt2 erl2 t = concat' [ld,t2]
+-- preserve leading blanks of line, or tabs, but not mixture of these
+procMdTxt2 erl2  = unlines' . map (procLine2 erl2) . lines' 
+
+procLine2 :: [Text] ->  Text -> Text
+-- process one line preserving spaces or tabs (but not a mix) at start
+procLine2 erl2 t = concat' [ld,t1]
     where
-        t2 = unlines' . map (procLine erl2) . lines' $ t1 
         (ld, t1) = case mb1 t of
                 Nothing -> case mb2 t of 
                                 Nothing -> ("", t)
@@ -142,4 +82,19 @@ procMdTxt2 erl2 t = concat' [ld,t2]
                 Just (lead, _, t0) ->  (lead,t0)
         mb1 tx = T.commonPrefixes "                  " tx
         mb2 ty = T.commonPrefixes "\t\t\t\t\t\t\t" ty
+
+
+-- procMdTxt2 :: [Text] ->  Text -> Text
+-- -- change all umlaut in text 
+-- -- preserve leading blanks of line, or tabs, but not mixture of these
+-- procMdTxt2 erl2 t = concat' [ld,t2]
+--     where
+--         t2 = unlines' . map (procLine erl2) . lines' $ t1 
+--         (ld, t1) = case mb1 t of
+--                 Nothing -> case mb2 t of 
+--                                 Nothing -> ("", t)
+--                                 Just (lead2, _, t02) -> (lead2,t02)
+--                 Just (lead, _, t0) ->  (lead,t0)
+--         mb1 tx = T.commonPrefixes "                  " tx
+--         mb2 ty = T.commonPrefixes "\t\t\t\t\t\t\t" ty
 
