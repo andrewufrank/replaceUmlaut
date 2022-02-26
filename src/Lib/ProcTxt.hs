@@ -20,18 +20,18 @@ import           Lib.ProcWord
 import UniformBase
 import FileHandling
 
-procTxt :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
+procTxt :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut unless it is an permitted group
 -- in a file with extension txt
-procTxt debug fnErl fn = do
+procTxt debug erl2 fn = do
     when debug $ putIOwords ["procTxt start", showT fn]
-    erl2         <- readErlaubt fnErl
+    -- erl2         <- readErlaubt fnErl
     -- erl  <- read6 fnErl txtFile -- reads lines
     -- let erlaubt = concat . map words' $ erl :: [Text]
 
     ls :: [Text] <- read8 fn textlinesFile
 
-    let ls2 = map (procLine erl2) ls
+    let ls2 = map (procTxt2 erl2) ls
     let res = zero -- not needed, just to be parallel with pandoc
 
     newfn <- changeExtensionBakOrNew debug fn

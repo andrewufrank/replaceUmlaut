@@ -19,7 +19,7 @@ import System.Directory.Recursive
 -- import Lib.ProcTxt
 import Lib.ProcWord
 import Lib.OneMDfile
-import FileHandling
+import Lib.FileHandling
 import MdDocHandling
 import GHC.Generics (Generic1(to1))
 -- import BlogDetails

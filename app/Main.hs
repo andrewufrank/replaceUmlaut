@@ -21,8 +21,9 @@ import Uniform.CmdLineArgs
 import UniformBase
 -- import           Data.Semigroup                 ( (<>) )
 import           Lib.ProcTxt
-import           Lib.ProcPandocDatei
+-- import           Lib.ProcPandocDatei
 import              Lib.OneMDfile
+import Lib.FileHandling
 
 programName, progTitle :: Text
 programName = "Replace umlaut in txt file " :: Text
@@ -68,23 +69,25 @@ cmdArgs =
 
 parseAndExecute :: Text -> Text -> ErrIO ()
 parseAndExecute t1 t2 = do
-  args <- callIO $ execParser (opts2 cmdArgs t1 t2 )
-  putIOwords ["parseAndExecute LitArgs", showT args]
-  curr <- currentDir
-  -- let dir0 = makeAbsDir "/home/frank/additionalSpace/DataBig/LitOriginals"
-  let fn2     = argfile args :: FilePath
-  let fn = curr </> makeRelFile fn2 :: Path Abs File
-  let isText  = isTxt args :: Bool
+    args <- callIO $ execParser (opts2 cmdArgs t1 t2 )
+    putIOwords ["parseAndExecute LitArgs", showT args]
+    curr <- currentDir
+    -- let dir0 = makeAbsDir "/home/frank/additionalSpace/DataBig/LitOriginals"
+    let fn2     = argfile args :: FilePath
+    let fn = curr </> makeRelFile fn2 :: Path Abs File
+    let isText  = isTxt args :: Bool
 
-  let ext     = getExtension fn
-  let isText2 = isText || ext == (Extension "txt")
-  let debug   = False
-  let erlFn =
-        makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
-  if isText2 then procTxt debug erlFn fn else procMd3 debug erlFn fn
+    let ext     = getExtension fn
+    let isText2 = isText || ext == (Extension "txt")
+    let debug   = False
+    let fnErl =
+            makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
+    erl2         <- readErlaubt fnErl
+    if isText2 then procTxt debug erl2 fn else procMd3 debug erl2 fn
 --  where
 --   opts = info (helper <*> cmdArgs)
 --               (fullDesc <> (progDesc . t2s $ t1) <> (header . t2s $ t2))
+
 
 
   --cmd2textstate :: LitArgs -> TextState2

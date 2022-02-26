@@ -21,10 +21,10 @@ import qualified Data.Text   as T
 
 
 
-procMdTxt2 :: [Text] ->  Text -> Text
+procTxt2 :: [Text] ->  Text -> Text
 -- change all umlaut in text - yaml header and markdown text
 -- preserve leading blanks of line, or tabs, but not mixture of these
-procMdTxt2 erl2  = unlines' . map (procLine2 erl2) . lines' 
+procTxt2 erl2  = unlines' . map (procLine2 erl2) . lines' 
 
 
 procLine2 :: [Text] ->  Text -> Text
@@ -76,9 +76,3 @@ checkErlaubt1 :: Text -> Bool
 checkErlaubt1 = checkErlaubt erlaubt1
 -- mit fester Liste der erlaubten
 
-readErlaubt :: Path Abs File -> ErrIO [Text]
--- read the erlaubte words wtih ae, oe and ue
-readErlaubt fnErl = do
-  erl :: [Text] <- read8 fnErl textlinesFile -- reads lines
-  let erl2 = erl -- concat . map words' $ erl :: [Text]
-  return erl2

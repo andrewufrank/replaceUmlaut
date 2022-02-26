@@ -15,7 +15,7 @@ module Lib.OneMDfile  -- (openMain, htf_thisModuelsTests)
 import UniformBase
 import           Lib.ProcWord
 import           Lib.FileHandling     
-import Lib.ProcPandocDatei
+-- import Lib.ProcPandocDatei
 import MdDocHandling
 
 -- for pandoc testing
@@ -25,18 +25,13 @@ import qualified Text.Pandoc                   as P
 import qualified Text.Pandoc.Walk              as PW
 import qualified Data.Text   as T
 
--- data Markdown = Markdown Text deriving (Show, Read, Eq, Ord)
--- ^ just for marking md files
--- mdFile :: TypedFile5 Text Markdown
--- mdExtension :: Extension
--- mdExtension = Extension "md" :: Extension
 
 newExtension :: Extension
 newExtension = Extension "new" :: Extension
 -- mdFile = makeTyped extMD
 -- ^ filetype to read text in lines
 
-procMd3 :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
+procMd3 :: Bool -> [Text]-> Path Abs File -> ErrIO ()
 -- ^ replace umlaut in a pandoc markdown file
 -- unless it is an permitted group
 -- in a file with extension txt
@@ -45,27 +40,29 @@ procMd3 :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
 -- except when debug flag is set
 -- then the new file is written to NEW
 -- and the origianl file is not changed
-procMd3 debug fnErl fn = do
-  erl2               <- readErlaubt fnErl
-  ls :: MarkdownText <- read8 fn markdownFileType
-  putIOwords ["procMd ls", showT ls, "fn", showT fn]
+procMd3 debug erl2 fn = do
+--   erl2               <- readErlaubt fnErl
+  procMd1 debug erl2 fn 
 
-  ls2 <- unPandocM (changeUmlautInPandoc True erl2 (ls))
+--   ls :: MarkdownText <- read8 fn markdownFileType
+  putIOwords ["procMd3 done ",   "fn", showT fn]
 
-  if debug
-    then do
-      let fnnew = makeAbsFile (toFilePath fn <> "NEW")
-      putIOwords ["procMd result in new", showT fnnew]
-      write8 fnnew markdownFileType ls2
-      putIOwords ["procMd result in new written", showT ls2, "fn", showT fnnew]
-    else do
-      let fnrename = fn <.> bakExtension :: Path Abs File
-      renameOneFile (fn <.> extMD) fnrename
-      putIOwords ["procMd renamed to bak", showT fnrename]
+--   ls2 <- unPandocM (changeUmlautInPandoc True erl2 (ls))
+
+--   if debug
+--     then do
+--       let fnnew = makeAbsFile (toFilePath fn <> "NEW")
+--       putIOwords ["procMd result in new", showT fnnew]
+--       write8 fnnew markdownFileType ls2
+--       putIOwords ["procMd result in new written", showT ls2, "fn", showT fnnew]
+--     else do
+--       let fnrename = fn <.> bakExtension :: Path Abs File
+--       renameOneFile (fn <.> extMD) fnrename
+--       putIOwords ["procMd renamed to bak", showT fnrename]
 
 
-  write8 fn markdownFileType ls2
-  when debug $ putIOwords ["procMd done", showT ls2]
+--   write8 fn markdownFileType ls2
+--   when debug $ putIOwords ["procMd done", showT ls2]
 
 procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 -- debug true gives new file
@@ -80,7 +77,7 @@ procMd1 debug erl2 fn = do
             -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
             newfn <- changeExtensionBakOrNew debug fn  -- not debug?
             -- let f3 = mdDocWrite f2 
-            let f3 = procMdTxt2 erl2 f0 -- process the header with it
+            let f3 = procTxt2 erl2 f0 -- process the header with it
             writeFile2 newfn f3
             when True $ putIOwords ["\n procMd1 ", showT fn, "german file umlaut changed with backup"]
             
@@ -88,22 +85,13 @@ procMd1 debug erl2 fn = do
     when debug $ putIOwords ["\n procMD1 ", showT fn, "file done with backup"]
     -- return ()
 
-procMdTxt2 :: [Text] ->  Text -> Text
--- change all umlaut in text - yaml header and markdown text
--- preserve leading blanks of line, or tabs, but not mixture of these
-procMdTxt2 erl2  = unlines' . map (procLine2 erl2) . lines' 
 
-procLine2 :: [Text] ->  Text -> Text
--- process one line preserving spaces or tabs (but not a mix) at start
-procLine2 erl2 t = concat' [ld,procLine erl2 t1]
-    where
-        (ld, t1) = case mb1 t of
-                Nothing -> case mb2 t of 
-                                Nothing -> ("", t)
-                                Just (lead2, _, t02) -> (lead2,t02)
-                Just (lead, _, t0) ->  (lead,t0)
-        mb1 tx = T.commonPrefixes "                  " tx
-        mb2 ty = T.commonPrefixes "\t\t\t\t\t\t\t" ty
+-- data Markdown = Markdown Text deriving (Show, Read, Eq, Ord)
+-- ^ just for marking md files
+-- mdFile :: TypedFile5 Text Markdown
+-- mdExtension :: Extension
+-- mdExtension = Extension "md" :: Extension
+
 
 
 -- procMdTxt2 :: [Text] ->  Text -> Text

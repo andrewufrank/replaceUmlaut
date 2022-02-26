@@ -53,3 +53,10 @@ changeExtensionBakOrNew debug fn = if debug
 instance TypedFiles7 Text [Text] where
   wrap7 t = words' t
   unwrap7 t = unwords' t
+
+readErlaubt :: Path Abs File -> ErrIO [Text]
+-- read the erlaubte words wtih ae, oe and ue
+readErlaubt fnErl = do
+  erl :: [Text] <- read8 fnErl textlinesFile -- reads lines
+  let erl2 = erl -- concat . map words' $ erl :: [Text]
+  return erl2

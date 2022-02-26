@@ -64,6 +64,15 @@ changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
   when debug $ putIOwords ["changeUmlautInPandoc end", take' 100 . showT $ rst2]
   return . wrap7 $ rst2
 
+
+
+umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
+umlautenStr erlaubt = PW.walk umlauten
+ where
+  umlauten :: P.Inline -> P.Inline
+  umlauten (P.Str w) = P.Str ( procWord2 erlaubt w)
+  umlauten x         = x
+
 -- use callPandoc
 -- pandocIOwrap :: (P.PandocIO MarkdownText) -> ErrIO MarkdownText
 -- -- ^ just a wrapper for operatiosn in the PandocIO monad
@@ -77,52 +86,4 @@ changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
 --     return rst1
 --   -- TIO.putStrLn rst
 --   return rst3
-
-umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
-umlautenStr erlaubt = PW.walk umlauten
- where
-  umlauten :: P.Inline -> P.Inline
-  umlauten (P.Str w) = P.Str ( procWord2 erlaubt w)
-  umlauten x         = x
-
--- procMd2 :: Bool -> Path Abs File -> Path Abs File -> ErrIO ()
--- -- ^ replace umlaut in a pandoc markdown file
--- -- unless it is an permitted group
--- -- in a file with extension txt
--- -- the original file is renamed to bak and the
--- -- corrected version written to the original filename
--- -- except when debug flag is set
--- -- then the new file is written to NEW
--- -- and the origianl file is not changed
--- procMd2 debug fnErl fn = do
---   erl2               <- readErlaubt fnErl
---   -- erl  <- read6 fnErl txtFile -- reads lines
---   -- let erl2 = concat . map words' $ erl :: [Text]
-
---   ls :: MarkdownText <- read8 fn markdownFileType
---   putIOwords ["procMd ls", showT ls, "fn", showT fn]
---   ls2 <- unPandocM (changeUmlautInPandoc True erl2 (ls))
-
---   if debug
---     then do
---       let fnnew = makeAbsFile (toFilePath fn <> "NEW")
---       putIOwords ["procMd result in new", showT fnnew]
---       write8 fnnew markdownFileType ls2
---       putIOwords ["procMd result in new written", showT ls2, "fn", showT fnnew]
---     else do
---       let fnrename = fn <.> bakExtension :: Path Abs File
---       renameOneFile (fn <.> extMD) fnrename
---       putIOwords ["procMd renamed to bak", showT fnrename]
-
---   -- let ls2      = map (procLine erlaubt) ls
-
---   write8 fn markdownFileType ls2
---   when debug $ putIOwords ["procMd done", showT ls2]
-
--- procLine :: [Text] -> Text -> Text
--- procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
--- process all words in a line
-
--- instance TypedFiles7 Text Markdown where
---   wrap7 t = Markdown t
---   unwrap7 (Markdown t) = t
+ 
