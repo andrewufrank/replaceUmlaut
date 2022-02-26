@@ -25,11 +25,12 @@ import           Test.Framework
 -- import           Lib.ProcWord                   ( erlaubt1 )
 -- import           Uniform.FileIO
 import UniformBase
-import Lib.ProcPandocDatei
+-- import Lib.ProcPandocDatei
 import           Uniform.Pandoc
 import           Lib.ProcWord
 import MdDocHandling
 import Lib.OneMDfile
+import Lib.FileHandling
 
 test_p1 :: IO ()  -- funktioniert nicht, weil kein filenmane uebergeben
 test_p1 = do

@@ -83,7 +83,11 @@ parseAndExecute t1 t2 = do
     let fnErl =
             makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
     erl2         <- readErlaubt fnErl
-    if isText2 then procTxt debug erl2 fn else procMd3 debug erl2 fn
+    if isText2 then procTxt debug erl2 fn else procMd1 debug erl2 fn
+
+    -- differences in md test for language and if nothing to do
+        -- no new file is written
+        
 --  where
 --   opts = info (helper <*> cmdArgs)
 --               (fullDesc <> (progDesc . t2s $ t1) <> (header . t2s $ t2))

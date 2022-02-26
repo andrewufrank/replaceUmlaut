@@ -31,21 +31,13 @@ newExtension = Extension "new" :: Extension
 -- mdFile = makeTyped extMD
 -- ^ filetype to read text in lines
 
-procMd3 :: Bool -> [Text]-> Path Abs File -> ErrIO ()
--- ^ replace umlaut in a pandoc markdown file
--- unless it is an permitted group
--- in a file with extension txt
--- the original file is renamed to bak and the
--- corrected version written to the original filename
--- except when debug flag is set
--- then the new file is written to NEW
--- and the origianl file is not changed
-procMd3 debug erl2 fn = do
---   erl2               <- readErlaubt fnErl
-  procMd1 debug erl2 fn 
+-- procMd3 :: Bool -> [Text]-> Path Abs File -> ErrIO ()
+-- procMd3 debug erl2 fn = do
+-- --   erl2               <- readErlaubt fnErl
+--   procMd1 debug erl2 fn 
 
---   ls :: MarkdownText <- read8 fn markdownFileType
-  putIOwords ["procMd3 done ",   "fn", showT fn]
+-- --   ls :: MarkdownText <- read8 fn markdownFileType
+--   putIOwords ["procMd3 done ",   "fn", showT fn]
 
 --   ls2 <- unPandocM (changeUmlautInPandoc True erl2 (ls))
 
@@ -65,19 +57,29 @@ procMd3 debug erl2 fn = do
 --   when debug $ putIOwords ["procMd done", showT ls2]
 
 procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
+-- ^ replace umlaut in a pandoc markdown file
+-- unless it is an permitted group
+-- in a file with extension txt
+-- the original file is renamed to bak and the
+-- corrected version written to the original filename
+-- except when debug flag is set
+-- then the new file is written to NEW
+-- and the origianl file is not changed
 -- debug true gives new file
 procMd1 debug erl2 fn = do
+    -- f1 <- read8 fn markdownFileType -- :: TypedFile5 Text MarkdownText
+
     f0l :: LazyByteString <- readFile2 fn
     let f0 = bl2t f0l
     when debug $ putIOwords ["\n procMD1 ", showT fn, "file to process"]
 
-    let f1 =   mdDocRead f0 :: MdDoc1
+    let f1 =   mdDocRead f0 :: MdDoc1   -- where is definition?
     let german = mdocIsGerman f1
     when german $  do 
             -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
             newfn <- changeExtensionBakOrNew debug fn  -- not debug?
             -- let f3 = mdDocWrite f2 
-            let f3 = procTxt2 erl2 f0 -- process the header with it
+            let f3 =  procTxt2 erl2   $ f0 -- process the header with it
             writeFile2 newfn f3
             when True $ putIOwords ["\n procMd1 ", showT fn, "german file umlaut changed with backup"]
             

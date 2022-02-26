@@ -25,6 +25,7 @@ import           Lib.ProcTxt
 -- import           Lib.ProcWord                   ( erlaubt1 )
 -- import           Uniform.FileIO
 import UniformBase
+import Lib.FileHandling
 
 -- test_1 = do
 --   r <- runErr $ do
@@ -42,7 +43,8 @@ test_2 = do
     cdir <- currentDir
     let fnabs    = cdir </> fn :: Path Abs File
     let fnerlabs = cdir </> fnerl :: Path Abs File
-    procTxt False fnerlabs fnabs
+    erl2 <- readErlaubt fnerlabs
+    procTxt False erl2 fnabs
   assertEqual (Right ()) r
 
 -- dictionary = "/home/frank/Workspace8/replaceUmlaut/de.dic"
@@ -59,5 +61,6 @@ test_3 = do
     let fnabs    = testfn :: Path Abs File
     let fnerl    = makeRelFile "nichtUmlaute" :: Path Rel File
     let fnerlabs = cdir </> fnerl :: Path Abs File
-    procTxt False fnerlabs fnabs
+    erl2 <- readErlaubt fnerlabs
+    procTxt False erl2 fnabs
   assertEqual (Right ()) r
