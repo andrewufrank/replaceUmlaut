@@ -34,7 +34,7 @@ bakExtension = Extension "bak" :: Extension
 changeExtensionBakOrNew :: Bool -> Path Abs File -> ErrIO (Path Abs File)
 -- ^ the given file is renamed as bak and the original filename returned
 -- or (in casse of debug) the filename is changed with addition of 
--- NEW appended to filename (not extension)
+-- NEW appended to filename (not extension), but cuts existing extension 
 changeExtensionBakOrNew debug fn = if debug
       then do
           putIOwords ["changeExtensionBakOrNew  fn", showT fn]
@@ -45,7 +45,7 @@ changeExtensionBakOrNew debug fn = if debug
           return fnnew
       else do
           let fnrename = fn <.> bakExtension :: Path Abs File
-          renameOneFile (fn <.> extMD) fnrename
+          renameOneFile (fn ) fnrename
           putIOwords ["changeExtensionBakOrNew", 
                         "procMd renamed to bak", showT fnrename]
           return fn
