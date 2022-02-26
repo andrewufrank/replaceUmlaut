@@ -1,0 +1,7 @@
+cradle:
+  cabal:
+    - path: "./src"
+      component: "lib:hie-bios"
+    - path: "./exe"
+      component: "exe:hie-bios"
+    # More components

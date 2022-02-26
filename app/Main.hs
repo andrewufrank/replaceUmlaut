@@ -22,6 +22,7 @@ import UniformBase
 -- import           Data.Semigroup                 ( (<>) )
 import           Lib.ProcTxt
 import           Lib.ProcPandocDatei
+import              Lib.OneMDfile
 
 programName, progTitle :: Text
 programName = "Replace umlaut in txt file " :: Text
@@ -80,7 +81,7 @@ parseAndExecute t1 t2 = do
   let debug   = False
   let erlFn =
         makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
-  if isText2 then procTxt debug erlFn fn else procMd2 debug erlFn fn
+  if isText2 then procTxt debug erlFn fn else procMd3 debug erlFn fn
 --  where
 --   opts = info (helper <*> cmdArgs)
 --               (fullDesc <> (progDesc . t2s $ t1) <> (header . t2s $ t2))

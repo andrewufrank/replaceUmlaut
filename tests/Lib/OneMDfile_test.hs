@@ -39,7 +39,7 @@ exampleText1 = unlines' [
 -- resultText1 = "abstract: Was hat einer in der Katastrophe erlebt, der weniger unter den Folgen zu\\n         leiden hatte, als andere? Wir haben meist ausserhalb von Wien am Land ohne wesentlichen\\n         Einschr\\228nkungen gelebt.\\n\""
 
 test_5 = assertEqual exampleText1 $ procMdTxt2 [] exampleText1
--- test_6 = assertEqual resultText1 $ showT  exampleText1
+-- test_6 = assertEqual "" $ showT  exampleText1
 test_7 = assertEqual ("        Einschr\228nkungen gelebt.\n    und\n") $ procMdTxt2 [] ("        Einschränkungen gelebt.\n    und"::Text)
 -- test_5 = do -- fn1 muss existieren
 --                 -- result fn1 renamed, new fn1 written 

@@ -3,6 +3,7 @@
 
 {- | ... Module change all umlaut in md files 
     processes all md files in the current directory
+    deals with yml header and the markdown text
 -}
 
 -- module MdReplaceUmlaut where
@@ -117,24 +118,6 @@ parseAndExecute t1 t2 = do
 
     when ( debug) $ putIOwords ["testAllMd", "end"]
 
-procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
-procMd1 debug erl2 fn = do
-    f0l :: LazyByteString <- readFile2 fn
-    let f0 = bl2t f0l
-    when debug $ putIOwords ["\n procMD1 ", showT fn, "file to process"]
 
-    let f1 =   mdDocRead f0 :: MdDoc1
-    let german = mdocIsGerman f1
-    when german $  do 
-            -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
-            newfn <- changeExtensionBakOrNew debug fn  -- not debug?
-            -- let f3 = mdDocWrite f2 
-            f3 <- procMdTxt2 erl2 f0 -- process the header with it
-            writeFile2 newfn f3
-            when True $ putIOwords ["\n procMD1 ", showT fn, "german file umlaut changed with backup"]
-            
-
-    when debug $ putIOwords ["\n procMD1 ", showT fn, "file done with backup"]
-    -- return ()
 
 

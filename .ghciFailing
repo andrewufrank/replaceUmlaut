@@ -1,4 +1,4 @@
 :set -fno-warn-missing-signatures
---:set -itests
+:set -itests
 :set -isrc
 -- :load test/Testing.hs
