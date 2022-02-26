@@ -1,6 +1,7 @@
 -----------------------------------------------------------------------------
 -- Module      :   Convert umlaut written as ae, oe or ue into ä, ö and ü
---              in a single word
+--              deals with lines, preserving the leading spaces and tabs.
+-- could be improved to use span to break on first non-space character
 -----------------------------------------------------------------------------
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
@@ -16,7 +17,28 @@ module Lib.ProcWord  -- (openMain, htf_thisModuelsTests)
 -- import           Uniform.FileIO
 import UniformBase
 import FileHandling
+import qualified Data.Text   as T
 
+
+
+procMdTxt2 :: [Text] ->  Text -> Text
+-- change all umlaut in text - yaml header and markdown text
+-- preserve leading blanks of line, or tabs, but not mixture of these
+procMdTxt2 erl2  = unlines' . map (procLine2 erl2) . lines' 
+
+
+procLine2 :: [Text] ->  Text -> Text
+-- process one line preserving spaces or tabs (but not a mix) at start
+-- improve to use span break on first non-space 
+procLine2 erl2 t = concat' [ld,procLine erl2 t1]
+    where
+        (ld, t1) = case mb1 t of
+                Nothing -> case mb2 t of 
+                                Nothing -> ("", t)
+                                Just (lead2, _, t02) -> (lead2,t02)
+                Just (lead, _, t0) ->  (lead,t0)
+        mb1 tx = T.commonPrefixes "                  " tx
+        mb2 ty = T.commonPrefixes "\t\t\t\t\t\t\t" ty
 
 procLine :: [Text] -> Text -> Text
 procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
