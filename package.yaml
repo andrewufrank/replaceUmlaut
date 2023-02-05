@@ -20,12 +20,14 @@ extra-source-files:
 
 dependencies:
 - base >= 4.7 && < 5
-- uniformBase ==0.1.4
-- completeMeta   # for the filehandling, split & move!
-- uniform-json
+- uniformBase  ==0.1.4.2
+# - completeMeta   # for the filehandling, split & move!
+# - uniform-json
+# - uniform-fileio
 - uniform-pandoc
 # - uniform-convenience
-- uniform-cmdLineArgs
+# - uniform-markdown 
+# - uniform-cmdLineArgs
 - pandoc
 - pandoc-types
 - optparse-applicative
