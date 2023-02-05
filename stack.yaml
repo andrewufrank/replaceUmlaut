@@ -2,19 +2,23 @@ flags: {}
 extra-package-dbs: []
 packages:
 - '.'
-- ../uniform/uniform-strings
-- ../uniform/uniform-algebras
-- ../uniform/uniform-convenience
-- ../uniform/uniform-error
-- ../uniform/uniform-time
-- ../uniform/uniform-fileio
-- ../uniform/uniform-http
-- ../uniform/uniform-json
-- ../uniform/uniform-pandoc
+- ../uBase/uniformBase
+- ../uBase/uniform-strings
+- ../uBase/uniform-algebras
+# - ../uBase/uniform-convenience
+- ../uBase/uniform-error
+- ../uBase/uniform-time
+- ../uBase/uniform-fileio
+- ../u4blog/uniform-http
+- ../u4blog/uniform-json
+- ../u4blog/uniform-pandoc
 - ../fromOthersInstalled/bibtex  # has a fix compared to hackage, see cabal
 
 extra-deps:
 - test-invariant-0.4.5.0
+- aop-prelude-0.4.1.1
+# @sha256:87f541964bb8c0e042125955bf1580020a664e62ab101b0a1068b8f278c2e001,1207
+- dir-traverse-0.2.3.0
+# @sha256:adcc128f201ff95131b15ffe41365dc99c50dc3fa3a910f021521dc734013bfa,2137
 
-
-resolver: lts-13.19
+resolver: lts-19.20
