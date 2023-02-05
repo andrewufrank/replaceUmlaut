@@ -11,7 +11,7 @@ module  Main (main)  where
 
 import Uniform.CmdLineArgs
 import UniformBase
-import Uniform.Json
+-- import Uniform.Json
 -- import UniformBase
 -- import Uniform.Convenience.StartApp
 import System.Directory.Recursive

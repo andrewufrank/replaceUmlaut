@@ -16,7 +16,7 @@
 -- module ReplaceUmlaut where      -- must have Main (main) or Main where
 module  Main (main)  where
 
--- import           Uniform.Convenie.StartApp
+-- import           Uniform.Convenience.StartApp
 import Uniform.CmdLineArgs
 import UniformBase
 -- import           Data.Semigroup                 ( (<>) )

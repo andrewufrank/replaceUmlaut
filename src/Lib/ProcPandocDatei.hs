@@ -1,0 +1,103 @@
+
+-----------------------------------------------------------------------------
+-- Module      :   Convert umlaut written as ae, oe or ue into ä, ö and ü
+--              in a txt file
+-----------------------------------------------------------------------------
+{-# LANGUAGE FlexibleContexts      #-}
+{-# LANGUAGE FlexibleInstances     #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE ScopedTypeVariables   #-}
+{-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE TypeSynonymInstances  #-}
+{-# LANGUAGE OverloadedStrings     #-}
+
+module Lib.ProcPandocDatei  -- (openMain, htf_thisModuelsTests)
+                           where
+                        
+import UniformBase
+-- import           Uniform.FileIO
+import           Lib.ProcWord
+import Lib.FileHandling
+
+-- -- for pandoc testing
+import           Uniform.Pandoc
+
+import qualified Text.Pandoc                   as P
+import qualified Text.Pandoc.Walk              as PW
+import Uniform.Markdown 
+ 
+procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
+-- ^ replace umlaut in a pandoc markdown file
+-- unless it is an permitted group
+-- in a file with extension txt
+-- the original file is renamed to bak and the
+-- corrected version written to the original filename
+-- except when debug flag is set
+-- then the new file is written to NEW
+-- and the origianl file is not changed
+procMd1 debug erl2 fn = do
+    -- erl2               <- readErlaubt fnErl
+    -- erl  <- read6 fnErl txtFile -- reads lines
+    -- let erl2 = concat . map words' $ erl :: [Text]
+
+    ls :: MarkdownText <- read8 fn markdownFileType
+    putIOwords ["procMd ls", showT ls, "fn", showT fn]
+    ls2 <- unPandocM (changeUmlautInPandoc True erl2 (ls))
+    fn2 <- changeExtensionBakOrNew debug fn
+    write8 fn2 markdownFileType ls2
+    when debug $ putIOwords ["procMd written to fn2", showT fn2, showT ls2]
+    when debug $ putIOwords ["procMd done", showT ls2]
+
+changeUmlautInPandoc
+  :: Bool -> [Text] -> MarkdownText -> P.PandocIO MarkdownText
+-- ^ changes the umlaut written as ae, oe und ue to umlaut
+-- except if the words are included in the erlaubt list
+changeUmlautInPandoc debug erlaubt dat = do  -- inside is the error handling
+    when debug $ putIOwords ["changeUmlautInPandoc", take' 100 . showT $ dat]
+        -- preparation 
+    let readOptions = P.def{P.readerStandalone = True  
+                                ,  P.readerExtensions = P.extensionsFromList 
+                                        [P.Ext_yaml_metadata_block ] 
+-- fehlt footnote, refs 
+                                }               
+    t1 :: String <- liftIO $ readFile "/home/frank/Workspace8/replaceUmlaut/temp.tpl"
+    t2 :: Either String (P.Template Text) <- liftIO $ P.compileTemplate (mempty) (s2t t1) 
+    t3 :: P.Template Text <- case t2 of
+                    Left str -> do 
+                                    putIOwords ["error in compile template", s2t str]
+                                    return (mempty :: P.Template Text) 
+                    Right t -> return (t :: P.Template Text) 
+    let writeOptions =  P.def {P.writerSetextHeaders = False
+                                , P.writerExtensions = P.extensionsFromList 
+                                        [P.Ext_yaml_metadata_block] 
+                                ,  P.writerTemplate = Just t3                                                 
+ -- fehlt footnote, refs 
+                               }          
+        
+    doc  <- P.readMarkdown readOptions  (unwrap7 dat :: Text) 
+    when debug $ putIOwords ["changeUmlautInPandoc", take' 1000 . showT $ doc]
+       
+    -- here the processing
+    let doc2 = umlautenStr erlaubt doc
+    when debug $ putIOwords ["changeUmlautInPandoc doc == doc2", showT (doc==doc2)]
+    when debug $ putIOwords ["changeUmlautInPandoc doc2", take' 1000 . showT $ doc2]
+    rst2 <- P.writeMarkdown writeOptions
+                            doc2
+    when debug $ putIOwords ["changeUmlautInPandoc end", take' 1000 . showT $ rst2]  -- shows the space
+    return . wrap7 $ rst2
+
+
+
+umlautenStr :: [Text] -> P.Pandoc -> P.Pandoc
+-- ^ visit all strings and change the umlaut if present
+umlautenStr erlaubt = PW.walk umlauten
+    where
+        umlauten :: P.Inline -> P.Inline
+        umlauten (P.Str w) = P.Str (  procWord2 erlaubt   $ w)
+        umlauten x         = x
+
+
+
+procLine :: [Text] -> Text -> Text
+procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
+-- ^ process all words in a line
