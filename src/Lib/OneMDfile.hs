@@ -16,7 +16,7 @@ import UniformBase
 import           Lib.ProcWord
 import           Lib.FileHandling     
 -- import Lib.ProcPandocDatei
-import MdDocHandling
+-- import Lib.MdDocHandling
 
 -- for pandoc testing
 import           Uniform.Pandoc
@@ -67,19 +67,20 @@ procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 -- and the origianl file is not changed
 -- debug true gives new file
 procMd1 debug erl2 fn = do
-    -- f1 <- read8 fn markdownFileType -- :: TypedFile5 Text MarkdownText
+    f1 <- read8 fn markdownFileType -- :: TypedFile5 Text MarkdownText
+    let f0 = unMT f1
+    -- f0l :: LazyByteString <- readFile2 fn
+    -- let f0 = bl2t f0l
+    -- when debug $ putIOwords ["\n procMD1 ", showT fn, "file to process"]
 
-    f0l :: LazyByteString <- readFile2 fn
-    let f0 = bl2t f0l
-    when debug $ putIOwords ["\n procMD1 ", showT fn, "file to process"]
-
-    let f1 =   mdDocRead f0 :: MdDoc1   -- where is definition?
-    let german = mdocIsGerman f1
+    -- let f1 =   mdDocRead f0 :: MdDoc1   -- where is definition?
+    -- let german = mdocIsGerman f1
+    let german = True  -- to avoid pandoc processing
     when german $  do 
             -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
             newfn <- changeExtensionBakOrNew debug fn  -- not debug?
             -- let f3 = mdDocWrite f2 
-            let f3 =  procTxt2 erl2   $ f0 -- process the header with it
+            let f3 =  procTxt2 erl2   f0 -- process the header with it
             writeFile2 newfn f3
             when True $ putIOwords ["\n procMd1 ", showT fn, "german file umlaut changed with backup"]
             
