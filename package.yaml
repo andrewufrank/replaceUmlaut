@@ -6,12 +6,13 @@ maintainer:   Andrew U. Frank <andrewufrank@gmail.com>
 author:       Andrew Frank
 copyright:    2021 Andrew U. Frank
 category:     Text
-synopsis:     converting to properly encoded german umlauts
+synopsis:     converting text to properly encoded german umlauts
 description: | 
   converts the convenient ae, oe and ue replacements for german 
   umlauts into their proper UTF-8 encoded umlauts - 
   respecting cases where the ae, oe and ue must remain
-  based on a extensible list
+  based on a extensible list.
+  version to restore with ghc 9.0.2
 
 
 extra-source-files:
@@ -20,7 +21,7 @@ extra-source-files:
 
 dependencies:
 - base >= 4.7 && < 5
-- uniformBase ==0.1.4
+- uniformBase ==0.1.4.2
 - completeMeta   # for the filehandling, split & move!
 - uniform-json
 - uniform-pandoc
