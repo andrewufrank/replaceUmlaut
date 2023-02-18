@@ -31,9 +31,13 @@ procTxt debug erl2 fn = do
 
     ls :: [Text] <- read8 fn textlinesFile
 
+    when debug $ putIOwords ["procTxt ls", showT ls]
     let ls2 = map (procTxt2 erl2) ls
-    let res = zero -- not needed, just to be parallel with pandoc
+    when debug $ putIOwords ["procTxt ls2", showT ls2]
+    let ls3 = unwrap7 ls2 :: Text
+    when debug $ putIOwords ["procTxt unwrap7 . ls3", showT ls3]
 
+    let res = ls2
     newfn <- changeExtensionBakOrNew debug fn
     write8 newfn textlinesFile res 
 
