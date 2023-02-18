@@ -73,8 +73,8 @@ procMd1 debug erl2 fn = do
     let f0 = bl2t f0l
     when debug $ putIOwords ["\n procMD1 ", showT fn, "file to process"]
 
-    let f1 =   mdDocRead f0 :: MdDoc1   -- where is definition?
-    let german = mdocIsGerman f1
+    let f1 =   mdDocRead f0 :: MdDoc1   -- definition in MdDocHandling
+    let german = True -- mdocIsGerman f1  -- check requires pandoc?
     when german $  do 
             -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
             newfn <- changeExtensionBakOrNew debug fn  -- not debug?

@@ -51,7 +51,9 @@ main = do
 
 
 --- cmd line parsing
-data LitArgs = LitArgs { isTxt   :: Bool   -- ^ is this a txt file
+data LitArgs = LitArgs 
+    { isTxt   :: Bool   -- ^ is this a txt file
+    , isDebug :: Bool   -- ^ switch to debug mode (unchanged file, NEW extension)
       , argfile  :: String -- ^ the filename absolute
       } deriving (Show)
 
@@ -59,9 +61,12 @@ cmdArgs :: Parser (LitArgs)
 cmdArgs =
   LitArgs
     <$> switch
-          (long "txt" <> short 't' <> help
-            "true if this is a txt file, txt or md extension is recognized"
+          (long "text" <> short 't' <> help
+            "true if this is a text file (txt or md extension are recognized)"
           )
+    <*> switch 
+            (long "debug" <> short 'd' <> help 
+              "use debug mode; original file is unchange, new file with NEW extension attached")
     <*> argument str
                  (
       --   long "filename" <>
