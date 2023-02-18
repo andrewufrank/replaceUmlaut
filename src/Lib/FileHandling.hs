@@ -50,9 +50,9 @@ changeExtensionBakOrNew debug fn = if debug
                         "procMd renamed to bak", showT fnrename]
           return fn
 
-instance TypedFiles7 Text [Text] where  -- creates sequence of words (not lines)
-  wrap7 t = lines' t -- words' t
-  unwrap7 t = unlines' t -- unwords' t
+instance TypedFiles7 Text [Text] where  -- creates sequence of lines
+  wrap7 t = lines' t  
+  unwrap7 t = unlines' t 
 
 readErlaubt :: Path Abs File -> ErrIO [Text]
 -- read the erlaubte words wtih ae, oe and ue

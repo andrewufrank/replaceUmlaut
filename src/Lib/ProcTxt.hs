@@ -29,10 +29,10 @@ procTxt debug erl2 fn = do
     -- erl  <- read6 fnErl txtFile -- reads lines
     -- let erlaubt = concat . map words' $ erl :: [Text]
 
-    ls :: [Text] <- read8 fn textlinesFile
+    ls :: [Text] <- read8 fn textlinesFile  -- split in lines
 
     when debug $ putIOwords ["procTxt ls", showT ls]
-    let ls2 = map (procTxt2 erl2) ls
+    let ls2 = map (procLine2 erl2) ls
     when debug $ putIOwords ["procTxt ls2", showT ls2]
     let ls3 = unwrap7 ls2 :: Text
     when debug $ putIOwords ["procTxt unwrap7 . ls3", showT ls3]
