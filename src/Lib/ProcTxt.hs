@@ -18,7 +18,7 @@ module Lib.ProcTxt  -- (openMain, htf_thisModuelsTests)
 -- import Uniform.Error
 import           Lib.ProcWord
 import UniformBase
-import FileHandling
+import Lib.FileHandling
 
 procTxt :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut unless it is an permitted group

@@ -16,7 +16,7 @@ module Lib.ProcWord  -- (openMain, htf_thisModuelsTests)
 -- import           Uniform.Strings
 -- import           Uniform.FileIO
 import UniformBase
-import FileHandling
+import Lib.FileHandling
 import qualified Data.Text   as T
 
 

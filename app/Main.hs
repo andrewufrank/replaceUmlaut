@@ -83,8 +83,8 @@ parseAndExecute t1 t2 = do
     let isText  = isTxt args :: Bool
 
     let ext     = getExtension fn
-    let isText2 = isText || ext == (Extension "txt")
-    let debug   = False
+    let isText2 = isText || ext == (Extension "txt") || ext == (Extension "md")
+    let debug   = isDebug args :: Bool
     let fnErl =
             makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
     erl2         <- readErlaubt fnErl

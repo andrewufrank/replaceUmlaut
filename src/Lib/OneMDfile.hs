@@ -67,7 +67,6 @@ procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 -- and the origianl file is not changed
 -- debug true gives new file
 procMd1 debug erl2 fn = do
-    -- f1 <- read8 fn markdownFileType -- :: TypedFile5 Text MarkdownText
 
     f0l :: LazyByteString <- readFile2 fn
     let f0 = bl2t f0l
