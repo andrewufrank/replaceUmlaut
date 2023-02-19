@@ -22,13 +22,12 @@ import UniformBase
 import Lib.FileHandling
 
 procDirMD :: Bool -> [Text] -> Path Abs Dir -> ErrIO ()
--- ^ replace umlaut unless it is an permitted group
--- in a file with extension txt
+-- ^ replace umlaut in all md files in directory (recursively!)
 procDirMD debug erl2 dir = do  
     when debug $ putIOwords ["procDirMD start", showT dir]
     -- pipedDoIOwithFilter :: Path Abs File -> Path Abs Dir -> Extension -> (Path Abs File -> ErrIO String) -> ErrIO ()
     curr <- currentDir
-    let msgFile = curr </> makeRelFile "msg4procDir"
+    let msgFile = curr </> makeRelFile "msg4procDir.txt"
     pipedDoIOwithFilter msgFile dir (Extension "md") (procTxt0 debug erl2)
 
     msg2 <- read8 msgFile textlinesFile
