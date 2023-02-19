@@ -65,3 +65,13 @@ readErlaubt fnErl = do
   erl :: [Text] <- read8 fnErl textlinesFile -- reads lines
   let erl2 =  concat . map words' $ erl :: [Text]
   return erl2
+
+writeWithBak :: Bool -> Path Abs File -> TypedFile5 Text [Text]-> [Text] -> ErrIO () 
+-- ^ write the text into a file; use path given after renaming the file to bak
+--      if debug then write the text into a new file
+writeWithBak debug fn textLineType res = 
+    if debug 
+        then write8 fn textlinesNewFile res
+        else do 
+            renameToBak8 fn textLineType 
+            write8 fn textLineType res     

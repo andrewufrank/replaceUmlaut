@@ -26,8 +26,8 @@ import qualified Text.Pandoc.Walk              as PW
 import qualified Data.Text   as T
 
 
-newExtension :: Extension
-newExtension = Extension "new" :: Extension
+-- newExtension :: Extension
+-- newExtension = Extension "new" :: Extension
 -- mdFile = makeTyped extMD
 -- ^ filetype to read text in lines
 
@@ -67,20 +67,21 @@ procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 -- and the origianl file is not changed
 -- debug true gives new file
 procMd1 debug erl2 fn = do
-
-    f0l :: LazyByteString <- readFile2 fn
-    let f0 = bl2t f0l
     when debug $ putIOwords ["\n procMD1 ", showT fn, "file to process"]
 
-    let f1 =   mdDocRead f0 :: MdDoc1   -- definition in MdDocHandling
-    let german = True -- mdocIsGerman f1  -- check requires pandoc?
-    -- when german $  do 
-    --         -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
-    --         newfn <- changeExtensionBakOrNew debug fn  -- not debug?
-    --         -- let f3 = mdDocWrite f2 
-    --         let f3 =  procTxt2 erl2   $ f0 -- process the header with it
-    --         writeFile2 newfn f3
-    --         when True $ putIOwords ["\n procMd1 ", showT fn, "german file umlaut changed with backup"]
+    -- f0l :: LazyByteString <- readFile2 fn
+    -- let f0 = bl2t f0l       -- why read lazyByteString?
+    f0 <- read8 fn mdFile 
+    let f1 =   mdDocRead . unlines' $ f0 :: MdDoc1   -- definition in MdDocHandling
+    let german = mdocIsGerman f1  -- check requires pandoc?
+
+    when german $  do 
+            -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
+            -- newfn <- changeExtensionBakOrNew debug fn  -- not debug?
+            -- let f3 = mdDocWrite f2 
+            let f3 =  map (procLine2 erl2)  f0 -- process the full file
+            writeWithBak debug fn mdFile f3
+            when True $ putIOwords ["\n procMd1 ", showT fn, "german file umlaut changed with backup"]
             
 
     when debug $ putIOwords ["\n procMD1 ", showT fn, "file done with backup"]

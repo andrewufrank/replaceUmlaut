@@ -21,10 +21,10 @@ import qualified Data.Text   as T
 
 
 
-procTxt2 :: [Text] ->  Text -> Text  -- called from OneMDfile, not from ProcTxt
--- change all umlaut in text - yaml header and markdown text
--- preserve leading blanks of line, or tabs, but not mixture of these
-procTxt2 erl2  = unlines' . map (procLine2 erl2) . lines' 
+-- procTxt2 :: [Text] ->  Text -> Text  -- called from OneMDfile, not from ProcTxt
+-- -- change all umlaut in text - yaml header and markdown text
+-- -- preserve leading blanks of line, or tabs, but not mixture of these
+-- procTxt2 erl2  = unlines' . map (procLine2 erl2) . lines' 
 
 
 procLine2 :: [Text] ->  Text -> Text

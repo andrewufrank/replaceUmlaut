@@ -37,7 +37,7 @@ main = do
         (unwords' [programName, progTitle])
         (parseAndExecute
             (unlinesT
-                [ "converts in the file given"
+                [ "converts the md files in the directory given"
                 , "the umlaut written as ae, oe and ue"
                 , "to regular umlaut. "
                 , "execpt when in file nichtUmlaute"
@@ -79,11 +79,14 @@ cmdArgs =
 parseAndExecute :: Text -> Text -> ErrIO ()
 parseAndExecute t1 t2 = do
     args <- callIO $ execParser (opts2 cmdArgs t1 t2 )
+    putIOwords ["parseAndExecute LitArgs", showT args]
+
+    let debug = messageFlag args
+    
     let erlFn =
             makeAbsFile "/home/frank/Workspace11/replaceUmlaut/nichtUmlaute.txt"
     erl2         <- readErlaubt erlFn
 
-    let debug = messageFlag args
 
     currDir :: Path Abs Dir <- currentDir
 

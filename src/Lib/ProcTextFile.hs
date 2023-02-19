@@ -43,9 +43,10 @@ procTextFile debug erl2 fn = do
     -- when debug $ putIOwords ["procTxt unwrap7 . ls3", showT ls3]
 
     let res = ls2
-    if debug 
-        then write8 fn textlinesNewFile res
-        else do 
-            renameToBak8 fn textLineType 
-            write8 fn textLineType res 
+    writeWithBak debug fn textLineType res 
+    -- if debug 
+    --     then write8 fn textlinesNewFile res
+    --     else do 
+    --         renameToBak8 fn textLineType 
+    --         write8 fn textLineType res 
 

@@ -3,6 +3,8 @@
 -- Module      : the main for calling replaceUmlaut functions
 --    applied to specific files
 --    with a switch for the txt and the filename
+--    and recursively processing all md files 
+--    but not dealing with the yml header language switch
 -----------------------------------------------------------------------------
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
