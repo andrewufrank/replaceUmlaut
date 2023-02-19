@@ -50,18 +50,18 @@ main = do
 
 
 --- cmd line parsing
-data LitArgs = LitArgs { useTestData   :: Bool   -- ^ use test data
-      , messageFlag :: Bool -- ^ produce test output
-      , argdir  :: String -- ^ the dirname absolute
-      } deriving (Show)
+data LitArgs = LitArgs 
+    {isDebug :: Bool   -- ^ switch to debug mode (unchanged file, NEW 
+    , useTestData   :: Bool   -- ^ use test data
+    , argdir  :: String -- ^ the dirname absolute
+    } deriving (Show)
 
 cmdArgs :: Parser (LitArgs)
 cmdArgs =
   LitArgs
-    <$> switch
-          (long "test" <> short 't' <> help
-            "test - uses md files in  ../ssg/docs/site/dough"
-          )
+    <$> switch 
+            (long "debug" <> short 'd' <> help 
+              "use debug mode; original file is unchange, new file with NEW extension attached")
     <*> switch
             (long "messages" <> short 'm' <> 
             help "include more output messages about processing"
@@ -81,8 +81,8 @@ parseAndExecute t1 t2 = do
     args <- callIO $ execParser (opts2 cmdArgs t1 t2 )
     putIOwords ["parseAndExecute LitArgs", showT args]
 
-    let debug = messageFlag args
-    
+    let debug = isDebug args
+
     let erlFn =
             makeAbsFile "/home/frank/Workspace11/replaceUmlaut/nichtUmlaute.txt"
     erl2         <- readErlaubt erlFn

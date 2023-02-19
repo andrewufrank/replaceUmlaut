@@ -73,16 +73,19 @@ procMd1 debug erl2 fn = do
     -- let f0 = bl2t f0l       -- why read lazyByteString?
     f0 <- read8 fn mdFile 
     let f1 =   mdDocRead . unlines' $ f0 :: MdDoc1   -- definition in MdDocHandling
+    when debug $ putIOwords ["procMD1 yamlHeader", showT . yamlHeader1 $ f1]
     let german = mdocIsGerman f1  -- check requires pandoc?
 
-    when german $  do 
+    if german then  do 
             -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
             -- newfn <- changeExtensionBakOrNew debug fn  -- not debug?
             -- let f3 = mdDocWrite f2 
             let f3 =  map (procLine2 erl2)  f0 -- process the full file
             writeWithBak debug fn mdFile f3
             when True $ putIOwords ["\n procMd1 ", showT fn, "german file umlaut changed with backup"]
-            
+        else
+            when True $ putIOwords ["\n procMd1 ", showT fn, "not german file"]
+           
 
     when debug $ putIOwords ["\n procMD1 ", showT fn, "file done with backup"]
     -- return ()
