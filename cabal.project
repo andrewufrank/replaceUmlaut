@@ -4,8 +4,8 @@ packages:
     ../uBase/uniform-algebras/*.cabal
    ../uBase/uniform-strings/*.cabal
    ../uBase/uniform-error/*.cabal
---      ../../uBase/uniform-time/*.cabal
---    ../uBase/uniform-fileio/*.cabal
+   ../uBase/uniform-time/*.cabal
+   ../uBase/uniform-fileio/*.cabal
     ../completeMeta/*.cabal
     ../u4blog/uniform-json/*.cabal
     ../u4blog/uniform-pandoc/*.cabal

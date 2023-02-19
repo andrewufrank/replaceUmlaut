@@ -19,27 +19,43 @@ module Lib.ProcTxt  -- (openMain, htf_thisModuelsTests)
 import           Lib.ProcWord
 import UniformBase
 import Lib.FileHandling
+import Uniform.Pandoc (extMD)
 
 procTxt :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut unless it is an permitted group
--- in a file with extension txt
+-- in a file with extension txt (only!)
 procTxt debug erl2 fn = do
     when debug $ putIOwords ["procTxt start", showT fn]
+    let fnExtension = getExtension fn :: Extension
+    
     -- erl2         <- readErlaubt fnErl
     -- erl  <- read6 fnErl txtFile -- reads lines
     -- let erlaubt = concat . map words' $ erl :: [Text]
+    -- (fnext, fnbak, fnnew) <- changeExtensionBakOrNew debug fn
 
-    ls :: [Text] <- read8 fn textlinesFile  -- split in lines
+    if fnExtension == txtExtension 
+        then do 
+    --     then do
+            ls :: [Text] <- read8 fn textlinesFile  -- split in lines
+        --         return ls
+        -- else do 
+        --         ls  <- read8 fn mdFile
+        --         return ls
 
-    when debug $ putIOwords ["procTxt ls", showT ls]
-    let ls2 = map (procLine2 erl2) ls
-    when debug $ putIOwords ["procTxt ls2", showT ls2]
-    let ls3 = unwrap7 ls2 :: Text
-    when debug $ putIOwords ["procTxt unwrap7 . ls3", showT ls3]
+            when debug $ putIOwords ["procTxt ls", showT ls]
+            let ls2 = map (procLine2 erl2) ls
+            when debug $ putIOwords ["procTxt ls2", showT ls2]
+            let ls3 = unwrap7 ls2 :: Text
+            when debug $ putIOwords ["procTxt unwrap7 . ls3", showT ls3]
 
-    let res = ls2
-    newfn <- changeExtensionBakOrNew debug fn
-    write8 newfn textlinesFile res 
+            let res = ls2
+            if debug 
+                then write8 fn textlinesNewFile res
+                else do 
+
+                    renameToBak8 fn textlinesFile 
+                    write8 fn textlinesFile res 
+        else putIOwords ["ERROR: not txt file - nothing done!"]
 
     -- rest is copied
     -- if debug
