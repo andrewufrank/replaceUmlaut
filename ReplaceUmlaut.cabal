@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3f3af15141aa7857c00b79501d1d5566ff03dc4f701348e6157ddebf398705d5
+-- hash: 38e56531f628318c0c991e126552a4cb099a3b0dca8b152b25cc79c572be9107
 
 name:           ReplaceUmlaut
 version:        0.0.1.2
@@ -30,7 +30,7 @@ library
       Lib.FileHandling
       Lib.OneMDfile
       Lib.ProcDirMD
-      Lib.ProcTxt
+      Lib.ProcTextFile
       Lib.ProcWord
   other-modules:
       Paths_ReplaceUmlaut

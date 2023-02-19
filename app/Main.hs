@@ -20,7 +20,7 @@ module  Main (main)  where
 import Uniform.CmdLineArgs
 import UniformBase
 -- import           Data.Semigroup                 ( (<>) )
-import           Lib.ProcTxt
+import           Lib.ProcTextFile
 import           Lib.ProcDirMD
 -- import           Lib.ProcPandocDatei
 import              Lib.OneMDfile
@@ -53,8 +53,7 @@ main = do
 
 --- cmd line parsing
 data LitArgs = LitArgs 
-    { isTxt   :: Bool   -- ^ is this a txt file
-    , isDebug :: Bool   -- ^ switch to debug mode (unchanged file, NEW extension)
+    { isDebug :: Bool   -- ^ switch to debug mode (unchanged file, NEW extension)
     , isAllMD :: Bool   -- ^ collect all md files in directory
       , argfile  :: String -- ^ the filename absolute
       } deriving (Show)
@@ -62,11 +61,7 @@ data LitArgs = LitArgs
 cmdArgs :: Parser (LitArgs)
 cmdArgs =
   LitArgs
-    <$> switch
-          (long "text" <> short 't' <> help
-            "true if this is a text file (txt or md extension are recognized)"
-          )
-    <*> switch 
+    <$> switch 
             (long "debug" <> short 'd' <> help 
               "use debug mode; original file is unchange, new file with NEW extension attached")
     <*> switch 
@@ -84,7 +79,7 @@ parseAndExecute t1 t2 = do
     curr <- currentDir
     -- let dir0 = makeAbsDir "/home/frank/additionalSpace/DataBig/LitOriginals"
     let fn2     = argfile args :: FilePath
-    let isText  = isTxt args :: Bool
+    -- let isText  = isTxt args :: Bool
     let debug   = isDebug args :: Bool
     let allMD   = isAllMD args :: Bool
 
@@ -98,13 +93,15 @@ parseAndExecute t1 t2 = do
             procDirMD debug erl2 dir
         else do
             let fn = curr </> makeRelFile fn2 :: Path Abs File
-            let ext     = getExtension fn
-            let isText2 = isText || ext == (Extension "txt") || ext == (Extension "md")
-            if isText2 
-                then 
-                        procTxt debug erl2 fn 
-                else 
-                        procMd1 debug erl2 fn
+            procTextFile debug erl2 fn 
+
+            -- let ext     = getExtension fn
+            -- let isText2 = isText || ext == (Extension "txt") || ext == (Extension "md")
+            -- if isText2 
+            --     then 
+                        
+            --     else 
+            --             procMd1 debug erl2 fn
 
 
 

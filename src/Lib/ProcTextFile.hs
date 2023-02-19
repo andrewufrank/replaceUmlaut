@@ -10,7 +10,7 @@
 {-# LANGUAGE TypeSynonymInstances  #-}
 {-# LANGUAGE OverloadedStrings     #-}
 
-module Lib.ProcTxt  -- (openMain, htf_thisModuelsTests)
+module Lib.ProcTextFile  -- (openMain, htf_thisModuelsTests)
                    where
 -- import Uniform.Strings
 -- import Uniform.TypedFile
@@ -21,10 +21,10 @@ import UniformBase
 import Lib.FileHandling
 import Uniform.Pandoc (extMD)
 
-procTxt :: Bool -> [Text] -> Path Abs File -> ErrIO ()
+procTextFile :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut unless it is an permitted group
 -- in a file with extension txt or md (only!)
-procTxt debug erl2 fn = do
+procTextFile debug erl2 fn = do
     when debug $ putIOwords ["procTxt start", showT fn]
     let fnExtension = getExtension fn :: Extension
     

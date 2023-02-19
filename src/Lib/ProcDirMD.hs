@@ -16,7 +16,7 @@ module Lib.ProcDirMD -- (openMain, htf_thisModuelsTests)
 -- import Uniform.TypedFile
 -- import           Uniform.FileIO
 -- import Uniform.Error
-import           Lib.ProcTxt
+import           Lib.ProcTextFile
 import Lib.ProcWord
 import UniformBase
 import Lib.FileHandling
@@ -38,6 +38,6 @@ procDirMD debug erl2 dir = do
 procTxt0 :: Bool -> [Text] -> Path Abs File -> ErrIO String 
 procTxt0 debug erl2 fn = do 
     when debug $ putIOwords ["procTxt0 start", showT fn]
-    procTxt debug erl2 fn 
+    procTextFile debug erl2 fn 
     when debug $ putIOwords ["procTxt0 end", showT fn]
     return . show $ fn
