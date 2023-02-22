@@ -4,10 +4,10 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8a024770552b316a4e714ad300713aac4cbcc83cefa67a0e36ef937ad36f0b74
+-- hash: be4e387c71dc03e598d152d8a57f4694079863b90fc8c8bd0289819f6340a57d
 
 name:           ReplaceUmlaut
-version:        0.0.1.2
+version:        0.1.5.1
 synopsis:       converting text to properly encoded german umlauts
 description:    converts the convenient ae, oe and ue replacements for german 
                 umlauts into their proper UTF-8 encoded umlauts - 
@@ -45,9 +45,9 @@ library
     , pandoc-types
     , text
     , uniform-cmdLineArgs
-    , uniform-json >=0.0.6.1
+    , uniform-json >=0.1.5
     , uniform-pandoc
-    , uniformBase >=0.1.4.3
+    , uniformBase >=0.1.5
   default-language: Haskell2010
 
 executable mdReplaceUmlaut
@@ -67,9 +67,9 @@ executable mdReplaceUmlaut
     , pandoc-types
     , text
     , uniform-cmdLineArgs
-    , uniform-json >=0.0.6.1
+    , uniform-json >=0.1.5
     , uniform-pandoc
-    , uniformBase >=0.1.4.3
+    , uniformBase >=0.1.5
   default-language: Haskell2010
 
 executable replaceUmlaut
@@ -89,7 +89,7 @@ executable replaceUmlaut
     , pandoc-types
     , text
     , uniform-cmdLineArgs
-    , uniform-json >=0.0.6.1
+    , uniform-json >=0.1.5
     , uniform-pandoc
-    , uniformBase >=0.1.4.3
+    , uniformBase >=0.1.5
   default-language: Haskell2010

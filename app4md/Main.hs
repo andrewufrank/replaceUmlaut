@@ -63,14 +63,13 @@ cmdArgs =
             (long "debug" <> short 'd' <> help 
               "use debug mode; original file is unchange, new file with NEW extension attached")
     <*> switch
-            (long "messages" <> short 'm' <> 
-            help "include more output messages about processing"
-            -- value False is default 
-            )
+          (long "test" <> short 't' <> help
+            "test - uses md files in  ../ssg/docs/site/dough"
+          )
     <*> strOption  
                  (
-                    long "dirname" <>
-                    short 'd' <>
+                    long "location(dirname)" <>
+                    short 'l' <>
                     metavar "directory (abs. path)" <>
                     value "currDir"
                 )

@@ -84,7 +84,7 @@ procMd1 debug erl2 fn = do
             writeWithBak debug fn mdFile f3
             when True $ putIOwords ["\n procMd1 ", showT fn, "german file umlaut changed with backup"]
         else
-            when True $ putIOwords ["\n procMd1 ", showT fn, "not german file"]
+            when debug $ putIOwords ["\n procMd1 ", showT fn, "not german file"]
            
 
     when debug $ putIOwords ["\n procMD1 ", showT fn, "file done with backup"]

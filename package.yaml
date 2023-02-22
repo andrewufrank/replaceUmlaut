@@ -1,5 +1,5 @@
 name:         ReplaceUmlaut
-version:      0.0.1.2
+version:      0.1.5.1
 license:      GPL
 license-file: GPL_3
 maintainer:   Andrew U. Frank <andrewufrank@gmail.com>
@@ -21,9 +21,9 @@ extra-source-files:
 
 dependencies:
 - base >= 4.7 && < 5
-- uniformBase >=0.1.4.3
+- uniformBase >=0.1.5
 - completeMeta   # for the filehandling, split & move!
-- uniform-json >= 0.0.6.1
+- uniform-json >= 0.1.5
 - uniform-pandoc
 # - uniform-convenience
 - uniform-cmdLineArgs
