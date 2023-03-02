@@ -52,7 +52,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
       - ReplaceUmlaut
-  mdReplaceUmlaut:  #works for md files, does not yet read language tag
+  mdReplaceUmlaut:  #works for md files, reads language tag with MdDocHandling
     main:                 Main.hs
     source-dirs:          app4md
     ghc-options:

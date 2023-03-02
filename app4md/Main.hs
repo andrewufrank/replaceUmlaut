@@ -39,7 +39,7 @@ main = do
             (unlinesT
                 [ "converts the md files in the directory given"
                 , "the umlaut written as ae, oe and ue"
-                , "to regular umlaut. "
+                , "to regular umlaut, "
                 , "execpt when in file nichtUmlaute"
                 , "which is the list of words where ae, oe or ue must remain"
                 ]
