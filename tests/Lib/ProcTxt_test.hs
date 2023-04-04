@@ -38,7 +38,7 @@ import Lib.FileHandling
 test_2 :: IO ()
 test_2 = do
   r <- runErr $ do
-    let fn    = makeRelFile "testDaten" :: Path Rel File
+    let fn    = makeRelFile "testData/corona.txt" :: Path Rel File
     let fnerl = makeRelFile "nichtUmlaute" :: Path Rel File
     cdir <- currentDir
     let fnabs    = cdir </> fn :: Path Abs File
@@ -49,7 +49,7 @@ test_2 = do
 
 -- dictionary = "/home/frank/Workspace8/replaceUmlaut/de.dic"
 testfn :: Path Abs File
-testfn = makeAbsFile "/home/frank/Workspace11/replaceUmlaut/testcorona.txt"
+testfn = makeAbsFile "/home/frank/Workspace11/replaceUmlaut/testData/corona.txt"
 
 test_3 :: IO ()
 test_3 = do

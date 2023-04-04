@@ -29,20 +29,29 @@ import Lib.FileHandling
 import UniformBase
 
 -- show produces the "xx"
-test_1 = assertEqual ("fuer\n") $ procLine2 [] ("fuer\n"::Text)
+test_a1 = assertEqual ("a") $ unwords' . words' $ ("a"::Text) 
+test_1 = assertEqual ("für") $ procLine2 [] ("fuer"::Text)
+-- not clear where the \n disappeared 
 -- test_2 = assertEqual 6 9
-test_2 = assertEqual ("       fuer\n") $ procLine2 [] ("       fuer\n"::Text)
-test_3 = assertEqual ("\tfuer\n") $ procLine2 [] ("\tfuer\n"::Text)
-test_4 = assertEqual ("        Einschr\228nkungen gelebt.\n") $ procLine2 [] ("        Einschränkungen gelebt.\n"::Text)
+test_2 = assertEqual ("       für") $ procLine2 [] ("       fuer"::Text)
+test_3 = assertEqual ("\tfür") $ procLine2 [] ("\tfuer"::Text)
+test_4 = assertEqual ("        Einschr\228nkungen gelebt.") $ procLine2 [] ("        Einschraenkungen gelebt."::Text)
+
+
 exampleText1 = unlines' [
         "abstract: Was hat einer in der Katastrophe erlebt, der weniger unter den Folgen zu"
         , "         leiden hatte, als andere? Wir haben meist ausserhalb von Wien am Land ohne wesentlichen"
-        , "         Einschränkungen gelebt." ]
--- resultText1 = "abstract: Was hat einer in der Katastrophe erlebt, der weniger unter den Folgen zu\\n         leiden hatte, als andere? Wir haben meist ausserhalb von Wien am Land ohne wesentlichen\\n         Einschr\\228nkungen gelebt.\\n\""
+        , "     Einschraenkungen gelebt." ] :: Text
+resultText1 = unlines' [
+        "abstract: Was hat einer in der Katastrophe erlebt, der weniger unter den Folgen zu"
+        , "         leiden hatte, als andere? Wir haben meist ausserhalb von Wien am Land ohne wesentlichen"
+        , "     Einschränkungen gelebt." ] :: Text
 
-test_5 = assertEqual exampleText1 $ procLine2 [] exampleText1
+procLines1 :: [Text] -> Text -> Text
+procLines1 e t = unlines' . fmap   (procLine2 e) . lines' $ t
+test_5 = assertEqual resultText1 $ procLines1 [] exampleText1
 -- test_6 = assertEqual "" $ showT  exampleText1
-test_7 = assertEqual ("        Einschr\228nkungen gelebt.\n    und\n") $ procLine2 [] ("        Einschränkungen gelebt.\n    und"::Text)
+test_7 = assertEqual ("        Einschr\228nkungen gelebt.\n    und\n") $ procLines1 [] ("        Einschraenkungen gelebt.\n    und"::Text)
 -- test_5 = do -- fn1 muss existieren
 --                 -- result fn1 renamed, new fn1 written 
 --     r <- runErr $ 

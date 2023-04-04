@@ -35,7 +35,7 @@ import Lib.FileHandling
 test_p1 :: IO ()  -- funktioniert nicht, weil kein filenmane uebergeben
 test_p1 = do
   r <- runErr $ do
-    let fn    = makeRelFile "testData/01blog1.md" :: Path Rel File
+    let fn    = makeRelFile "testData/test4.md" :: Path Rel File
     -- let fn    = makeRelFile "testData/testMarkdown.md" :: Path Rel File
     let fnerl = makeRelFile "nichtUmlaute" :: Path Rel File
     cdir <- currentDir

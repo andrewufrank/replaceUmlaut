@@ -30,6 +30,7 @@ import qualified Data.Text   as T
 procLine2 :: [Text] ->  Text -> Text
 -- process one line preserving spaces or tabs (but not a mix) at start
 -- improve to use span break on first non-space 
+-- assumes that text is not \n terminated!
 procLine2 erl2 t = concat' [ld,procLine erl2 t1]
     where
         (ld, t1) = case mb1 t of
@@ -43,7 +44,7 @@ procLine2 erl2 t = concat' [ld,procLine erl2 t1]
 procLine :: [Text] -> Text -> Text
 procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
 -- process all words in a line
--- should be idempotent 
+-- should be idempotent, as long as text is not n\ terminated
 
 procWord2 :: [Text] -> Text -> Text
 -- replace umlaut unless it is an permitted group
