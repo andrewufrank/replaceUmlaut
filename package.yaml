@@ -22,6 +22,7 @@ extra-source-files:
 dependencies:
 - base >= 4.7 && < 5
 - uniformBase >=0.1.5
+- uniform-fileio
 - completeMeta   # for the filehandling, split & move!
 - uniform-json >= 0.1.5
 - uniform-pandoc
@@ -68,15 +69,15 @@ executables:
     # - uniform-cmdLineArgs
     # - uniform-error
 
-# tests:
-#   test1:
-#     main:                Testing.hs
-#     source-dirs:         tests
-#     ghc-options:
-#     - -threaded
-#     - -rtsopts
-#     - -with-rtsopts=-N
-#     dependencies:
-#     - uniformBase 
-#     - HTF
-#     - ReplaceUmlaut 
+tests:
+  test1:
+    main:                Testing.hs
+    source-dirs:         tests
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - uniformBase 
+    - HTF
+    - ReplaceUmlaut 

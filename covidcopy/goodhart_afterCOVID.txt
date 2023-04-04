@@ -1,0 +1,57 @@
+
+
+Future imperfect after coronavirus
+
+Charles Goodhart, Manoj Pradhan 27 March 2020
+
+The authorities, like most of the rest of us, have been caught short by the sudden advent of the coronavirus pandemic, and are rightly rushing to limit unnecessary deaths. But in doing so, they are imposing a massive supply shock. This column asks what will happen when the lockdown gets lifted and recovery ensues, following this period of massive fiscal and monetary expansion. It argues that we will see a surge in inflation that can only be tackled once indebtedness has been restored to viable levels.
+535
+
+a
+
+A
+Related
+
+    Corporate debt burdens threaten economic recovery after COVID-19
+    Bo Becker, Ulrich Hege, Pierre Mella-Barral
+    Economics in the time of COVID-19: A new eBook
+    Richard Baldwin, Beatrice Weder di Mauro
+
+If one was a cold-hearted economist, whose sole aim was to maximise GDP, or even better GDP per head, then one’s advice on the best way to respond to the coronavirus pandemic would have been to do absolutely nothing, to ignore it entirely and let it take its course. It primarily affects the elderly; the average age of death so far in the UK has been about 80, and the younger deaths are mainly amongst those with other severe medical problems (‘co-morbidity’ in the jargon). This is a group largely dependent on others to help with daily living, thus stopping their carers from producing goods and other services to swell GDP per head. The original, herd immunity strategy of Boris Johnson might, it has been suggested, raise deaths in the UK by 250,000 in 2020, but this needs to be set against the normal total of nearly 500,000 per annum, an increase of some 50/60% in one year. Given the age and frailty of those likely to die, this increased death toll in 2020 would have been almost entirely offset by sharply lower death tolls over the subsequent decade. 
+
+While one should keep such an economic analysis in mind, such a cold-hearted policy would have been morally wrong, and socially and politically entirely unacceptable.
+
+While one should keep such an analysis in mind, such a cold-hearted policy would have been morally wrong, and socially and politically entirely unacceptable. Indeed, deprived of sport, the press is giving us daily league totals of national deaths. So the response has almost inevitably been quarantines and lockdowns. Meanwhile, as all too usual in a crisis, international cooperation has given way to national sauve qui peut. What this represents is a self-imposed supply shock of immense magnitude. Such a supply shock reduces output and raises prices. Nor is the demand from this period entirely recoverable. Particularly when it comes to services, some of the consumption is permanently lost. The daily commute to work, or the horrifically executed haircuts at home, will not be demanded twice over whenever normal life resumes. 
+
+The authorities, like most of the rest of us, have been caught short by the sudden advent of the pandemic, and are rightly rushing to limit unnecessary deaths. But in doing so, they are imposing a massive supply shock. 
+
+In their praiseworthy and correct aim to reduce the immediate devastating effect of such a lock-down supply shock on incomes and expenditures, the authorities are, quite rightly, opening the floodgates of direct fiscal expenditures and indirect encouragement to banks to extend lending to all borrowers with cashflow problems. This will, as intended, mitigate losses of incomes and some expenditures now, but will naturally have to be balanced by economic consequences further on. 
+
+In the short run, the inflationary consequences of this massive adverse supply shock be counter-balanced by a collapse in non-food commodity prices, much aggravated by the disastrously timed oil war. It will also be matched by the commensurate decline in demand, some voluntary, some enforced, some permanent, some simply delayed. In any case, at a time when the basket of goods and services that we buy has so suddenly been distorted out of all recognition, it will become almost impossible over the next few months to put together sensible and meaningful data for CPI, RPI, or any other inflation series. 
+Inflation after the lockdown gets lifted
+
+But what will then happen as the lockdown gets lifted and recovery ensues, following a period of massive fiscal and monetary expansion (Baldwin and Weder di Mauro 2020)? The answer, as in the aftermath of wars, will be a surge in inflation, quite likely more than 5% and even in the order of 10% in 2021 (assuming that the pandemic gets tamed by the end of this summer – the longer the outbreak takes to tame, the weaker will be the ensuing surge in real activity and then inflation). 
+
+But what will then happen as the lockdown gets lifted and recovery ensues, following a period of massive fiscal and monetary expansion? The answer, as in the aftermaths of wars, will be a surge in inflation
+
+However, warnings about inflation were also sounded when quantitative easing (QE) was launched in the aftermath of the Great Financial Crisis. Those fears weren’t realised, why should they be any more real now? For three reasons. First, the design of QE meant that most of the injections remained within the banking system in the form of excess reserves. They were never able to filter through to broader aggregates of money which matter for inflation. Today’s policy measures are injecting cash flows that will directly raise the broader measures of money. The second reason is the speed with which the global economy could recover to the level of output just before the outbreak. The stronger the recovery, the more these policy injections will look procyclical. Third, China’s role in the global economy has now changed from being an exporter of deflation to a more neutral one now and increasingly inflationary into the future. 
+
+What will the response of the authorities then be? First, and foremost, they will claim that this is a temporary, and once-for-all blip. Second, the monetary authorities will state that this is a, quite desirable, counterbalance to the years of prior undershooting of targets, entirely consistent with average inflation or price-level targeting. Third, the disruption will have been so great that it will take time to bring unemployment back down towards 2019 levels and large swathes of industry (airlines, cruise ships, hotels, etc.) may still be in difficulties. Does it make any sense, having propped up industry in such a widespread manner in 2020, to let much of that same industry go to the wall in 2021 as a result to rising interest rates and fiscal retrenchment? In any case, the borrowing lobby (government, industry, those with mortgages) is much more politically powerful than the savings lobby. 
+
+But if such a surge in inflation is to be (quickly) halted, some people’s real incomes have to suffer. Who might that be? The ordinary worker’s real income has been rather stagnant over the last 30 years. We ascribe that, in our forthcoming book, to the huge positive labour supply shock that was caused by globalisation and favourable demographic effects. That enabled employers to threaten to move jobs to Asia or to more compliant migrants coming to home territory, unless workers moderated their demands; and this was a credible threat. 
+
+A combination of Trump-type policies, populism, barriers to migration and now the coronavirus pandemic has now defanged that threat to workers. 
+Swing in the balance of bargaining power
+
+The balance of bargaining power is now swinging back to workers, away from employers; current, more socialist, political trends are reinforcing that. The likelihood is that wage demands in 2021 will match, or even perhaps exceed, current inflation, despite the inevitable pleas for moderation in the context of a ‘temporary blip’ in inflation. The coronavirus pandemic, and the supply shock that it has induced, will mark the dividing line between the deflationary forces of the last 30 to 40 years, and the resurgent inflation of the next two decades. Secular stagnation and ‘lower for longer’ will be relegated to the attic of defunct ideas.
+
+The losers will be savers, pension funds, insurance companies, and those whose main financial assets take the form of cash. It will no longer be fiscally feasible to protect the real value of pensions from the ravages of inflation. The folly of responding to the crisis of excessive debt in 2007-9 by encouraging all borrowers (except banks) to take on more leverage and debt will become apparent.
+What happens next?
+
+So, what will happen? Inflation will rise considerably above the level of nominal interest rates that our political masters can tolerate. The excessive debt amongst non-financial corporates and governments will get inflated away. The negative real interest rates that may well be necessary to equilibrate the system, as real growth slows in the face of a reversal of globalisation and falling working populations, will happen. Even if central banks feel uncomfortable with such higher inflation, they will be aware that the continuing high levels of debt make our economies still very fragile. And if they try to raise interest rates in such a context, they will face political ire to a point that might threaten their 'independence'. Only when indebtedness has been restored to viable levels can an assault on inflation be mounted. 
+
+Next time, can we reform capitalism so that we do not encourage excessive debt expansion every time that our economy hits a soft spot? 
+References
+
+Baldwin, R and B Weder di Mauro (2020), Mitigating the COVID Economic Crisis: Act Fast and Do Whatever It Takes, a VoxEU.org eBook, CEPR Press.
+

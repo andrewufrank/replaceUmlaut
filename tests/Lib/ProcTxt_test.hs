@@ -49,7 +49,7 @@ test_2 = do
 
 -- dictionary = "/home/frank/Workspace8/replaceUmlaut/de.dic"
 testfn :: Path Abs File
-testfn = makeAbsFile "/home/frank/Workspace8/replaceUmlaut/testcorona.txt"
+testfn = makeAbsFile "/home/frank/Workspace11/replaceUmlaut/testcorona.txt"
 
 test_3 :: IO ()
 test_3 = do

@@ -29,20 +29,20 @@ import Lib.FileHandling
 import UniformBase
 
 -- show produces the "xx"
-test_1 = assertEqual ("fuer\n") $ procTxt2 [] ("fuer\n"::Text)
+test_1 = assertEqual ("fuer\n") $ procLine2 [] ("fuer\n"::Text)
 -- test_2 = assertEqual 6 9
-test_2 = assertEqual ("       fuer\n") $ procTxt2 [] ("       fuer\n"::Text)
-test_3 = assertEqual ("\tfuer\n") $ procTxt2 [] ("\tfuer\n"::Text)
-test_4 = assertEqual ("        Einschr\228nkungen gelebt.\n") $ procTxt2 [] ("        Einschränkungen gelebt.\n"::Text)
+test_2 = assertEqual ("       fuer\n") $ procLine2 [] ("       fuer\n"::Text)
+test_3 = assertEqual ("\tfuer\n") $ procLine2 [] ("\tfuer\n"::Text)
+test_4 = assertEqual ("        Einschr\228nkungen gelebt.\n") $ procLine2 [] ("        Einschränkungen gelebt.\n"::Text)
 exampleText1 = unlines' [
         "abstract: Was hat einer in der Katastrophe erlebt, der weniger unter den Folgen zu"
         , "         leiden hatte, als andere? Wir haben meist ausserhalb von Wien am Land ohne wesentlichen"
         , "         Einschränkungen gelebt." ]
 -- resultText1 = "abstract: Was hat einer in der Katastrophe erlebt, der weniger unter den Folgen zu\\n         leiden hatte, als andere? Wir haben meist ausserhalb von Wien am Land ohne wesentlichen\\n         Einschr\\228nkungen gelebt.\\n\""
 
-test_5 = assertEqual exampleText1 $ procTxt2 [] exampleText1
+test_5 = assertEqual exampleText1 $ procLine2 [] exampleText1
 -- test_6 = assertEqual "" $ showT  exampleText1
-test_7 = assertEqual ("        Einschr\228nkungen gelebt.\n    und\n") $ procTxt2 [] ("        Einschränkungen gelebt.\n    und"::Text)
+test_7 = assertEqual ("        Einschr\228nkungen gelebt.\n    und\n") $ procLine2 [] ("        Einschränkungen gelebt.\n    und"::Text)
 -- test_5 = do -- fn1 muss existieren
 --                 -- result fn1 renamed, new fn1 written 
 --     r <- runErr $ 
