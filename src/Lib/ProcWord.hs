@@ -66,13 +66,14 @@ procWord1 t =
     . replace' "ue" "ü"
     $ t
 
-erlaubt1 :: [Text]  -- erlaubte Gruppen - ergaenzen!
+erlaubt1 :: [Text]  -- erlaubte Gruppen - for test only
 erlaubt1 = map toLower' ["koef", "poet", "poes", "neue", "freue"] 
 
 checkErlaubt :: [Text] -> Text -> Bool
 -- ^ enthaelt das Wort eine erlaubte kombination
 checkErlaubt erlaubt word = any (\e -> isInfixOf' e . toLower' $ word) erlaubt
+
 checkErlaubt1 :: Text -> Bool 
 checkErlaubt1 = checkErlaubt erlaubt1
--- mit fester Liste der erlaubten
+-- mit fester Liste der erlaubten - for test
 

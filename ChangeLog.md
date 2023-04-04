@@ -1,6 +1,5 @@
-0.0.1.1 feb 2023 reconstruct work done fall 2022 - ghc 9.0.2
-         feb reconstruct the freestanding replaceUmlaut
-0.0.1.2 process all files in directory with md extension       
+ChangeLog for replaceUmlaut  
 
-0.1.5 branch for ghc 9.2.5
-0.1.5.1
+0.1.5.1 base 
+0.1.5.2 changes to integrate into daino and ghc 9.4.4.
+0.1.5.3 report changes

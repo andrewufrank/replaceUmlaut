@@ -64,7 +64,7 @@ cmdArgs =
               "use debug mode; original file is unchange, new file with NEW extension attached")
     <*> switch
           (long "test" <> short 't' <> help
-            "test - uses md files in  ../ssg/docs/site/dough"
+            "test - uses md files in  ../dainoSite"
           )
     <*> strOption  
                  (
@@ -95,7 +95,7 @@ parseAndExecute t1 t2 = do
     putIOwords ["testAllMd", "1", showT dir2, showT dirTest]
 
     let targetDir
-          | dirTest = makeAbsDir "/home/frank/Workspace11/ssg/docs/site/dough"
+          | dirTest = makeAbsDir "/home/frank/Workspace11/dainoSite"
           | dir2 == "currDir" = currDir
           | otherwise = makeAbsDir dir2 :: Path Abs Dir
     when debug $ putIOwords ["testAllMd", "targetdir", showT targetDir]

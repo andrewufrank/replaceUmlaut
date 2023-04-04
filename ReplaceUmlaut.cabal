@@ -4,10 +4,10 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: be4e387c71dc03e598d152d8a57f4694079863b90fc8c8bd0289819f6340a57d
+-- hash: a99f2d7da1fbe9aace2c141e0cae1b2e62a1010109e9abbe9fb9e466bfbc6c90
 
 name:           ReplaceUmlaut
-version:        0.1.5.1
+version:        0.1.5.2
 synopsis:       converting text to properly encoded german umlauts
 description:    converts the convenient ae, oe and ue replacements for german 
                 umlauts into their proper UTF-8 encoded umlauts - 
@@ -31,6 +31,7 @@ library
       Lib.OneMDfile
       Lib.ProcDirMD
       Lib.ProcTextFile
+      Lib.ProcTxt
       Lib.ProcWord
   other-modules:
       Paths_ReplaceUmlaut
