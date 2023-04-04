@@ -21,7 +21,8 @@ import           Uniform.Filenames           --   ( makeExtension )
 import           Options.Applicative.Builder
 import           Options.Applicative
 import           Lib.ProcTxt
-import           Lib.ProcPandocDatei
+import Lib.OneMDfile
+-- import           Lib.ProcPandocDatei
 import Lib.FileHandling
 
 programName, progTitle :: Text
