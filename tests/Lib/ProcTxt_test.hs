@@ -44,8 +44,8 @@ test_2 = do
     let fnabs    = cdir </> fn :: Path Abs File
     let fnerlabs = cdir </> fnerl :: Path Abs File
     erl2 <- readErlaubt fnerlabs
-    procTxt False erl2 fnabs
-  assertEqual (Right ()) r
+    procTxt True erl2 fnabs
+  assertEqual (Right True) r
 
 -- dictionary = "/home/frank/Workspace8/replaceUmlaut/de.dic"
 testfn :: Path Abs File
@@ -62,5 +62,5 @@ test_3 = do
     let fnerl    = makeRelFile "nichtUmlaute" :: Path Rel File
     let fnerlabs = cdir </> fnerl :: Path Abs File
     erl2 <- readErlaubt fnerlabs
-    procTxt False erl2 fnabs
-  assertEqual (Right ()) r
+    procTxt True erl2 fnabs
+  assertEqual (Right True) r

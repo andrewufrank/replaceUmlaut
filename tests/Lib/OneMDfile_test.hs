@@ -52,6 +52,20 @@ procLines1 e t = unlines' . fmap   (procLine2 e) . lines' $ t
 test_5 = assertEqual resultText1 $ procLines1 [] exampleText1
 -- test_6 = assertEqual "" $ showT  exampleText1
 test_7 = assertEqual ("        Einschr\228nkungen gelebt.\n    und\n") $ procLines1 [] ("        Einschraenkungen gelebt.\n    und"::Text)
+
+
+test_m1 = do
+    r <- runErr $ do
+        let fn1 = makeRelFile "testData/test4.md"
+            fnerl = makeRelFile "nichtUmlaute" :: Path Rel File
+        cdir <- currentDir
+        let fnabs    = cdir </> fn1 :: Path Abs File
+        let fnerlabs = cdir </> fnerl :: Path Abs File
+        erl2 <- readErlaubt fnerlabs
+        procMd1 True erl2 fnabs
+    assertEqual (Right False) r
+
+-- test a simple md file 
 -- test_5 = do -- fn1 muss existieren
 --                 -- result fn1 renamed, new fn1 written 
 --     r <- runErr $ 

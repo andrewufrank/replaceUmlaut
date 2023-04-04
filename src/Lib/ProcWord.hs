@@ -18,7 +18,9 @@ module Lib.ProcWord  -- (openMain, htf_thisModuelsTests)
 import UniformBase
 import Lib.FileHandling
 import qualified Data.Text   as T
-
+import Control.Monad
+import Control.Monad.Trans.Writer.Strict
+ 
 
 
 -- procTxt2 :: [Text] ->  Text -> Text  -- called from OneMDfile, not from ProcTxt
@@ -31,25 +33,60 @@ procLine2 :: [Text] ->  Text -> Text
 -- process one line preserving spaces or tabs (but not a mix) at start
 -- improve to use span break on first non-space 
 -- assumes that text is not \n terminated!
-procLine2 erl2 t = concat' [ld,procLine erl2 t1]
+procLine2 erl2 t = ld <> (procLine erl2 t1) 
     where
-        (ld, t1) = case mb1 t of
+        (ld, t1) = aux t
+        -- case mb1 t of
+        --         Nothing -> case mb2 t of 
+        --                         Nothing -> ("", t)
+        --                         Just (lead2, _, t02) -> (lead2,t02)
+        --         Just (lead, _, t0) ->  (lead,t0)
+        -- mb1 tx = T.commonPrefixes "                  " tx
+        -- mb2 ty = T.commonPrefixes "\t\t\t\t\t\t\t" ty
+
+aux :: Text -> (Text,Text)
+aux t =  case mb1 t of
                 Nothing -> case mb2 t of 
                                 Nothing -> ("", t)
                                 Just (lead2, _, t02) -> (lead2,t02)
                 Just (lead, _, t0) ->  (lead,t0)
+    where
         mb1 tx = T.commonPrefixes "                  " tx
         mb2 ty = T.commonPrefixes "\t\t\t\t\t\t\t" ty
+
+procLine2Rep :: [Text] -> Text -> Writer Text Text
+procLine2Rep erl2 t = do 
+        t2 <- procLineRep erl2 t1
+        return $ ld <> t2
+    where (ld,t1) = aux t 
+
+
 
 procLine :: [Text] -> Text -> Text
 procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
 -- process all words in a line
 -- should be idempotent, as long as text is not n\ terminated
 
+procLineRep :: [Text] -> Text -> Writer Text Text 
+procLineRep erlaubt ln = do 
+    ln2rep <- mapM (procWordRep erlaubt) (words' ln)
+    return . unwords' $ ln2rep 
+
 procWord2 :: [Text] -> Text -> Text
 -- replace umlaut unless it is an permitted group
 procWord2 erlaubt word =
   if checkErlaubt erlaubt word then word else procWord1 word
+
+procWordRep :: [Text] -> Text -> Writer Text Text 
+procWordRep erlaubt word = do
+    let word1 = procWord2 erlaubt word
+    if word1 == word 
+        then return word 
+        else do
+            tell  (unwords' [word, "->", word1,"; "]::Text)
+            return word 
+    
+
 
 procWord1 :: Text -> Text
 -- ^ convert the umlaut in a single word

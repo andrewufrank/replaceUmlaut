@@ -83,7 +83,9 @@ parseAndExecute t1 t2 = do
         let debug   = False
         let erlFn = makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
         erl2               <- readErlaubt erlFn
-        if isText2 then procTxt debug erl2 fn else procMd1 debug erl2 fn
+        res <- if isText2 then procTxt debug erl2 fn else procMd1 debug erl2 fn
+        putIOwords ["parseAndExecute done. File was changed: ", showT res]
+        
     where
         opts = info (helper <*> cmdArgs)
               (fullDesc <> (progDesc . t2s $ t1) <> (header . t2s $ t2))

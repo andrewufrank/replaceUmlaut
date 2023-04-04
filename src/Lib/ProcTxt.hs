@@ -20,7 +20,7 @@ import           Lib.ProcWord
 import UniformBase
 import Lib.FileHandling
 
-procTxt :: Bool -> [Text] -> Path Abs File -> ErrIO ()
+procTxt :: Bool -> [Text] -> Path Abs File -> ErrIO Bool
 -- ^ replace umlaut unless it is an permitted group
 -- in a file with extension txt
 procTxt debug erl2 fn = do
@@ -32,10 +32,11 @@ procTxt debug erl2 fn = do
     ls :: [Text] <- read8 fn textlinesFile
 
     let ls2 = map (procLine2 erl2) ls
-    let res = zero -- not needed, just to be parallel with pandoc
+    let res = False -- reports change - todo
 
     -- newfn <- changeExtensionBakOrNew debug fn
-    writeWithBak debug fn textlinesFile res 
+    writeWithBak debug fn textlinesFile ls2 
+    return res  
 
     -- rest is copied
     -- if debug

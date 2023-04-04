@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: eded39bd9053b1d93e8defd9066b34df134bb6fb14f7d6cd6474677ea46a77b0
+-- hash: f2612ce6a5ef7ea787664d905ee1bf6765a1234a43ff7005920461efb1bcda4a
 
 name:           ReplaceUmlaut
 version:        0.1.5.2
@@ -46,6 +46,7 @@ library
     , pandoc
     , pandoc-types
     , text
+    , transformers
     , uniform-cmdLineArgs
     , uniform-fileio
     , uniform-json >=0.1.5
@@ -69,6 +70,7 @@ executable mdReplaceUmlaut
     , pandoc
     , pandoc-types
     , text
+    , transformers
     , uniform-cmdLineArgs
     , uniform-fileio
     , uniform-json >=0.1.5
@@ -92,6 +94,7 @@ executable replaceUmlaut
     , pandoc
     , pandoc-types
     , text
+    , transformers
     , uniform-cmdLineArgs
     , uniform-fileio
     , uniform-json >=0.1.5
@@ -121,6 +124,7 @@ test-suite test1
     , pandoc
     , pandoc-types
     , text
+    , transformers
     , uniform-cmdLineArgs
     , uniform-fileio
     , uniform-json >=0.1.5

@@ -21,9 +21,10 @@ import UniformBase
 import Lib.FileHandling
 import Uniform.Pandoc (extMD)
 
-procTextFile :: Bool -> [Text] -> Path Abs File -> ErrIO ()
+procTextFile :: Bool -> [Text] -> Path Abs File -> ErrIO Bool
 -- ^ replace umlaut unless it is an permitted group
 -- in a file with extension txt or md (only!)
+-- returns False if something has changed
 procTextFile debug erl2 fn = do
     when debug $ putIOwords ["procTxt start", showT fn]
     let fnExtension = getExtension fn :: Extension
@@ -44,6 +45,7 @@ procTextFile debug erl2 fn = do
 
     let res = ls2
     writeWithBak debug fn textLineType res 
+    return False
     -- if debug 
     --     then write8 fn textlinesNewFile res
     --     else do 

@@ -33,6 +33,7 @@ dependencies:
 - optparse-applicative
 - dir-traverse
 - text  # for Data.Text - move to strings
+- transformers
 # - aeson
 
 library:

@@ -14,17 +14,18 @@ module Lib.OneMDfile  -- (openMain, htf_thisModuelsTests)
                            where
 import UniformBase
 import           Lib.ProcWord
-import           Lib.FileHandling     
+import           Lib.FileHandling   
+import Lib.ProcTextFile  
 -- import Lib.ProcPandocDatei
-import MdDocHandling
+-- import MdDocHandling
 
 -- for pandoc testing
-import           Uniform.Pandoc
+-- import           Uniform.Pandoc
 
-import qualified Text.Pandoc                   as P
-import qualified Text.Pandoc.Walk              as PW
-import qualified Data.Text   as T
-
+-- import qualified Text.Pandoc                   as P
+-- import qualified Text.Pandoc.Walk              as PW
+-- import qualified Data.Text   as T
+-- import Wave.MD2doc
 
 -- newExtension :: Extension
 -- newExtension = Extension "new" :: Extension
@@ -56,38 +57,52 @@ import qualified Data.Text   as T
 --   write8 fn markdownFileType ls2
 --   when debug $ putIOwords ["procMd done", showT ls2]
 
-procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO ()
--- ^ replace umlaut in a pandoc markdown file
--- unless it is an permitted group
+procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO Bool
+-- ^ replace umlaut in a  markdown file and report if any change
+-- it is known that the file is german text and should be processed
+-- conversion unless it is an permitted group
 -- in a file with extension txt
 -- the original file is renamed to bak and the
 -- corrected version written to the original filename
 -- except when debug flag is set
 -- then the new file is written to NEW
--- and the origianl file is not changed
+-- and the original file is not changed
 -- debug true gives new file
+-- returns False if something has changed
 procMd1 debug erl2 fn = do
     when debug $ putIOwords ["\n procMD1 ", showT fn, "file to process"]
 
-    -- f0l :: LazyByteString <- readFile2 fn
-    -- let f0 = bl2t f0l       -- why read lazyByteString?
-    f0 <- read8 fn mdFile 
-    let f1 =   mdDocRead . unlines' $ f0 :: MdDoc1   -- definition in MdDocHandling
-    when debug $ putIOwords ["procMD1 yamlHeader", showT . yamlHeader1 $ f1]
-    let german = mdocIsGerman f1  -- check requires pandoc?
+    res <- procTextFile debug erl2 fn 
+    when debug $ putIOwords ["\n procMD1 done. Changes", showT res]
+    return res 
 
-    if german then  do 
-            -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
-            -- newfn <- changeExtensionBakOrNew debug fn  -- not debug?
-            -- let f3 = mdDocWrite f2 
-            let f3 =  map (procLine2 erl2)  f0 -- process the full file
-            writeWithBak debug fn mdFile f3
-            when True $ putIOwords ["\n procMd1 ", showT fn, "german file umlaut changed with backup"]
-        else
-            when debug $ putIOwords ["\n procMd1 ", showT fn, "not german file"]
+    -- md1 <- read8 fn mdFile
+    -- dr@(Docrep yam1 pan1) <- readMarkdown2docrep md  
+
+    -- if "ngerman" /= dyLang yam1 
+    --     then do 
+    --         when debug $ putIOwords ["\n procMD1 ", "not german"]
+    --         return dr
+    --     else do 
+    --         when debug $ putIOwords ["\n procMD1 ", "german"]
+    --         return dr 
+
+    -- let f1 =   mdDocRead . unlines' $ f0 :: MdDoc1   -- definition in MdDocHandling
+    -- when debug $ putIOwords ["procMD1 yamlHeader", showT . yamlHeader1 $ f1]
+    -- let german = mdocIsGerman f1  -- check requires pandoc?
+
+    -- if german then  do 
+    --         -- let f2 = updateMdDoc2 (procMdTxt erl2) (procMdTxt erl2) f1
+    --         -- newfn <- changeExtensionBakOrNew debug fn  -- not debug?
+    --         -- let f3 = mdDocWrite f2 
+    --         let f3 =  map (procLine2 erl2)  f0 -- process the full file
+    --         writeWithBak debug fn mdFile f3
+    --         when True $ putIOwords ["\n procMd1 ", showT fn, "german file umlaut changed with backup"]
+    --     else
+    --         when debug $ putIOwords ["\n procMd1 ", showT fn, "not german file"]
            
 
-    when debug $ putIOwords ["\n procMD1 ", showT fn, "file done with backup"]
+    -- when debug $ putIOwords ["\n procMD1 ", showT fn, "file done with backup"]
     -- return ()
 
 
