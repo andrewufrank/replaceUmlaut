@@ -16,20 +16,21 @@ module Lib.ProcWord  -- (openMain, htf_thisModuelsTests)
 -- import           Uniform.Strings
 -- import           Uniform.FileIO
 import UniformBase
-import FileHandling
+import Lib.FileHandling
 import qualified Data.Text   as T
 
 
 
-procTxt2 :: [Text] ->  Text -> Text
--- change all umlaut in text - yaml header and markdown text
--- preserve leading blanks of line, or tabs, but not mixture of these
-procTxt2 erl2  = unlines' . map (procLine2 erl2) . lines' 
+-- procTxt2 :: [Text] ->  Text -> Text  -- called from OneMDfile, not from ProcTxt
+-- -- change all umlaut in text - yaml header and markdown text
+-- -- preserve leading blanks of line, or tabs, but not mixture of these
+-- procTxt2 erl2  = unlines' . map (procLine2 erl2) . lines' 
 
 
 procLine2 :: [Text] ->  Text -> Text
 -- process one line preserving spaces or tabs (but not a mix) at start
 -- improve to use span break on first non-space 
+-- assumes that text is not \n terminated!
 procLine2 erl2 t = concat' [ld,procLine erl2 t1]
     where
         (ld, t1) = case mb1 t of
@@ -43,7 +44,7 @@ procLine2 erl2 t = concat' [ld,procLine erl2 t1]
 procLine :: [Text] -> Text -> Text
 procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
 -- process all words in a line
--- should be idempotent 
+-- should be idempotent, as long as text is not n\ terminated
 
 procWord2 :: [Text] -> Text -> Text
 -- replace umlaut unless it is an permitted group
@@ -66,13 +67,14 @@ procWord1 t =
     . replace' "ue" "ü"
     $ t
 
-erlaubt1 :: [Text]  -- erlaubte Gruppen - ergaenzen!
+erlaubt1 :: [Text]  -- erlaubte Gruppen - for test only
 erlaubt1 = map toLower' ["koef", "poet", "poes", "neue", "freue"] 
 
 checkErlaubt :: [Text] -> Text -> Bool
 -- ^ enthaelt das Wort eine erlaubte kombination
 checkErlaubt erlaubt word = any (\e -> isInfixOf' e . toLower' $ word) erlaubt
+
 checkErlaubt1 :: Text -> Bool 
 checkErlaubt1 = checkErlaubt erlaubt1
--- mit fester Liste der erlaubten
+-- mit fester Liste der erlaubten - for test
 

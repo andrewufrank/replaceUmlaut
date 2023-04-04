@@ -18,7 +18,7 @@ module Lib.ProcTxt  -- (openMain, htf_thisModuelsTests)
 -- import Uniform.Error
 import           Lib.ProcWord
 import UniformBase
-import FileHandling
+import Lib.FileHandling
 
 procTxt :: Bool -> [Text] -> Path Abs File -> ErrIO ()
 -- ^ replace umlaut unless it is an permitted group
@@ -31,11 +31,11 @@ procTxt debug erl2 fn = do
 
     ls :: [Text] <- read8 fn textlinesFile
 
-    let ls2 = map (procTxt2 erl2) ls
+    let ls2 = map (procLine2 erl2) ls
     let res = zero -- not needed, just to be parallel with pandoc
 
-    newfn <- changeExtensionBakOrNew debug fn
-    write8 newfn textlinesFile res 
+    -- newfn <- changeExtensionBakOrNew debug fn
+    writeWithBak debug fn textlinesFile res 
 
     -- rest is copied
     -- if debug

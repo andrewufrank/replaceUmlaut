@@ -1,17 +1,18 @@
 name:         ReplaceUmlaut
-version:      0.0.1.1
+version:      0.1.5.2
 license:      GPL
 license-file: GPL_3
 maintainer:   Andrew U. Frank <andrewufrank@gmail.com>
 author:       Andrew Frank
 copyright:    2021 Andrew U. Frank
 category:     Text
-synopsis:     converting to properly encoded german umlauts
+synopsis:     converting text to properly encoded german umlauts
 description: | 
   converts the convenient ae, oe and ue replacements for german 
   umlauts into their proper UTF-8 encoded umlauts - 
   respecting cases where the ae, oe and ue must remain
-  based on a extensible list
+  based on a extensible list.
+  Treats a file completely, does not read the language field. 
 
 
 extra-source-files:
@@ -20,14 +21,13 @@ extra-source-files:
 
 dependencies:
 - base >= 4.7 && < 5
-- uniformBase  ==0.1.4.2
-# - completeMeta   # for the filehandling, split & move!
-# - uniform-json
-# - uniform-fileio
+- uniformBase >=0.1.5
+- uniform-fileio
+- completeMeta   # for the filehandling, split & move!
+- uniform-json >= 0.1.5
 - uniform-pandoc
 # - uniform-convenience
-# - uniform-markdown 
-# - uniform-cmdLineArgs
+- uniform-cmdLineArgs
 - pandoc
 - pandoc-types
 - optparse-applicative
@@ -53,7 +53,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
       - ReplaceUmlaut
-  mdReplaceUmlaut:  #works for md files and read language tag
+  mdReplaceUmlaut:  #works for md files, reads language tag with MdDocHandling
     main:                 Main.hs
     source-dirs:          app4md
     ghc-options:

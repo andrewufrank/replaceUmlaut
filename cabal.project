@@ -1,14 +1,13 @@
 packages: 
     ./*.cabal
     ../uBase/uniformBase/*.cabal
---      ../../uBase/uniform-algebras/*.cabal
-    ../uBase/uniform-strings/*.cabal
-    ../uBase/uniform-error/*.cabal
---      ../../uBase/uniform-time/*.cabal
-    ../uBase/uniform-fileio/*.cabal
---    ../completeMeta/*.cabal
+--    ../uBase/uniform-algebras/*.cabal
+--  ../uBase/uniform-strings/*.cabal
+--   ../uBase/uniform-error/*.cabal
+--   ../uBase/uniform-time/*.cabal
+   ../uBase/uniform-fileio/*.cabal
+    ../completeMeta/*.cabal
     ../u4blog/uniform-json/*.cabal
---    ../u4blog/uniform-markdown/*.cabal
     ../u4blog/uniform-pandoc/*.cabal
-    ../u2to/uniform-convenience
-    ../u2to/uniform-cmdLineArgs
+--    ../u2to/uniform-convenience
+    ../u4blog/uniform-cmdLineArgs

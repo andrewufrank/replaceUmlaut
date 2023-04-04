@@ -3,6 +3,8 @@
 -- Module      : the main for calling replaceUmlaut functions
 --    applied to specific files
 --    with a switch for the txt and the filename
+--    and recursively processing all md files 
+--    but not dealing with the yml header language switch
 -----------------------------------------------------------------------------
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
@@ -20,7 +22,8 @@ module  Main (main)  where
 import Uniform.CmdLineArgs
 import UniformBase
 -- import           Data.Semigroup                 ( (<>) )
-import           Lib.ProcTxt
+import           Lib.ProcTextFile
+import           Lib.ProcDirMD
 -- import           Lib.ProcPandocDatei
 import              Lib.OneMDfile
 import Lib.FileHandling
@@ -51,21 +54,25 @@ main = do
 
 
 --- cmd line parsing
-data LitArgs = LitArgs { isTxt   :: Bool   -- ^ is this a txt file
+data LitArgs = LitArgs 
+    { isDebug :: Bool   -- ^ switch to debug mode (unchanged file, NEW extension)
+    , isAllMD :: Bool   -- ^ collect all md files in directory
       , argfile  :: String -- ^ the filename absolute
       } deriving (Show)
 
 cmdArgs :: Parser (LitArgs)
 cmdArgs =
   LitArgs
-    <$> switch
-          (long "txt" <> short 't' <> help
-            "true if this is a txt file, txt or md extension is recognized"
-          )
+    <$> switch 
+            (long "debug" <> short 'd' <> help 
+              "use debug mode; original file is unchange, new file with NEW extension attached")
+    <*> switch 
+            (long "all md" <> short 'm' <> help 
+              "process all md files in directory")
     <*> argument str
                  (
       --   long "filename" <>
-                  metavar "filename")
+                  metavar "filename or directory")
 
 parseAndExecute :: Text -> Text -> ErrIO ()
 parseAndExecute t1 t2 = do
@@ -74,16 +81,31 @@ parseAndExecute t1 t2 = do
     curr <- currentDir
     -- let dir0 = makeAbsDir "/home/frank/additionalSpace/DataBig/LitOriginals"
     let fn2     = argfile args :: FilePath
-    let fn = curr </> makeRelFile fn2 :: Path Abs File
-    let isText  = isTxt args :: Bool
+    -- let isText  = isTxt args :: Bool
+    let debug   = isDebug args :: Bool
+    let allMD   = isAllMD args :: Bool
 
-    let ext     = getExtension fn
-    let isText2 = isText || ext == (Extension "txt")
-    let debug   = False
     let fnErl =
             makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
-    erl2         <- readErlaubt fnErl
-    if isText2 then procTxt debug erl2 fn else procMd1 debug erl2 fn
+    erl2  <- readErlaubt fnErl
+ 
+    if allMD 
+        then do
+            let dir = curr </> makeRelDir fn2 :: Path Abs Dir
+            procDirMD debug erl2 dir
+        else do
+            let fn = curr </> makeRelFile fn2 :: Path Abs File
+            procTextFile debug erl2 fn 
+
+            -- let ext     = getExtension fn
+            -- let isText2 = isText || ext == (Extension "txt") || ext == (Extension "md")
+            -- if isText2 
+            --     then 
+                        
+            --     else 
+            --             procMd1 debug erl2 fn
+
+
 
     -- differences in md test for language and if nothing to do
         -- no new file is written

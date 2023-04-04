@@ -2,23 +2,26 @@ flags: {}
 extra-package-dbs: []
 packages:
 - '.'
-- ../uBase/uniformBase
-- ../uBase/uniform-strings
-- ../uBase/uniform-algebras
-# - ../uBase/uniform-convenience
-- ../uBase/uniform-error
-- ../uBase/uniform-time
-- ../uBase/uniform-fileio
-- ../u4blog/uniform-http
-- ../u4blog/uniform-json
+- ../uBase_singleGit/uniformBase
+- ../uBase_singleGit/uniform-algebras
+- ../uBase_singleGit/uniform-error
+- ../uBase_singleGit/uniform-fileio
+- ../uBase_singleGit/uniform-strings
+- ../uBase_singleGit/uniform-time
+# - ../fromOthersInstalled/bibtex  # has a fix compared to hackage, see cabal
+-     ../completeMeta
+-     ../u2to/uniform-cmdLineArgs
 - ../u4blog/uniform-pandoc
-- ../fromOthersInstalled/bibtex  # has a fix compared to hackage, see cabal
+- ../u4blog/uniform-json
 
 extra-deps:
 - test-invariant-0.4.5.0
-- aop-prelude-0.4.1.1
-# @sha256:87f541964bb8c0e042125955bf1580020a664e62ab101b0a1068b8f278c2e001,1207
 - dir-traverse-0.2.3.0
 # @sha256:adcc128f201ff95131b15ffe41365dc99c50dc3fa3a910f021521dc734013bfa,2137
+- snap-core-1.0.5.1
+# @sha256:e08cc33b5ad34e8ccfa1436bfd19ac037ce15564d5652a21aaf71a8fd5959da9,9469
+- readable-0.3.1
+# @sha256:ea550740bbee9ae46c6bbf1c5e5185818a1d37509b855c640b0a7f2dfba6dc37,1121
 
-resolver: lts-19.20
+
+resolver: lts-20.11

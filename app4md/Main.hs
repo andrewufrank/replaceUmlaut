@@ -37,9 +37,9 @@ main = do
         (unwords' [programName, progTitle])
         (parseAndExecute
             (unlinesT
-                [ "converts in the file given"
+                [ "converts the md files in the directory given"
                 , "the umlaut written as ae, oe and ue"
-                , "to regular umlaut. "
+                , "to regular umlaut, "
                 , "execpt when in file nichtUmlaute"
                 , "which is the list of words where ae, oe or ue must remain"
                 ]
@@ -50,27 +50,26 @@ main = do
 
 
 --- cmd line parsing
-data LitArgs = LitArgs { useTestData   :: Bool   -- ^ use test data
-      , messageFlag :: Bool -- ^ produce test output
-      , argdir  :: String -- ^ the dirname absolute
-      } deriving (Show)
+data LitArgs = LitArgs 
+    {isDebug :: Bool   -- ^ switch to debug mode (unchanged file, NEW 
+    , useTestData   :: Bool   -- ^ use test data
+    , argdir  :: String -- ^ the dirname absolute
+    } deriving (Show)
 
 cmdArgs :: Parser (LitArgs)
 cmdArgs =
   LitArgs
-    <$> switch
-          (long "test" <> short 't' <> help
-            "test - uses md files in  ../ssg/docs/site/dough"
-          )
+    <$> switch 
+            (long "debug" <> short 'd' <> help 
+              "use debug mode; original file is unchange, new file with NEW extension attached")
     <*> switch
-            (long "messages" <> short 'm' <> 
-            help "include more output messages about processing"
-            -- value False is default 
-            )
+          (long "test" <> short 't' <> help
+            "test - uses md files in  ../dainoSite"
+          )
     <*> strOption  
                  (
-                    long "dirname" <>
-                    short 'd' <>
+                    long "location(dirname)" <>
+                    short 'l' <>
                     metavar "directory (abs. path)" <>
                     value "currDir"
                 )
@@ -79,11 +78,14 @@ cmdArgs =
 parseAndExecute :: Text -> Text -> ErrIO ()
 parseAndExecute t1 t2 = do
     args <- callIO $ execParser (opts2 cmdArgs t1 t2 )
+    putIOwords ["parseAndExecute LitArgs", showT args]
+
+    let debug = isDebug args
+
     let erlFn =
             makeAbsFile "/home/frank/Workspace11/replaceUmlaut/nichtUmlaute.txt"
     erl2         <- readErlaubt erlFn
 
-    let debug = messageFlag args
 
     currDir :: Path Abs Dir <- currentDir
 
@@ -93,7 +95,7 @@ parseAndExecute t1 t2 = do
     putIOwords ["testAllMd", "1", showT dir2, showT dirTest]
 
     let targetDir
-          | dirTest = makeAbsDir "/home/frank/Workspace11/ssg/docs/site/dough"
+          | dirTest = makeAbsDir "/home/frank/Workspace11/dainoSite"
           | dir2 == "currDir" = currDir
           | otherwise = makeAbsDir dir2 :: Path Abs Dir
     when debug $ putIOwords ["testAllMd", "targetdir", showT targetDir]
