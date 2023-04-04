@@ -22,6 +22,7 @@ import Test.Framework
 -- import Uniform.Strings
 import UniformBase
 import Lib.ProcWord
+import Control.Monad.Trans.Writer.Strict
 
 openMain :: IO ()
 openMain = do
@@ -46,3 +47,21 @@ w1 = ["fuer", "Moerder", "Aerger", "koennen", "maesten", "FUER"
   , "Koeffizienten", "Poetik", "Poet", "Poesie"] :: [Text]
 w1r = ["f\252r", "M\246rder", "\196rger", "k\246nnen", "m\228sten",
  "F\220R", "Koeffizienten", "Poetik", "Poet", "Poesie"]::[Text]
+
+test_r1:: IO ()
+test_r1 =  do
+  r <- runErr $ do
+  
+        let t2 = execWriter $ procWord2Rep [] (unwords' t1) 
+        putIOwords ["rest r1: t2",  t2]
+        return ((""::Text ) /= t2)  -- null -> nothing changed
+  assertEqual (Right True) r
+
+test_r2:: IO ()
+test_r2 =  do
+  r <- runErr $ do
+  
+        let t2 = execWriter $ procLine2Rep [] (unwords' t1) 
+        putIOwords ["rest r2: t2",  t2]
+        return ((""::Text ) /= t2)  -- null -> nothing changed
+  assertEqual (Right True) r

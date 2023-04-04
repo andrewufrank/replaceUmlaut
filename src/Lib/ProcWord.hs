@@ -55,6 +55,7 @@ aux t =  case mb1 t of
         mb2 ty = T.commonPrefixes "\t\t\t\t\t\t\t" ty
 
 procLine2Rep :: [Text] -> Text -> Writer Text Text
+-- accumulates the changed woerds for checking
 procLine2Rep erl2 t = do 
         t2 <- procLineRep erl2 t1
         return $ ld <> t2
@@ -69,7 +70,7 @@ procLine erlaubt ln = unwords' . map (procWord2 erlaubt) . words' $ ln
 
 procLineRep :: [Text] -> Text -> Writer Text Text 
 procLineRep erlaubt ln = do 
-    ln2rep <- mapM (procWordRep erlaubt) (words' ln)
+    ln2rep <- mapM (procWord2Rep erlaubt) (words' ln)
     return . unwords' $ ln2rep 
 
 procWord2 :: [Text] -> Text -> Text
@@ -77,13 +78,13 @@ procWord2 :: [Text] -> Text -> Text
 procWord2 erlaubt word =
   if checkErlaubt erlaubt word then word else procWord1 word
 
-procWordRep :: [Text] -> Text -> Writer Text Text 
-procWordRep erlaubt word = do
+procWord2Rep :: [Text] -> Text -> Writer Text Text 
+procWord2Rep erlaubt word = do
     let word1 = procWord2 erlaubt word
     if word1 == word 
         then return word 
         else do
-            tell  (unwords' [word, "->", word1,"; "]::Text)
+            tell  ((word1<>" ")::Text)
             return word 
     
 

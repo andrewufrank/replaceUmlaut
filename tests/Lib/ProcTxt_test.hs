@@ -64,3 +64,18 @@ test_3 = do
     erl2 <- readErlaubt fnerlabs
     procTxt True erl2 fnabs
   assertEqual (Right True) r
+
+
+ 
+-- test_m1 = do
+--     r <- runErr $ do
+--         let fn1 = makeRelFile "testData/test4.md"
+--         --     fnerl = makeRelFile "nichtUmlaute" :: Path Rel File
+--         cdir <- currentDir
+--         let fnabs    = cdir </> fn1 :: Path Abs File
+--         let fnerlabs = cdir </> fnerl :: Path Abs File
+--         erl2 <- readErlaubt fnerlabs
+--         procTxt True erl2 fnabs
+--     assertEqual (Right False) r
+
+ 
