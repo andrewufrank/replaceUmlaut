@@ -9,6 +9,7 @@
 {-# LANGUAGE TypeFamilies          #-}
 {-# LANGUAGE TypeSynonymInstances  #-}
 {-# LANGUAGE OverloadedStrings     #-}
+{-# LANGUAGE BlockArguments #-}
 
 module Lib.ProcTextFile  -- (openMain, htf_thisModuelsTests)
                    where
@@ -25,30 +26,40 @@ import Control.Monad.Trans.Writer.Strict
 procTextFile :: Bool -> [Text] -> Path Abs File -> ErrIO Bool
 -- ^ replace umlaut unless it is an permitted group
 -- in a file with extension txt or md (only!)
--- returns False if something has changed
+-- returns True if something has changed
 procTextFile debug erl2 fn = do
-    when debug $ putIOwords ["procTxt start", showT fn]
+    when debug $ putIOwords ["procText start", showT fn]
     let fnExtension = getExtension fn :: Extension
-    
-    let textLineType = if fnExtension == txtExtension 
-        then textlinesFile 
-        else if fnExtension == extMD 
-            then mdFile 
-            else errorT  ["ERROR: not txt file - nothing done!"]
+
+    let textLineType
+          | fnExtension == txtExtension = textlinesFile
+          | fnExtension == extMD = mdFile
+          | otherwise = errorT  ["ERROR: not text file - nothing done!"]
 
     ls :: [Text] <- read8 fn textLineType  -- split in lines
 
     -- when debug $ putIOwords ["procTxt ls", showT ls]
     -- let ls2 = map (procLine2 erl2) ls
     let (ls2,report) = runWriter $ mapM (procLine2Rep erl2) ls
+
     -- when debug $ 
-    when False $ putIOwords ["procTxt ls2", unlines' ls2]
-    putIOwords ["procTxt report",  report]
+    when debug $ putIOwords ["procText ls2", unlines' ls2]
+    putIOwords ["procText report",  report]
+    -- putIOwords ["procText file returned", unlines' ls]
     -- let ls3 = unwrap7 ls2 :: Text
     -- when debug $ putIOwords ["procTxt unwrap7 . ls3", showT ls3]
 
-    writeWithBak debug fn textLineType (  ls2)
-    return (zero == report)
+    let changed = zero /= report -- no report means nothing changed 
+    when changed do 
+        writeWithBak debug fn textLineType (  ls2)
+        when True $ putIOwords ["procText changed file",  showNice fn, "rewritten"
+            , "if some words in the report above are not correct"
+            , "edit the file and add the form to 'doNotReplace'."]
+    -- true - changed 
+    when debug $ putIOwords ["procText done,   changed: ",  showT changed]
+
+    return changed
+
     -- if debug 
     --     then write8 fn textlinesNewFile res
     --     else do 

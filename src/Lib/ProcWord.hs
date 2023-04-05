@@ -84,8 +84,8 @@ procWord2Rep erlaubt word = do
     if word1 == word 
         then return word 
         else do
-            tell  ((word1<>" ")::Text)
-            return word 
+            tell  ((word1<>",")::Text)
+            return word1 
     
 
 

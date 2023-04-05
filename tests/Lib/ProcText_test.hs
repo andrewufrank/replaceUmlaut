@@ -43,7 +43,19 @@ testfn = makeAbsFile "/home/frank/Workspace11/replaceUmlaut/testData/corona.txt"
  
 
  
-test_m1 = do
+test_ohneErlaubt :: IO ()
+-- ohne erlaubte
+test_ohneErlaubt = do
+    r <- runErr $ do
+        let fn1 = makeRelFile "testData/test4.md"
+        cdir <- currentDir
+        let fnabs    = cdir </> fn1 :: Path Abs File
+        procTextFile True [] fnabs
+    assertEqual (Right True) r
+
+test_mitErlaubt :: IO ()
+-- mit erluabten 
+test_mitErlaubt = do
     r <- runErr $ do
         let fn1 = makeRelFile "testData/test4.md"
             fnerl = makeRelFile "nichtUmlaute" :: Path Rel File
@@ -52,6 +64,5 @@ test_m1 = do
         let fnerlabs = cdir </> fnerl :: Path Abs File
         erl2 <- readErlaubt fnerlabs
         procTextFile True erl2 fnabs
-    assertEqual (Right False) r
+    assertEqual (Right True) r
 
- 

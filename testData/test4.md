@@ -9,11 +9,12 @@ toc-title: Corona for latex
 documentclass: scrartcl # scrbook
 papersize: a4
 fontsize: 12pt
-lang: en-US
+lang: de_CH
 geometry:
   - top=30mm
   - left=20mm
   - heightrounded
+doNotReplace: Koeffizienten
 
 ...
 
@@ -27,6 +28,5 @@ Widerstand gegen Stoerungen entstehen zu lassen, muessen die Anreize, die
 
 
 in die andere Richtung wirken und die in den letzten Jahren offensichtlich
-zahlreich und kraefig waren, geanedert werden. Es ist nicht ausreichend,
-Verbote aufzustellen, denn "Schlaeulinge" werden immer Methoden finden, sie
-zu umgehen und daraus einen besonderen Profit zu schlagen. Erfolgreicher sind
+zahlreich und kraefig waren, geaendert werden. Es ist nicht ausreichend,
+Verbote aufzustellen, denn "Schlaeulinge" werden immer Methoden finden... Trotz Koeffizienten. 

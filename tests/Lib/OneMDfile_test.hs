@@ -63,7 +63,7 @@ test_m1 = do
         let fnerlabs = cdir </> fnerl :: Path Abs File
         erl2 <- readErlaubt fnerlabs
         procMd1 True erl2 fnabs
-    assertEqual (Right False) r
+    assertEqual (Right True) r
 
 -- test a simple md file 
 -- test_5 = do -- fn1 muss existieren
