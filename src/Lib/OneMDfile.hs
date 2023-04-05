@@ -70,7 +70,10 @@ procMd1 :: Bool -> [Text] -> Path Abs File -> ErrIO Bool
 -- debug true gives new file
 -- returns False if something has changed
 procMd1 debug erl2 fn = do
-    when debug $ putIOwords ["\n procMD1 ", showT fn, "file to process"]
+    when debug $ putIOwords ["\n procMD1 "
+        , "\tfile to process", showT fn
+        , "\terl2", showT erl2
+        ]
 
     res <- procTextFile debug erl2 fn 
     when debug $ putIOwords ["\n procMD1 done. Changes", showT res]

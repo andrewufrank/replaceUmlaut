@@ -44,7 +44,7 @@ procTextFile debug erl2 fn = do
 
     -- when debug $ 
     when debug $ putIOwords ["procText ls2", unlines' ls2]
-    putIOwords ["procText report",  report]
+    when (trim' report /= zero) $ putIOwords ["\nprocText report",  report, "\n"]
     -- putIOwords ["procText file returned", unlines' ls]
     -- let ls3 = unwrap7 ls2 :: Text
     -- when debug $ putIOwords ["procTxt unwrap7 . ls3", showT ls3]
@@ -53,8 +53,8 @@ procTextFile debug erl2 fn = do
     when changed do 
         writeWithBak debug fn textLineType (  ls2)
         when True $ putIOwords ["procText changed file",  showNice fn, "rewritten"
-            , "if some words in the report above are not correct"
-            , "edit the file and add the form to 'doNotReplace'."]
+            , "\n if some words in the report above are not correct"
+            , "\n edit the file and add the form to 'doNotReplace'."]
     -- true - changed 
     when debug $ putIOwords ["procText done,   changed: ",  showT changed]
 
