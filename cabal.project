@@ -6,7 +6,7 @@ packages:
 --   ../uBase/uniform-error/*.cabal
 --   ../uBase/uniform-time/*.cabal
    ../uBase/uniform-fileio/*.cabal
-    ../completeMeta/*.cabal
+--    ../completeMeta/*.cabal
     ../u4blog/uniform-json/*.cabal
     ../u4blog/uniform-pandoc/*.cabal
 --    ../u2to/uniform-convenience

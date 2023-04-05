@@ -95,7 +95,8 @@ parseAndExecute t1 t2 = do
             procDirMD debug erl2 dir
         else do
             let fn = curr </> makeRelFile fn2 :: Path Abs File
-            procTextFile debug erl2 fn 
+            res <- procTextFile debug erl2 fn 
+            when res $ putIOwords ["parseAndExecute LitArgs file changed"]
 
             -- let ext     = getExtension fn
             -- let isText2 = isText || ext == (Extension "txt") || ext == (Extension "md")

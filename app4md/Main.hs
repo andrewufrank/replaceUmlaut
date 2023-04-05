@@ -20,7 +20,7 @@ import System.Directory.Recursive
 import Lib.ProcWord
 import Lib.OneMDfile
 import Lib.FileHandling
-import MdDocHandling
+-- import MdDocHandling
 import GHC.Generics (Generic1(to1))
 -- import BlogDetails
 import Data.Text (commonPrefixes)

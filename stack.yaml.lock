@@ -5,6 +5,27 @@
 
 packages:
 - completed:
+    hackage: uniform-algebras-0.1.5.1@sha256:51427f3b57ba415301ac2c5c289b6bf946c22f48a0f3506b6900262a1d6ecb5b,1792
+    pantry-tree:
+      sha256: c4e60dd74383efbfb089ae36de57043e54cf1f1a28195649d0c0bad1f8b83ef6
+      size: 512
+  original:
+    hackage: uniform-algebras-0.1.5.1
+- completed:
+    hackage: uniform-error-0.1.5.1@sha256:1c41499c1b89d6bc34e986df2001065dd4db430106469eb1e94da4f872aad819,2047
+    pantry-tree:
+      sha256: 686248c3ad523ca20bbfa72bece10f134eaa4b6aa54a59cd7970d5449963ddcc
+      size: 455
+  original:
+    hackage: uniform-error-0.1.5.1
+- completed:
+    hackage: uniform-time-0.1.5.1@sha256:431288b85472fcc0c1c7cb20aa8d3aed7daacd9c1e647fdd17e589dadb072f37,1647
+    pantry-tree:
+      sha256: 34d531f741ec203e0ac132ad149bd6522449e8c24824866506c432b7e603d398
+      size: 267
+  original:
+    hackage: uniform-time-0.1.5.1
+- completed:
     hackage: test-invariant-0.4.5.0@sha256:d1aa6b61e0057a4065eeff3286208e947a0b44c6a2186210399f5e5e7fb0d0dd,1902
     pantry-tree:
       sha256: 4a43697da369287edfe604a1a9d38f07fd50a49816028f25054b07842567cfa2

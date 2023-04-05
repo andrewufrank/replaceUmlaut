@@ -2,19 +2,22 @@ flags: {}
 extra-package-dbs: []
 packages:
 - '.'
-- ../uBase_singleGit/uniformBase
-- ../uBase_singleGit/uniform-algebras
-- ../uBase_singleGit/uniform-error
-- ../uBase_singleGit/uniform-fileio
-- ../uBase_singleGit/uniform-strings
-- ../uBase_singleGit/uniform-time
+- ../uBase/uniformBase
+# - ../uBase/uniform-algebras
+# - ../uBase/uniform-error
+- ../uBase/uniform-fileio
+- ../uBase/uniform-strings
+# - ../uBase/uniform-time
 # - ../fromOthersInstalled/bibtex  # has a fix compared to hackage, see cabal
--     ../completeMeta
--     ../u2to/uniform-cmdLineArgs
+# -     ../completeMeta
+- ../u4blog/uniform-cmdLineArgs
 - ../u4blog/uniform-pandoc
 - ../u4blog/uniform-json
 
 extra-deps:
+- uniform-algebras-0.1.5.1
+- uniform-error-0.1.5.1
+- uniform-time-0.1.5.1
 - test-invariant-0.4.5.0
 - dir-traverse-0.2.3.0
 # @sha256:adcc128f201ff95131b15ffe41365dc99c50dc3fa3a910f021521dc734013bfa,2137

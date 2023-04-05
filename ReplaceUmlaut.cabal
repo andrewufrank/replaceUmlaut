@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f2612ce6a5ef7ea787664d905ee1bf6765a1234a43ff7005920461efb1bcda4a
+-- hash: ea50dabdd358470aed4f6fea3e506b6f5683b2a0b89ce0063e2ce568c3f3d21e
 
 name:           ReplaceUmlaut
 version:        0.1.5.2
@@ -40,7 +40,6 @@ library
       src
   build-depends:
       base >=4.7 && <5
-    , completeMeta
     , dir-traverse
     , optparse-applicative
     , pandoc
@@ -64,7 +63,6 @@ executable mdReplaceUmlaut
   build-depends:
       ReplaceUmlaut
     , base >=4.7 && <5
-    , completeMeta
     , dir-traverse
     , optparse-applicative
     , pandoc
@@ -88,7 +86,6 @@ executable replaceUmlaut
   build-depends:
       ReplaceUmlaut
     , base >=4.7 && <5
-    , completeMeta
     , dir-traverse
     , optparse-applicative
     , pandoc
@@ -108,6 +105,7 @@ test-suite test1
   other-modules:
       Lib.FileHandling_test
       Lib.OneMDfile_test
+      Lib.ProcText_test
       Lib.ProcTxt_test
       Lib.ProcWord_test
       Paths_ReplaceUmlaut
@@ -118,7 +116,6 @@ test-suite test1
       HTF
     , ReplaceUmlaut
     , base >=4.7 && <5
-    , completeMeta
     , dir-traverse
     , optparse-applicative
     , pandoc

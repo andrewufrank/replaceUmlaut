@@ -23,7 +23,7 @@ dependencies:
 - base >= 4.7 && < 5
 - uniformBase >=0.1.5
 - uniform-fileio
-- completeMeta   # for the filehandling, split & move!
+# - completeMeta   # for the filehandling, split & move!
 - uniform-json >= 0.1.5
 - uniform-pandoc
 # - uniform-convenience
