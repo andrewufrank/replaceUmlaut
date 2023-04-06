@@ -1,0 +1,18 @@
+Verbreitung
+  : Die Ansteckungsrate, d.h. wieviele Menschen ein Patient im Mittel ansteckt,
+ ist hoch (um R_0 = 3), hoeher als fuer normale Grippe
+(R_0 etwa 1.3) aber weniger hoch als fuer Masern u.ae. (R_0 > 10), gegen
+diese existieren aber Impfungen oder es entsteht durch Kinderkrankheiten
+Herdenimmunitaet.
+
+Toedlichkeit
+  : Die Krankheit kann zu einem schweren Veraluf fuehren, der zum Tod fuehrt.
+  Dazu traegt bei: Alter, Vorerkrankungen der Atemwege, Uebergewicht,
+  Luftverschmutzung, u.a.m.
+
+keine Behandlung
+  : Es gibt keine effiziente Behandlung; es koennen nur Symptome gelindert
+  werden (Unterstuetzung der Atmung) und gehofft, dass Selbstheilung erfolgreich ist.
+
+keine Impfung und keine Klarheit ueber Immunitaet
+  : es ist nicht bekannt, ob eine wirksame Immunitaet erreicht wird.

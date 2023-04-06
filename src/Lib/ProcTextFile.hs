@@ -49,7 +49,7 @@ procTextFile debug erl2 fn = do
     -- let ls3 = unwrap7 ls2 :: Text
     -- when debug $ putIOwords ["procTxt unwrap7 . ls3", showT ls3]
 
-    let changed = zero /= report -- no report means nothing changed 
+    let changed = zero /= trim' report -- no report means nothing changed 
     when changed do 
         writeWithBak debug fn textLineType (  ls2)
         when True $ putIOwords ["procText changed file",  showNice fn, "rewritten"

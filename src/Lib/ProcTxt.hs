@@ -19,6 +19,7 @@ module Lib.ProcTxt  -- (openMain, htf_thisModuelsTests)
 import           Lib.ProcWord
 import UniformBase
 import Lib.FileHandling
+import Control.Monad.Trans.Writer.Strict
 
 procTxt :: Bool -> [Text] -> Path Abs File -> ErrIO Bool
 -- ^ replace umlaut unless it is an permitted group
@@ -31,12 +32,14 @@ procTxt debug erl2 fn = do
 
     ls :: [Text] <- read8 fn textlinesFile
 
-    let ls2 = map (procLine2 erl2) ls
-    let res = False -- reports change - todo
+    -- let ls2 = map (procLine2 erl2) ls
+    let (ls2,report) = runWriter $ mapM (procLine2Rep erl2) ls
+    let changed = zero /= trim' report
+    -- let res = False -- reports change - todo
 
     -- newfn <- changeExtensionBakOrNew debug fn
     writeWithBak debug fn textlinesFile ls2 
-    return res  
+    return changed
 
     -- rest is copied
     -- if debug

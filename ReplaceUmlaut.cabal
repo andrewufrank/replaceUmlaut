@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f2649d355fc54ee33cc3554396eef1967bc46643e9852e1ae38e82bdef9faa91
+-- hash: 293f14aa409fefba585c35cf7a9ae6c30ec23c6e018953b48e35b15b2eb8f93b
 
 name:           ReplaceUmlaut
 version:        0.1.5.2
@@ -41,29 +41,6 @@ library
       src
   build-depends:
       base >=4.7 && <5
-    , dir-traverse
-    , optparse-applicative
-    , pandoc
-    , pandoc-types
-    , text
-    , transformers
-    , uniform-cmdLineArgs
-    , uniform-fileio
-    , uniform-json >=0.1.5
-    , uniform-pandoc
-    , uniformBase >=0.1.5
-  default-language: Haskell2010
-
-executable mdReplaceUmlaut
-  main-is: Main.hs
-  other-modules:
-      Paths_ReplaceUmlaut
-  hs-source-dirs:
-      app4md
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      ReplaceUmlaut
-    , base >=4.7 && <5
     , dir-traverse
     , optparse-applicative
     , pandoc

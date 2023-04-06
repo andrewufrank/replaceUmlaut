@@ -25,9 +25,9 @@ import UniformBase
 import           Lib.ProcTextFile
 import           Lib.ProcDirMD
 -- import           Lib.ProcPandocDatei
-import              Lib.OneMDfile
+-- import              Lib.OneMDfile
 import Lib.FileHandling
-import Paths_ReplaceUmlaut
+-- import Paths_ReplaceUmlaut
 
 programName, progTitle :: Text
 programName = "Replace umlaut in txt file " :: Text

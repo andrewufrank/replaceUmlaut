@@ -17,7 +17,7 @@ module Lib.ProcDirMD -- (openMain, htf_thisModuelsTests)
 -- import           Uniform.FileIO
 -- import Uniform.Error
 import           Lib.ProcTextFile
-import Lib.ProcWord
+-- import Lib.ProcWord
 import UniformBase
 import Lib.FileHandling
 
@@ -28,7 +28,7 @@ procDirMD debug erl2 dir = do
     -- pipedDoIOwithFilter :: Path Abs File -> Path Abs Dir -> Extension -> (Path Abs File -> ErrIO String) -> ErrIO ()
     curr <- currentDir
     let msgFile = curr </> makeRelFile "msg4procDir.txt"
-    pipedDoIOwithFilter msgFile dir (Extension "md") (procTxt0 debug erl2)
+    bools <- pipedDoIOwithFilter msgFile dir (Extension "md") (procTxt0 debug erl2)
 
     msg2 <- read8 msgFile textlinesFile
     putIOwords ["processing for ", showT dir, "done with msg", showT msg2]

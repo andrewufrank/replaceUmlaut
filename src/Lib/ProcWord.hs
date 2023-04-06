@@ -16,9 +16,9 @@ module Lib.ProcWord  -- (openMain, htf_thisModuelsTests)
 -- import           Uniform.Strings
 -- import           Uniform.FileIO
 import UniformBase
-import Lib.FileHandling
-import qualified Data.Text   as T
-import Control.Monad
+-- import Lib.FileHandling
+import qualified Data.Text   as T (commonPrefixes)
+-- import Control.Monad
 import Control.Monad.Trans.Writer.Strict
  
 
@@ -35,7 +35,7 @@ procLine2 :: [Text] ->  Text -> Text
 -- assumes that text is not \n terminated!
 procLine2 erl2 t = ld <> (procLine erl2 t1) 
     where
-        (ld, t1) = aux t
+        (ld, t1) = auxProcLine2 t
         -- case mb1 t of
         --         Nothing -> case mb2 t of 
         --                         Nothing -> ("", t)
@@ -44,8 +44,8 @@ procLine2 erl2 t = ld <> (procLine erl2 t1)
         -- mb1 tx = T.commonPrefixes "                  " tx
         -- mb2 ty = T.commonPrefixes "\t\t\t\t\t\t\t" ty
 
-aux :: Text -> (Text,Text)
-aux t =  case mb1 t of
+auxProcLine2 :: Text -> (Text,Text)
+auxProcLine2 t =  case mb1 t of
                 Nothing -> case mb2 t of 
                                 Nothing -> ("", t)
                                 Just (lead2, _, t02) -> (lead2,t02)
@@ -59,7 +59,7 @@ procLine2Rep :: [Text] -> Text -> Writer Text Text
 procLine2Rep erl2 t = do 
         t2 <- procLineRep erl2 t1
         return $ ld <> t2
-    where (ld,t1) = aux t 
+    where (ld,t1) = auxProcLine2 t 
 
 
 
