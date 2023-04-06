@@ -27,7 +27,7 @@ import           Lib.ProcDirMD
 -- import           Lib.ProcPandocDatei
 -- import              Lib.OneMDfile
 import Lib.FileHandling
--- import Paths_ReplaceUmlaut
+import Paths_ReplaceUmlaut
 
 programName, progTitle :: Text
 programName = "Replace umlaut in txt file " :: Text
@@ -86,10 +86,10 @@ parseAndExecute t1 t2 = do
     let debug   = isDebug args :: Bool
     let allMD   = isAllMD args :: Bool
 
-    -- fnErl <- todo use Paths_ 
-    let fnErl =
-            makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
-    erl2  <- readErlaubt fnErl
+    fnErl <- callIO $ getDataFileName "nichtUmlaute.txt"
+    let fnErlP = makeAbsFile fnErl
+            -- makeAbsFile "/home/frank/Workspace8/replaceUmlaut/nichtUmlaute.txt"
+    erl2  <- readErlaubt fnErlP
  
     if allMD 
         then do

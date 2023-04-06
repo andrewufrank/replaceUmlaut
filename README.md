@@ -5,14 +5,14 @@
 ReplaceUmlaut processes a `txt` or `md` file (or all `md` files in a directory) and replaces the umlaut to its proper form (possibly capitalized). It uses an extensible list to avoid replacements which are not appropriate.
 
 ## The file nichtUmlaut.txt lists exceptions
-It is an extensible list of parts of words containing character 
-combinations which should not be replaced; for example, Koeffizient. The list needs only contain parts of words not a complete list of all words with non-replacable combinations. 
+An extensible list of parts of words which contain character 
+combinations which should not be replaced; for example, Koeffizient. The list needs only contain parts of words (i.e. koeff) not a complete list of all words with non-replaceable combinations. 
 
 ## Command Line Use 
 The command `replaceUmlaut filepath` processes just the file and returns the changed file (the original is renamed with extension `bak`). 
 Switches: 
     - `-m directory` processes all `md` files in the directory.
-    - `-d` is a debug option, where the original file is returned unchanged and the changed version is returned with extension `new`. 
+    - `-d` is a debug option; files are not changed, but a changed version is returned with extension `new`. 
 
 ## Function 
 
@@ -29,6 +29,7 @@ Typical use is
             changed1 <- applyReplace debugReplace erl2   fnin 
             return changed1
 ````
+
 
 <!-- ## Source: 
 ### in app is Main.hs

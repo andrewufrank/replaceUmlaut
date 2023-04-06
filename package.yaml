@@ -1,7 +1,8 @@
 name:         ReplaceUmlaut
-version:      0.1.5.2
+version:      0.1.5.3
 license:      GPL
 license-file: GPL_3
+github:       andrewufrank/u4blog.git/uniform-cmdLineArgs
 maintainer:   Andrew U. Frank <andrewufrank@gmail.com>
 author:       Andrew Frank
 copyright:    2021 Andrew U. Frank
@@ -16,7 +17,7 @@ description: |
 
 spec-version: 0.30.0 # the hpack version minimally required 
 extra-source-files:
-  - changelog.md
+  - ChangeLog.md
   - README.md
   - nichtUmlaute.txt
  
@@ -27,14 +28,14 @@ dependencies:
 - uniform-fileio
 # - completeMeta   # for the filehandling, split & move!
 - uniform-json >= 0.1.5
-- uniform-pandoc
+- uniform-pandoc # only for extension md
 # - uniform-convenience
 - uniform-cmdLineArgs
-- pandoc
-- pandoc-types
+# - pandoc
+# - pandoc-types
 - optparse-applicative
 - dir-traverse
-- text  # for Data.Text - move to strings
+- text  # commonPrefixes
 - transformers
 # - aeson
 

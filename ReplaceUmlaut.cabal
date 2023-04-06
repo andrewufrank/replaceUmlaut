@@ -4,10 +4,10 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 293f14aa409fefba585c35cf7a9ae6c30ec23c6e018953b48e35b15b2eb8f93b
+-- hash: ac539c423172119c73a937299c82f7cd3b83abf488e9577f1d956b58d51c165c
 
 name:           ReplaceUmlaut
-version:        0.1.5.2
+version:        0.1.5.3
 synopsis:       converting text to properly encoded german umlauts
 description:    converts the convenient ae, oe and ue replacements for german 
                 umlauts into their proper UTF-8 encoded umlauts - 
@@ -15,6 +15,8 @@ description:    converts the convenient ae, oe and ue replacements for german
                 based on a extensible list.
                 Treats a file completely. 
 category:       Text
+homepage:       https://github.com/andrewufrank/u4blog.git#readme
+bug-reports:    https://github.com/andrewufrank/u4blog.git/issues
 author:         Andrew Frank
 maintainer:     Andrew U. Frank <andrewufrank@gmail.com>
 copyright:      2021 Andrew U. Frank
@@ -22,9 +24,14 @@ license:        GPL
 license-file:   GPL_3
 build-type:     Simple
 extra-source-files:
-    changelog.md
+    ChangeLog.md
     README.md
     nichtUmlaute.txt
+
+source-repository head
+  type: git
+  location: https://github.com/andrewufrank/u4blog.git
+  subdir: uniform-cmdLineArgs
 
 library
   exposed-modules:
@@ -43,8 +50,6 @@ library
       base >=4.7 && <5
     , dir-traverse
     , optparse-applicative
-    , pandoc
-    , pandoc-types
     , text
     , transformers
     , uniform-cmdLineArgs
@@ -66,8 +71,6 @@ executable replaceUmlaut
     , base >=4.7 && <5
     , dir-traverse
     , optparse-applicative
-    , pandoc
-    , pandoc-types
     , text
     , transformers
     , uniform-cmdLineArgs
@@ -96,8 +99,6 @@ test-suite test1
     , base >=4.7 && <5
     , dir-traverse
     , optparse-applicative
-    , pandoc
-    , pandoc-types
     , text
     , transformers
     , uniform-cmdLineArgs
