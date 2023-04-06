@@ -12,12 +12,14 @@ description: |
   umlauts into their proper UTF-8 encoded umlauts - 
   respecting cases where the ae, oe and ue must remain
   based on a extensible list.
-  Treats a file completely, does not read the language field. 
+  Treats a file completely. 
 
-
+spec-version: 0.30.0 # the hpack version minimally required 
 extra-source-files:
-- README.md
-- ChangeLog.md
+  - changelog.md
+  - README.md
+  - nichtUmlaute.txt
+ 
 
 dependencies:
 - base >= 4.7 && < 5
@@ -39,7 +41,9 @@ dependencies:
 library:
   source-dirs: 
   - src
-  
+
+
+
 # when:
 # - condition: false
 #   other-modules: Lib.ProcPandocDatei.hs

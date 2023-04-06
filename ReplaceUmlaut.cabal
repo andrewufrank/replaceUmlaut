@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ea50dabdd358470aed4f6fea3e506b6f5683b2a0b89ce0063e2ce568c3f3d21e
+-- hash: f2649d355fc54ee33cc3554396eef1967bc46643e9852e1ae38e82bdef9faa91
 
 name:           ReplaceUmlaut
 version:        0.1.5.2
@@ -13,7 +13,7 @@ description:    converts the convenient ae, oe and ue replacements for german
                 umlauts into their proper UTF-8 encoded umlauts - 
                 respecting cases where the ae, oe and ue must remain
                 based on a extensible list.
-                Treats a file completely, does not read the language field. 
+                Treats a file completely. 
 category:       Text
 author:         Andrew Frank
 maintainer:     Andrew U. Frank <andrewufrank@gmail.com>
@@ -22,8 +22,9 @@ license:        GPL
 license-file:   GPL_3
 build-type:     Simple
 extra-source-files:
+    changelog.md
     README.md
-    ChangeLog.md
+    nichtUmlaute.txt
 
 library
   exposed-modules:
